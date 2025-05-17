@@ -38,7 +38,7 @@ jobs:
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          coverage-reports: flowable-engine/target/jacoco.exec, gateway/target/jacoco.exec, mysql-timestamp-to-datetime/target/jacoco.exec, oauth2-authorization-server/target/jacoco.exec, spring-security/target/jacoco.exec
+          coverage-reports: target/jacoco-aggregates/**/jacoco.xml
 
       # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
       - name: Update dependency graph
