@@ -1,0 +1,4 @@
+[submodule ".hooks"]
+	path = .hooks
+	url = https://github.com/mrlonis/maven-spotless-hooks.git
+	branch = main
