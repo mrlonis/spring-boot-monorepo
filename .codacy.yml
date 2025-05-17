@@ -1,0 +1,12 @@
+---
+gate_policy:
+  newIssues:
+    maxNewIssues: 0
+    issueSeverityThreshold: "Medium"
+  maxAllowedSecurityIssues: 0
+  maxComplexity: 20
+  maxDuplicatedBlocks: 1
+  minCoverageVariationPercent: -1
+  minDiffCoveragePercent: 70
+exclude_paths:
+  - "README.md"
