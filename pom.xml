@@ -164,6 +164,7 @@
               <includes>
                 <include>.mvn/wrapper/maven-wrapper.properties</include>
                 <include>.gitattributes</include>
+                <include>oauth2-authorization-server/.gitignore</include>
                 <include>.gitignore</include>
                 <include>.gitmodules</include>
                 <include>lombok.config</include>
@@ -181,12 +182,21 @@
             </format>
             <format>
               <includes>
-                <include>.github/**/*.yml</include>
-                <include>.mvn/**/*.xml</include>
-                <include>.vscode/**/*.json</include>
-                <include>.codacy.yml</include>
+                <include>**/*.css</include>
+                <include>**/*.html</include>
+                <include>**/*.json</include>
+                <include>**/*.xml</include>
+                <include>**/*.yaml</include>
+                <include>**/*.yml</include>
                 <include>.prettierrc</include>
               </includes>
+              <excludes>
+                <exclude>.hooks/**/*</exclude>
+                <exclude>.idea/**/*</exclude>
+                <exclude>newman/**/*</exclude>
+                <exclude>**/target/**/*</exclude>
+                <exclude>**/pom.xml</exclude>
+              </excludes>
               <prettier>
                 <npmInstallCache>true</npmInstallCache>
                 <devDependencyProperties>
@@ -213,6 +223,12 @@
           </formats>
           <pom>
             <includes>
+              <include>flowable-engine/pom.xml</include>
+              <include>gateway/pom.xml</include>
+              <include>jacoco-report-aggregate/pom.xml</include>
+              <include>mysql-timestamp-to-datetime/pom.xml</include>
+              <include>oauth2-authorization-server/pom.xml</include>
+              <include>spring-security/pom.xml</include>
               <include>pom.xml</include>
             </includes>
             <sortPom>
@@ -240,6 +256,35 @@
             <trimTrailingWhitespace/>
             <endWithNewline/>
           </markdown>
+          <sql>
+            <includes>
+              <include>**/*.sql</include>
+            </includes>
+            <excludes>
+              <exclude>.hooks/**/*</exclude>
+              <exclude>.idea/**/*</exclude>
+              <exclude>newman/**/*</exclude>
+              <exclude>**/target/**/*</exclude>
+              <exclude>**/pom.xml</exclude>
+            </excludes>
+            <prettier>
+              <npmInstallCache>true</npmInstallCache>
+              <devDependencyProperties>
+                <property>
+                  <name>prettier</name>
+                  <value>^3</value>
+                </property>
+                <property>
+                  <name>prettier-plugin-sql</name>
+                  <value>~0.18</value>
+                </property>
+              </devDependencyProperties>
+              <config>
+                <printWidth>120</printWidth>
+                <plugins>prettier-plugin-sql</plugins>
+              </config>
+            </prettier>
+          </sql>
         </configuration>
         <executions>
           <execution>

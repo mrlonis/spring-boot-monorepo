@@ -38,37 +38,6 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>com.diffplug.spotless</groupId>
-        <artifactId>spotless-maven-plugin</artifactId>
-        <version>${spotless.version}</version>
-        <configuration>
-          <pom>
-            <includes>
-              <include>pom.xml</include>
-            </includes>
-            <sortPom>
-              <expandEmptyElements>false</expandEmptyElements>
-              <lineSeparator>\n</lineSeparator>
-              <keepBlankLines>false</keepBlankLines>
-              <sortDependencies>scope,groupId,artifactId</sortDependencies>
-              <sortDependencyExclusions>groupId,artifactId</sortDependencyExclusions>
-              <sortDependencyManagement>scope,groupId,artifactId</sortDependencyManagement>
-              <sortPlugins>groupId,artifactId</sortPlugins>
-              <sortProperties>true</sortProperties>
-            </sortPom>
-            <trimTrailingWhitespace/>
-            <endWithNewline/>
-          </pom>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>${jacoco-maven-plugin.version}</version>
