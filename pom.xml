@@ -19,6 +19,7 @@
     <module>spring-security</module>
     <module>mysql-timestamp-to-datetime</module>
     <module>flowable-engine</module>
+    <module>jacoco-report-aggregate</module>
   </modules>
   <properties>
     <cleanthat.version>2.22</cleanthat.version>
