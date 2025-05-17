@@ -6,7 +6,7 @@ import com.mrlonis.example.gateway.test.AbstractMockWebServerTests;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.health.Status;
 
-class ApplicationTests extends AbstractMockWebServerTests {
+class GatewayApplicationTests extends AbstractMockWebServerTests {
     @Test
     void contextLoads() {
         assertTrue(true);

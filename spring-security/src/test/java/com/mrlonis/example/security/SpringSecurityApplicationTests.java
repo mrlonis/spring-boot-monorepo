@@ -9,7 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.mrlonis.example.security.test.AbstractMockWebServerTests;
 import org.junit.jupiter.api.Test;
 
-class DemoApplicationTests extends AbstractMockWebServerTests {
+class SpringSecurityApplicationTests extends AbstractMockWebServerTests {
     @Test
     void contextLoads() {
         assertTrue(true);

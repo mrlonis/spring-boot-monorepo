@@ -158,7 +158,7 @@
                   <excludes>
                     <exclude>com.mrlonis.time.entity.*</exclude>
                     <exclude>com.mrlonis.time.repository.*</exclude>
-                    <exclude>com.mrlonis.time.Application</exclude>
+                    <exclude>com.mrlonis.time.MySqlTimestampToDatetimeApplication</exclude>
                   </excludes>
                   <limits>
                     <limit>

@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Import;
 
 @Import(TestcontainersConfiguration.class)
 @SpringBootTest
-class ExampleSpringBootFlowableEngineAppApplicationTests {
+class FlowableEngineApplicationTests {
     @Test
     void contextLoads() {
         assertTrue(true);

@@ -168,7 +168,7 @@
                   <excludes>
                     <exclude>com.mrlonis.example.oauth2.config.*</exclude>
                     <exclude>com.mrlonis.example.oauth2.model.*</exclude>
-                    <exclude>com.mrlonis.example.oauth2.Application</exclude>
+                    <exclude>com.mrlonis.example.oauth2.OAuth2AuthorizationServerApplication</exclude>
                   </excludes>
                   <limits>
                     <limit>

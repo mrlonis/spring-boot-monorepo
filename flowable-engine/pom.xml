@@ -163,7 +163,7 @@
                 <rule>
                   <element>BUNDLE</element>
                   <excludes>
-                    <exclude>com.mrlonis.flowable.example.ExampleSpringBootFlowableEngineAppApplication</exclude>
+                    <exclude>com.mrlonis.flowable.example.FlowableEngineApplication</exclude>
                   </excludes>
                   <limits>
                     <limit>
