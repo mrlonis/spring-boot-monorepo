@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
-    <file url="file://$PROJECT_DIR$/mysql-timestamp-to-datetime/src/main/resources/migration/V1_0_0__Create_Tables.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/mysql-timestamp-to-datetime/src/main/resources/migration/V1_0_1__Add_Indexes.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/mysql-timestamp-to-datetime/src/main/resources/migration/V1_1_0__Insert_Data.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/mysql-timestamp-to-datetime/src/main/resources/migration/V1_2_0__Change_TIMESTAMP_to_DATETIME.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/mysql-timestamp-to-datetime/src/main/resources/migration/V1_2_1__Change_Large_VARCHAR_to_TEXT.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/mysql-timestamp-to-datetime/src/main/resources/db.migration/V1_0_0__Create_Tables.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/mysql-timestamp-to-datetime/src/main/resources/db.migration/V1_0_1__Add_Indexes.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/mysql-timestamp-to-datetime/src/main/resources/db.migration/V1_1_0__Insert_Data.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/mysql-timestamp-to-datetime/src/main/resources/db.migration/V1_2_0__Change_TIMESTAMP_to_DATETIME.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/mysql-timestamp-to-datetime/src/main/resources/db.migration/V1_2_1__Change_Large_VARCHAR_to_TEXT.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/mysql-timestamp-to-datetime/src/test/resources/db/test/migration/V1_0_0__Create_Tables.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/mysql-timestamp-to-datetime/src/test/resources/db/test/migration/V1_0_1__Add_Indexes.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/mysql-timestamp-to-datetime/src/test/resources/db/test/migration/V1_1_0__Insert_Data.sql" dialect="MySQL" />
