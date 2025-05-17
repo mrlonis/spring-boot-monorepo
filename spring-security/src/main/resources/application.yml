@@ -1,3 +1,18 @@
 spring:
   application:
     name: demo
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9562
+server:
+  port: 9054
+logging:
+  level:
+    com.mrlonis.example.security: debug
