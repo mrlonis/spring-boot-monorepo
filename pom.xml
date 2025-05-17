@@ -27,7 +27,7 @@
     <okhttp-bom.version>4.12.0</okhttp-bom.version>
     <org.bouncycastle.version>1.80</org.bouncycastle.version>
     <org.checkerframework.version>3.49.3</org.checkerframework.version>
-    <palantir-java-format.version>2.66.0</palantir-java-format.version>
+    <palantir-java-format.version>2.67.0</palantir-java-format.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <spotless.version>2.44.4</spotless.version>
     <spring-cloud.version>2024.0.1</spring-cloud.version>
