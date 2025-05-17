@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: example-spring-cloud-gateway-reactive-app
+  cloud:
+    gateway:
+      routes:
+        - id: example_route
+          uri: https://www.google.com
+          predicates:
+            - Path=/google/**
+          filters:
+            - StripPrefix=1
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+          - metrics
+          - mappings
+          - gateway
+  endpoint:
+    gateway:
+      access: read_only
+---
+spring:
+  config:
+    activate:
+      on-profile: ssl-redis
+  data:
+    redis:
+      ssl:
+        enabled: true
+  session:
+    redis:
+      save-mode: always
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9562
+server:
+  port: 9203
+logging:
+  level:
+    com.mrlonis.example.gateway: debug
