@@ -270,6 +270,19 @@
               </rules>
             </configuration>
           </execution>
+          <execution>
+            <id>report-aggregate</id>
+            <goals>
+              <goal>report-aggregate</goal>
+            </goals>
+            <phase>verify</phase>
+            <configuration>
+              <dataFileIncludes>
+                <dataFileInclude>${project.basedir}/target/jacoco.exec</dataFileInclude>
+              </dataFileIncludes>
+              <outputDirectory>${maven.multiModuleProjectDirectory}/target/jacoco-aggregates/${artifactId}/</outputDirectory>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
       <plugin>

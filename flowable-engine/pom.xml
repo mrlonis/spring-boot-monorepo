@@ -270,9 +270,9 @@
             <phase>verify</phase>
             <configuration>
               <dataFileIncludes>
-                <dataFileInclude>**/jacoco.exec</dataFileInclude>
+                <dataFileInclude>${project.basedir}/target/jacoco.exec</dataFileInclude>
               </dataFileIncludes>
-              <outputDirectory>${maven.multiModuleProjectDirectory}/target/jacoco-aggregates/flowable-engine/</outputDirectory>
+              <outputDirectory>${maven.multiModuleProjectDirectory}/target/jacoco-aggregates/${artifactId}/</outputDirectory>
             </configuration>
           </execution>
         </executions>
