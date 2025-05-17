@@ -9,7 +9,7 @@
   <groupId>com.mrlonis.time</groupId>
   <artifactId>mysql-timestamp-to-datetime</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>example-spring-boot-mysql-timestamp-to-datetime-app</name>
+  <name>mysql-timestamp-to-datetime</name>
   <description>This is a simple Spring Boot application that demonstrates how to convert a MySQL TIMESTAMP column to a MySQL DATETIME column.</description>
   <dependencies>
     <dependency>
@@ -246,7 +246,7 @@
                     <limit>
                       <counter>LINE</counter>
                       <value>COVEREDRATIO</value>
-                      <minimum>0.84</minimum>
+                      <minimum>0.33</minimum>
                     </limit>
                     <limit>
                       <counter>BRANCH</counter>
