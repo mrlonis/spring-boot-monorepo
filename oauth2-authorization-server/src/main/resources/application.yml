@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: oauth2-server
+  liquibase:
+    enabled: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+          - metrics
+          - mappings
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+server:
+  port: 9562
+logging:
+  level:
+    root: debug
