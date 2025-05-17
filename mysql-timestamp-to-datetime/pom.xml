@@ -10,7 +10,7 @@
   <artifactId>mysql-timestamp-to-datetime</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>example-spring-boot-mysql-timestamp-to-datetime-app</name>
-  <description>Demo project for Spring Boot</description>
+  <description>This is a simple Spring Boot application that demonstrates how to convert a MySQL TIMESTAMP column to a MySQL DATETIME column.</description>
   <dependencies>
     <dependency>
       <groupId>org.flywaydb</groupId>
