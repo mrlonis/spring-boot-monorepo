@@ -16,6 +16,7 @@
   <modules>
     <module>oauth2-authorization-server</module>
     <module>gateway</module>
+    <module>spring-security</module>
   </modules>
   <properties>
     <cleanthat.version>2.22</cleanthat.version>
@@ -36,6 +37,7 @@
     <org.checkerframework.version>3.49.3</org.checkerframework.version>
     <palantir-java-format.version>2.67.0</palantir-java-format.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <spotless.version>2.44.4</spotless.version>
     <spring-cloud.version>2024.0.1</spring-cloud.version>
     <testcontainers.version>1.21.0</testcontainers.version>
