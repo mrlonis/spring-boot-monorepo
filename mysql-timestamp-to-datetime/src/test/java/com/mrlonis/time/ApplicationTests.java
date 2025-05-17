@@ -26,22 +26,10 @@ class ApplicationTests {
     class ApplicationMySQL5_7Tests extends BaseApplicationTest {}
 
     @Nested
-    @Import(TestcontainersConfigurations.TestcontainersConfigurationMySQL8_0.class)
-    class ApplicationMySQL8_0Tests extends BaseApplicationTest {}
-
-    @Nested
     @Import(TestcontainersConfigurations.TestcontainersConfigurationMySQL8.class)
     class ApplicationMySQL8Tests extends BaseApplicationTest {}
 
     @Nested
     @Import(TestcontainersConfigurations.TestcontainersConfigurationMySQL9_0.class)
     class ApplicationMySQL9Tests extends BaseApplicationTest {}
-
-    @Nested
-    @Import(TestcontainersConfigurations.TestcontainersConfigurationMySQL_LTS.class)
-    class ApplicationMySQLLTSTests extends BaseApplicationTest {}
-
-    @Nested
-    @Import(TestcontainersConfigurations.TestcontainersConfigurationMySQL8_2.class)
-    class ApplicationMySQLLatestTests extends BaseApplicationTest {}
 }
