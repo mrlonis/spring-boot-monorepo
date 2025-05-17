@@ -18,6 +18,7 @@
     <module>gateway</module>
     <module>spring-security</module>
     <module>mysql-timestamp-to-datetime</module>
+    <module>flowable-engine</module>
   </modules>
   <properties>
     <cleanthat.version>2.22</cleanthat.version>
