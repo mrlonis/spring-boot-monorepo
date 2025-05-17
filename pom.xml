@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.springframework.boot</groupId>
@@ -22,15 +22,15 @@
     <git-build-hook-maven-plugin.version>3.5.0</git-build-hook-maven-plugin.version>
     <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
     <java.version>21</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
     <okhttp-bom.version>4.12.0</okhttp-bom.version>
     <org.bouncycastle.version>1.80</org.bouncycastle.version>
     <org.checkerframework.version>3.49.3</org.checkerframework.version>
     <palantir-java-format.version>2.66.0</palantir-java-format.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <spotless.version>2.44.4</spotless.version>
     <spring-cloud.version>2024.0.1</spring-cloud.version>
-    <maven.compiler.source>${java.version}</maven.compiler.source>
-    <maven.compiler.target>${java.version}</maven.compiler.target>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -124,14 +124,7 @@
                 <include>.github/**/*.yml</include>
                 <include>.mvn/**/*.xml</include>
                 <include>.vscode/**/*.json</include>
-                <include>src/**/*.json</include>
-                <include>src/**/*.html</include>
-                <include>src/**/*.xml</include>
-                <include>src/**/*.yaml</include>
-                <include>src/**/*.yml</include>
                 <include>.prettierrc</include>
-                <include>compose.yml</include>
-                <include>compose.yaml</include>
               </includes>
               <prettier>
                 <npmInstallCache>true</npmInstallCache>
@@ -157,29 +150,6 @@
               <endWithNewline/>
             </format>
           </formats>
-          <java>
-            <includes>
-              <include>src/main/java/**/*.java</include>
-              <include>src/test/java/**/*.java</include>
-            </includes>
-            <cleanthat>
-              <version>${cleanthat.version}</version>
-              <mutators>
-                <mutator>SafeAndConsensual</mutator>
-                <mutator>SafeButNotConsensual</mutator>
-              </mutators>
-            </cleanthat>
-            <palantirJavaFormat>
-              <version>${palantir-java-format.version}</version>
-              <style>PALANTIR</style>
-              <formatJavadoc>true</formatJavadoc>
-            </palantirJavaFormat>
-            <formatAnnotations/>
-            <removeUnusedImports/>
-            <importOrder/>
-            <trimTrailingWhitespace/>
-            <endWithNewline/>
-          </java>
           <pom>
             <includes>
               <include>pom.xml</include>
@@ -203,39 +173,35 @@
             </includes>
             <excludes>
               <exclude>.hooks/**/*.md</exclude>
-              <exclude>target/**/*.md</exclude>
+              <exclude>**/target/**/*.md</exclude>
             </excludes>
             <flexmark/>
             <trimTrailingWhitespace/>
             <endWithNewline/>
           </markdown>
-          <sql>
-            <includes>
-              <include>src/**/*.sql</include>
-            </includes>
-            <prettier>
-              <npmInstallCache>true</npmInstallCache>
-              <devDependencyProperties>
-                <property>
-                  <name>prettier</name>
-                  <value>^3</value>
-                </property>
-                <property>
-                  <name>prettier-plugin-sql</name>
-                  <value>~0.18</value>
-                </property>
-              </devDependencyProperties>
-              <config>
-                <printWidth>120</printWidth>
-                <plugins>prettier-plugin-sql</plugins>
-              </config>
-            </prettier>
-          </sql>
         </configuration>
         <executions>
           <execution>
             <goals>
               <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>com.rudikershaw.gitbuildhook</groupId>
+        <artifactId>git-build-hook-maven-plugin</artifactId>
+        <version>${git-build-hook-maven-plugin.version}</version>
+        <configuration>
+          <installHooks>
+            <pre-commit>.hooks/pre-commit</pre-commit>
+            <post-commit>.hooks/post-commit</post-commit>
+          </installHooks>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>install</goal>
             </goals>
           </execution>
         </executions>
@@ -256,24 +222,6 @@
                 </requireMavenVersion>
               </rules>
             </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>com.rudikershaw.gitbuildhook</groupId>
-        <artifactId>git-build-hook-maven-plugin</artifactId>
-        <version>${git-build-hook-maven-plugin.version}</version>
-        <configuration>
-          <installHooks>
-            <pre-commit>.hooks/pre-commit</pre-commit>
-            <post-commit>.hooks/post-commit</post-commit>
-          </installHooks>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>install</goal>
-            </goals>
           </execution>
         </executions>
       </plugin>

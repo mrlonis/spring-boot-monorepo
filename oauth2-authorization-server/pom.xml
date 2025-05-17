@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.mrlonis</groupId>
@@ -118,34 +116,18 @@
           <formats>
             <format>
               <includes>
-                <include>.mvn/wrapper/maven-wrapper.properties</include>
-                <include>.gitattributes</include>
                 <include>.gitignore</include>
-                <include>.gitmodules</include>
-                <include>lombok.config</include>
-                <include>mvnw</include>
               </includes>
               <trimTrailingWhitespace/>
               <endWithNewline/>
             </format>
             <format>
               <includes>
-                <include>mvnw.cmd</include>
-              </includes>
-              <trimTrailingWhitespace/>
-              <endWithNewline/>
-            </format>
-            <format>
-              <includes>
-                <include>.github/**/*.yml</include>
-                <include>.mvn/**/*.xml</include>
-                <include>.vscode/**/*.json</include>
                 <include>src/**/*.json</include>
                 <include>src/**/*.html</include>
                 <include>src/**/*.xml</include>
                 <include>src/**/*.yaml</include>
                 <include>src/**/*.yml</include>
-                <include>.prettierrc</include>
                 <include>compose.yml</include>
                 <include>compose.yaml</include>
               </includes>
@@ -213,18 +195,6 @@
             <trimTrailingWhitespace/>
             <endWithNewline/>
           </pom>
-          <markdown>
-            <includes>
-              <include>**/*.md</include>
-            </includes>
-            <excludes>
-              <exclude>.hooks/**/*.md</exclude>
-              <exclude>target/**/*.md</exclude>
-            </excludes>
-            <flexmark/>
-            <trimTrailingWhitespace/>
-            <endWithNewline/>
-          </markdown>
           <sql>
             <includes>
               <include>src/**/*.sql</include>

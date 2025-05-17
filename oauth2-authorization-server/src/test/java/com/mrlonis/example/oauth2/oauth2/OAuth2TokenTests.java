@@ -1,4 +1,4 @@
-package oauth2.oauth2;
+package com.mrlonis.example.oauth2.oauth2;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;

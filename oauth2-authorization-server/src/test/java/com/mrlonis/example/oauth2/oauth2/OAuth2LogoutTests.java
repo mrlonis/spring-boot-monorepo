@@ -1,4 +1,4 @@
-package oauth2.oauth2;
+package com.mrlonis.example.oauth2.oauth2;
 
 import static com.mrlonis.example.oauth2.test.TestUtils.generateCodeChallenge;
 import static com.mrlonis.example.oauth2.test.TestUtils.generateCodeVerifier;

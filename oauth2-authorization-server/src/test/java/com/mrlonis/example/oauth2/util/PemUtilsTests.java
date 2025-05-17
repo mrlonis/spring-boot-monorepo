@@ -1,4 +1,4 @@
-package oauth2.util;
+package com.mrlonis.example.oauth2.util;
 
 import static com.mrlonis.example.oauth2.util.PemUtils.generateRsaKey;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;

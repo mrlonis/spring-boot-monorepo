@@ -1,4 +1,4 @@
-package oauth2.test;
+package com.mrlonis.example.oauth2.test;
 
 import com.mrlonis.example.oauth2.Application;
 import org.springframework.boot.SpringApplication;

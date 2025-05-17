@@ -1,4 +1,4 @@
-package oauth2.test;
+package com.mrlonis.example.oauth2.test;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;

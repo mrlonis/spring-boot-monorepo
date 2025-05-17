@@ -1,4 +1,4 @@
-package oauth2.test;
+package com.mrlonis.example.oauth2.test;
 
 import java.io.IOException;
 import okhttp3.mockwebserver.MockWebServer;

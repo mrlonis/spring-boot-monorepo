@@ -1,4 +1,4 @@
-package oauth2.controller;
+package com.mrlonis.example.oauth2.controller;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

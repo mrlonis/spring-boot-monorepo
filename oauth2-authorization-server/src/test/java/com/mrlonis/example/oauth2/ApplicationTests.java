@@ -1,4 +1,4 @@
-package oauth2;
+package com.mrlonis.example.oauth2;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
