@@ -4,11 +4,10 @@
   <parent>
     <groupId>com.mrlonis</groupId>
     <artifactId>spring-boot-monorepo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${revision}</version>
   </parent>
   <groupId>com.mrlonis.example.security</groupId>
   <artifactId>spring-security</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <name>spring-security</name>
   <description>Demo project for Spring Boot Security. This module is intended to use the oauth2-authorization-server module for authentication.</description>
   <dependencies>

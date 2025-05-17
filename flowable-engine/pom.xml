@@ -4,11 +4,10 @@
   <parent>
     <groupId>com.mrlonis</groupId>
     <artifactId>spring-boot-monorepo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${revision}</version>
   </parent>
   <groupId>com.mrlonis.flowable.example</groupId>
   <artifactId>flowable-engine</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <name>flowable-engine</name>
   <description>Demo project for Spring Boot with Flowable Engine</description>
   <dependencies>

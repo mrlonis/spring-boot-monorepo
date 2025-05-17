@@ -4,11 +4,10 @@
   <parent>
     <groupId>com.mrlonis</groupId>
     <artifactId>spring-boot-monorepo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${revision}</version>
   </parent>
   <groupId>com.mrlonis.time</groupId>
   <artifactId>mysql-timestamp-to-datetime</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <name>mysql-timestamp-to-datetime</name>
   <description>This is a simple Spring Boot application that demonstrates how to convert a MySQL TIMESTAMP column to a MySQL DATETIME column.</description>
   <dependencies>
