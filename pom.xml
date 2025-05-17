@@ -184,6 +184,7 @@
                 <include>.github/**/*.yml</include>
                 <include>.mvn/**/*.xml</include>
                 <include>.vscode/**/*.json</include>
+                <include>.codacy.yml</include>
                 <include>.prettierrc</include>
               </includes>
               <prettier>
