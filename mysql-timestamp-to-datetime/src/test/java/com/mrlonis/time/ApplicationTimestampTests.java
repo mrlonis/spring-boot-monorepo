@@ -91,4 +91,8 @@ class ApplicationTimestampTests {
     @Nested
     @Import(TestcontainersConfigurations.TestcontainersConfigurationMySQL8.class)
     class ApplicationTimestampMySQL8Tests extends BaseApplicationTimestampTest {}
+
+    @Nested
+    @Import(TestcontainersConfigurations.TestcontainersConfigurationMySQL9_0.class)
+    class ApplicationMySQL9Tests extends BaseApplicationTimestampTest {}
 }
