@@ -8,7 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.mrlonis.example.oauth2.test.AbstractMockWebServerTests;
 import org.junit.jupiter.api.Test;
 
-public class ActuatorTests extends AbstractMockWebServerTests {
+class ActuatorTests extends AbstractMockWebServerTests {
     @Test
     void testActuator_healthIsOk() {
         assertDoesNotThrow(() -> mockMvc.perform(get("/actuator/health"))

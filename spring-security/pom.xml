@@ -4,11 +4,10 @@
   <parent>
     <groupId>com.mrlonis</groupId>
     <artifactId>spring-boot-monorepo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${revision}</version>
   </parent>
   <groupId>com.mrlonis.example.security</groupId>
   <artifactId>spring-security</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <name>spring-security</name>
   <description>Demo project for Spring Boot Security. This module is intended to use the oauth2-authorization-server module for authentication.</description>
   <dependencies>
@@ -39,13 +38,28 @@
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
     <dependency>
+      <groupId>com.squareup.okhttp3</groupId>
+      <artifactId>mockwebserver</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-testcontainers</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>junit-jupiter</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>

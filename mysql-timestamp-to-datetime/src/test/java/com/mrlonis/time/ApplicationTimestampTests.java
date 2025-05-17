@@ -89,18 +89,10 @@ class ApplicationTimestampTests {
     class ApplicationTimestampMySQL5_7Tests extends BaseApplicationTimestampTest {}
 
     @Nested
-    @Import(TestcontainersConfigurations.TestcontainersConfigurationMySQL8_0.class)
-    class ApplicationTimestampMySQL8_0Tests extends BaseApplicationTimestampTest {}
-
-    @Nested
     @Import(TestcontainersConfigurations.TestcontainersConfigurationMySQL8.class)
     class ApplicationTimestampMySQL8Tests extends BaseApplicationTimestampTest {}
 
     @Nested
-    @Import(TestcontainersConfigurations.TestcontainersConfigurationMySQL_LTS.class)
-    class ApplicationTimestampMySQLLTSTests extends BaseApplicationTimestampTest {}
-
-    @Nested
-    @Import(TestcontainersConfigurations.TestcontainersConfigurationMySQL8_2.class)
-    class ApplicationTimestampMySQLLatestTests extends BaseApplicationTimestampTest {}
+    @Import(TestcontainersConfigurations.TestcontainersConfigurationMySQL9_0.class)
+    class ApplicationTimestampMySQL9Tests extends BaseApplicationTimestampTest {}
 }

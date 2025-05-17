@@ -9,7 +9,7 @@
   </parent>
   <groupId>com.mrlonis</groupId>
   <artifactId>spring-boot-monorepo</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>${revision}</version>
   <packaging>pom</packaging>
   <name>spring-boot-monorepo</name>
   <description>Demo project for Spring Boot</description>
@@ -19,12 +19,15 @@
     <module>spring-security</module>
     <module>mysql-timestamp-to-datetime</module>
     <module>flowable-engine</module>
+    <module>jacoco-report-aggregate</module>
   </modules>
   <properties>
     <cleanthat.version>2.22</cleanthat.version>
     <commons-collections4.version>4.5.0</commons-collections4.version>
     <commons-compress.version>1.27.1</commons-compress.version>
+    <commons-io.version>2.19.0</commons-io.version>
     <commons-lang3.version>3.17.0</commons-lang3.version>
+    <commons-text.version>1.13.1</commons-text.version>
     <exec-maven-plugin.version>3.5.0</exec-maven-plugin.version>
     <flowable.version>7.1.0</flowable.version>
     <git-build-hook-maven-plugin.version>3.5.0</git-build-hook-maven-plugin.version>
@@ -35,12 +38,15 @@
     <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
+    <nimbus-jose-jwt.version>9.48</nimbus-jose-jwt.version>
     <okhttp-bom.version>4.12.0</okhttp-bom.version>
     <org.bouncycastle.version>1.80</org.bouncycastle.version>
     <org.checkerframework.version>3.49.3</org.checkerframework.version>
+    <org.jetbrains.annotations.version>26.0.2</org.jetbrains.annotations.version>
     <palantir-java-format.version>2.67.0</palantir-java-format.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <revision>0.0.1-SNAPSHOT</revision>
     <spotless.version>2.44.4</spotless.version>
     <spring-cloud.version>2024.0.1</spring-cloud.version>
     <testcontainers.version>1.21.0</testcontainers.version>
@@ -77,9 +83,19 @@
         <scope>import</scope>
       </dependency>
       <dependency>
+        <groupId>com.nimbusds</groupId>
+        <artifactId>nimbus-jose-jwt</artifactId>
+        <version>${nimbus-jose-jwt.version}</version>
+      </dependency>
+      <dependency>
         <groupId>com.palantir.javaformat</groupId>
         <artifactId>palantir-java-format</artifactId>
         <version>${palantir-java-format.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.version}</version>
       </dependency>
       <dependency>
         <groupId>io.github.solven-eu.cleanthat</groupId>
@@ -91,18 +107,36 @@
         <artifactId>commons-compress</artifactId>
         <version>${commons-compress.version}</version>
       </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-text</artifactId>
+        <version>${commons-text.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.checkerframework</groupId>
+        <artifactId>checker</artifactId>
+        <version>${org.checkerframework.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.checkerframework</groupId>
+        <artifactId>checker-qual</artifactId>
+        <version>${org.checkerframework.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jetbrains</groupId>
+        <artifactId>annotations</artifactId>
+        <version>${org.jetbrains.annotations.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
   <dependencies>
     <dependency>
       <groupId>org.checkerframework</groupId>
       <artifactId>checker-qual</artifactId>
-      <version>${org.checkerframework.version}</version>
     </dependency>
     <dependency>
       <groupId>org.checkerframework</groupId>
       <artifactId>checker</artifactId>
-      <version>${org.checkerframework.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -150,6 +184,7 @@
                 <include>.github/**/*.yml</include>
                 <include>.mvn/**/*.xml</include>
                 <include>.vscode/**/*.json</include>
+                <include>.codacy.yml</include>
                 <include>.prettierrc</include>
               </includes>
               <prettier>
@@ -250,6 +285,21 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>${versions-maven-plugin.version}</version>
+        <configuration>
+          <ruleSet>
+            <ignoreVersions>
+              <ignoreVersion>
+                <type>regex</type>
+                <version>.*[-.]?(?i:alpha|beta|rc|cr|m|milestone|preview|snapshot|dev|final)([.-]?\d*)?$</version>
+              </ignoreVersion>
+            </ignoreVersions>
+          </ruleSet>
+        </configuration>
       </plugin>
     </plugins>
   </build>

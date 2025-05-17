@@ -19,16 +19,6 @@ public class TestcontainersConfigurations {
     }
 
     @TestConfiguration(proxyBeanMethods = false)
-    public static class TestcontainersConfigurationMySQL8_0 {
-        @Bean
-        @ServiceConnection
-        MySQLContainer<?> mysqlContainer() {
-            return new MySQLContainer<>(DockerImageName.parse("mysql:8.0"))
-                    .withImagePullPolicy(PullPolicy.alwaysPull());
-        }
-    }
-
-    @TestConfiguration(proxyBeanMethods = false)
     public static class TestcontainersConfigurationMySQL8 {
         @Bean
         @ServiceConnection
@@ -43,26 +33,6 @@ public class TestcontainersConfigurations {
         @ServiceConnection
         MySQLContainer<?> mysqlContainer() {
             return new MySQLContainer<>(DockerImageName.parse("mysql:9.0"))
-                    .withImagePullPolicy(PullPolicy.alwaysPull());
-        }
-    }
-
-    @TestConfiguration(proxyBeanMethods = false)
-    public static class TestcontainersConfigurationMySQL_LTS {
-        @Bean
-        @ServiceConnection
-        MySQLContainer<?> mysqlContainer() {
-            return new MySQLContainer<>(DockerImageName.parse("mysql:lts"))
-                    .withImagePullPolicy(PullPolicy.alwaysPull());
-        }
-    }
-
-    @TestConfiguration(proxyBeanMethods = false)
-    public static class TestcontainersConfigurationMySQL8_2 {
-        @Bean
-        @ServiceConnection
-        MySQLContainer<?> mysqlContainer() {
-            return new MySQLContainer<>(DockerImageName.parse("mysql:8.2"))
                     .withImagePullPolicy(PullPolicy.alwaysPull());
         }
     }
