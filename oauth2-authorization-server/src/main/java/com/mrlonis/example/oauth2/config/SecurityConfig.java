@@ -2,6 +2,8 @@ package com.mrlonis.example.oauth2.config;
 
 import static com.mrlonis.example.oauth2.util.PemUtils.generateRsaKey;
 
+import com.mrlonis.example.oauth2.config.properties.ApplicationProperties;
+import com.mrlonis.example.oauth2.model.OAuthRegistration;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
@@ -10,9 +12,11 @@ import com.nimbusds.jose.proc.SecurityContext;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
-import org.springframework.boot.autoconfigure.web.ServerProperties;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -25,7 +29,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
-import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
@@ -42,8 +45,9 @@ import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
 @AllArgsConstructor
 @Configuration
 @EnableWebSecurity
+@Slf4j
 public class SecurityConfig {
-    private ServerProperties serverProperties;
+    private ApplicationProperties applicationProperties;
 
     @Bean
     @Order(1)
@@ -101,49 +105,38 @@ public class SecurityConfig {
 
     @Bean
     public RegisteredClientRepository registeredClientRepository() {
-        RegisteredClient oidcClient = RegisteredClient.withId(UUID.randomUUID().toString())
-                .clientId("gateway-client")
-                .clientSecret("{noop}gateway-secret")
-                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                .redirectUri("/login/oauth2/code/oidc-client")
-                .postLogoutRedirectUri("/")
-                .scope("gateway")
-                .clientSettings(ClientSettings.builder()
-                        .requireAuthorizationConsent(true)
-                        .build())
-                .build();
+        List<RegisteredClient> registeredClients = new ArrayList<>();
+        log.debug(applicationProperties.getClients().toString());
+        for (OAuthRegistration client : applicationProperties.getClients().values()) {
+            log.debug("Registering client: {}", client);
+            var registeredClientBuilder = RegisteredClient.withId(
+                            UUID.randomUUID().toString())
+                    .clientId(client.getClientId())
+                    .clientAuthenticationMethod(new ClientAuthenticationMethod(
+                            client.getClientAuthenticationMethod().name().toLowerCase()))
+                    .authorizationGrantType(new AuthorizationGrantType(
+                            client.getAuthorizationGrantType().name().toLowerCase()));
+            if (client.getClientSecret() != null) {
+                registeredClientBuilder.clientSecret(client.getClientSecret());
+            }
+            for (String redirectUri : client.getRedirectUris()) {
+                registeredClientBuilder.redirectUri(redirectUri);
+            }
+            if (client.getPostLogoutRedirectUri() != null) {
+                registeredClientBuilder.postLogoutRedirectUri(client.getPostLogoutRedirectUri());
+            }
+            for (String scope : client.getScopes()) {
+                registeredClientBuilder.scope(scope);
+            }
+            registeredClientBuilder.clientSettings(ClientSettings.builder()
+                    .requireAuthorizationConsent(client.getClientSettings().isRequireAuthorizationConsent())
+                    .requireProofKey(client.getClientSettings().isRequireProofKey())
+                    .build());
 
-        RegisteredClient oidcClient2 = RegisteredClient.withId(UUID.randomUUID().toString())
-                .clientId("postman-public-client")
-                .clientAuthenticationMethod(ClientAuthenticationMethod.NONE)
-                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .redirectUri("https://oauth.pstmn.io/v1/callback") // ← this must match Postman's
-                .redirectUri("/login/oauth2/code/postman-public-client")
-                .scope(OidcScopes.OPENID)
-                .scope(OidcScopes.PROFILE)
-                .scope(OidcScopes.EMAIL)
-                .clientSettings(ClientSettings.builder()
-                        .requireAuthorizationConsent(true)
-                        .requireProofKey(true)
-                        .build())
-                .build();
+            registeredClients.add(registeredClientBuilder.build());
+        }
 
-        RegisteredClient oidcClient3 = RegisteredClient.withId(UUID.randomUUID().toString())
-                .clientId("test-public-client")
-                .clientAuthenticationMethod(ClientAuthenticationMethod.NONE)
-                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .redirectUri("/login/oauth2/code/test-public-client")
-                .scope(OidcScopes.OPENID)
-                .scope(OidcScopes.PROFILE)
-                .scope(OidcScopes.EMAIL)
-                .clientSettings(ClientSettings.builder()
-                        .requireAuthorizationConsent(false)
-                        .requireProofKey(true)
-                        .build())
-                .build();
-
-        return new InMemoryRegisteredClientRepository(oidcClient, oidcClient2, oidcClient3);
+        return new InMemoryRegisteredClientRepository(registeredClients);
     }
 
     @Bean

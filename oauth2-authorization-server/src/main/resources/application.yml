@@ -12,6 +12,46 @@ management:
           - info
           - metrics
           - mappings
+application:
+  clients:
+    gateway:
+      client-id: gateway-client
+      client-secret: "{noop}gateway-secret"
+      client-authentication-method: client_secret_basic
+      authorization-grant-type: client_credentials
+      redirect-uris:
+        - /login/oauth2/code/gateway-client
+      post-logout-redirect-uri: /
+      scopes:
+        - gateway
+      client-settings:
+        require-authorization-consent: false
+    postman:
+      client-id: postman-public-client
+      client-authentication-method: none
+      authorization-grant-type: authorization_code
+      redirect-uris:
+        - https://oauth.pstmn.io/v1/callback
+        - /login/oauth2/code/postman-public-client
+      scopes:
+        - openid
+        - profile
+        - email
+      client-settings:
+        require-authorization-consent: true
+        require-proof-key: true
+    test:
+      client-id: test-public-client
+      client-authentication-method: none
+      authorization-grant-type: authorization_code
+      redirect-uris:
+        - /login/oauth2/code/test-public-client
+      scopes:
+        - openid
+        - profile
+        - email
+      client-settings:
+        require-proof-key: true
 ---
 spring:
   config:
