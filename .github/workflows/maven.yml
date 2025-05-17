@@ -22,7 +22,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "npm"
       - name: Install newman
         run: npm install -g newman
       - name: Set up JDK 21
@@ -40,3 +39,19 @@ jobs:
           coverage-reports: target/site/jacoco-aggregate/jacoco.xml
       - name: Update dependency graph
         uses: advanced-security/maven-dependency-submission-action@v4.1.2
+      - name: Run oauth2-authorization-server in the background
+        run: |
+          cd oauth2-authorization-server
+          ./mvnw spring-boot:run -Dspring-boot.run.profiles=local &
+          echo $! > oauth2-authorization-server.pid
+      - name: Wait for oauth2-authorization-server to start
+        run: sleep 15
+        shell: bash
+      - name: Run newman for oauth2-authorization-server
+        run: newman run ./newman/oauth2-server.postman_collection.json -e ./newman/oauth2-server-local.postman_environment.json --env-var "CI=true"
+      - name: Shut down oauth2-authorization-server
+        run: |
+          if [ -f oauth2-authorization-server.pid ]; then
+            kill $(cat oauth2-authorization-server.pid) || echo "Process already terminated"
+            rm oauth2-authorization-server.pid
+          fi
