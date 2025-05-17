@@ -262,6 +262,19 @@
               </rules>
             </configuration>
           </execution>
+          <execution>
+            <id>report-aggregate</id>
+            <goals>
+              <goal>report-aggregate</goal>
+            </goals>
+            <phase>verify</phase>
+            <configuration>
+              <dataFileIncludes>
+                <dataFileInclude>**/jacoco.exec</dataFileInclude>
+              </dataFileIncludes>
+              <outputDirectory>${maven.multiModuleProjectDirectory}/target/jacoco-aggregates/flowable-engine/</outputDirectory>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
       <plugin>
