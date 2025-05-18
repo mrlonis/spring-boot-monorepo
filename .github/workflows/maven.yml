@@ -49,6 +49,22 @@ jobs:
         shell: bash
       - name: Run newman for oauth2-authorization-server
         run: newman run ./newman/oauth2-server.postman_collection.json -e ./newman/oauth2-server-local.postman_environment.json --env-var "CI=true"
+      - name: Run gateway in the background
+        run: |
+          cd gateway
+          mvn spring-boot:run -Dspring-boot.run.profiles=local &
+          echo $! > gateway.pid
+      - name: Wait for gateway to start
+        run: sleep 15
+        shell: bash
+      - name: Run newman for gateway
+        run: newman run ./newman/gateway.postman_collection.json -e ./newman/gateway-local.postman_environment.json --env-var "CI=true"
+      - name: Shut down gateway
+        run: |
+          if [ -f gateway.pid ]; then
+            kill $(cat gateway.pid) || echo "Process already terminated"
+            rm gateway.pid
+          fi
       - name: Shut down oauth2-authorization-server
         run: |
           if [ -f oauth2-authorization-server.pid ]; then
