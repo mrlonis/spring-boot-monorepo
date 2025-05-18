@@ -398,12 +398,12 @@
 							"type": "basic",
 							"basic": [
 								{
-									"key": "password",
-									"value": "{{invalidClientSecret}}",
+									"key": "username",
+									"value": "{{invalidClientId}}",
 									"type": "string"
 								},
 								{
-									"key": "username",
+									"key": "password",
 									"value": "{{invalidClientSecret}}",
 									"type": "string"
 								}
