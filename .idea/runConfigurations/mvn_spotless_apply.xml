@@ -12,6 +12,7 @@
           <option name="goals">
             <list>
               <option value="spotless:apply" />
+              <option value="-fae" />
             </list>
           </option>
           <option name="multimoduleDir" />

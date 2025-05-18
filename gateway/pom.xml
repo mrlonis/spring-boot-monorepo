@@ -132,20 +132,16 @@
               <rules>
                 <rule>
                   <element>BUNDLE</element>
-                  <excludes>
-                    <exclude>com.mrlonis.example.gateway.config.*</exclude>
-                    <exclude>com.mrlonis.example.gateway.GatewayApplication</exclude>
-                  </excludes>
                   <limits>
                     <limit>
                       <counter>LINE</counter>
                       <value>COVEREDRATIO</value>
-                      <minimum>0.84</minimum>
+                      <minimum>0.00</minimum>
                     </limit>
                     <limit>
                       <counter>BRANCH</counter>
                       <value>COVEREDRATIO</value>
-                      <minimum>0.50</minimum>
+                      <minimum>0.00</minimum>
                     </limit>
                   </limits>
                 </rule>

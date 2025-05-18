@@ -10,7 +10,14 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "maven" # See documentation for possible values
-    directory: "/" # Location of package manifests
+    directories:
+      - "/"
+      - "/flowable-engine"
+      - "/gateway"
+      - "/jacoco-report-aggregate"
+      - "/mysql-timestamp-to-datetime"
+      - "/oauth2-authorization-server"
+      - "/spring-security"
     schedule:
       interval: "weekly"
     allow:
