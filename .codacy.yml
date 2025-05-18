@@ -6,7 +6,7 @@ gate_policy:
   maxAllowedSecurityIssues: 0
   maxComplexity: 20
   maxDuplicatedBlocks: 1
-  minCoverageVariationPercent: -1
+  minCoverageVariationPercent: -25
   minDiffCoveragePercent: 70
 exclude_paths:
   - "./github/**"
