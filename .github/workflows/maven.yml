@@ -19,68 +19,86 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+
       - name: Install newman
         run: npm install -g newman
+
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
           java-version: "21"
           distribution: "temurin"
           cache: maven
+
       - name: Build with Maven
         run: ./mvnw clean verify
+
       - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           coverage-reports: target/site/jacoco-aggregate/jacoco.xml
+
       - name: Update dependency graph
         uses: advanced-security/maven-dependency-submission-action@v4.1.2
+
       - name: Run oauth2-authorization-server in the background
         run: |
           cd oauth2-authorization-server
           mvn spring-boot:run -Dspring-boot.run.profiles=local &
           echo $! > oauth2-authorization-server.pid
+
       - name: Wait for oauth2-authorization-server to start
         run: sleep 15
         shell: bash
+
       - name: Run newman for oauth2-authorization-server
         run: newman run ./newman/oauth2-authorization-server.postman_collection.json -e ./newman/oauth2-authorization-server-local.postman_environment.json --env-var "CI=true"
+
       - name: Run gateway in the background
         run: |
           cd gateway
           mvn spring-boot:run -Dspring-boot.run.profiles=local &
           echo $! > gateway.pid
+
       - name: Wait for gateway to start
         run: sleep 15
         shell: bash
+
       - name: Run newman for gateway
         run: newman run ./newman/gateway.postman_collection.json -e ./newman/gateway-local.postman_environment.json --env-var "CI=true"
+
       - name: Run spring-security in the background
         run: |
           cd spring-security
           mvn spring-boot:run -Dspring-boot.run.profiles=local &
           echo $! > spring-security.pid
+
       - name: Wait for spring-security to start
         run: sleep 15
         shell: bash
+
       - name: Run newman for spring-security
         run: newman run ./newman/spring-security.postman_collection.json -e ./newman/spring-security-local.postman_environment.json --env-var "CI=true"
+
       - name: Shut down spring-security
         run: |
           if [ -f spring-security.pid ]; then
             kill $(cat spring-security.pid) || echo "Process already terminated"
             rm spring-security.pid
           fi
+
       - name: Shut down gateway
         run: |
           if [ -f gateway.pid ]; then
             kill $(cat gateway.pid) || echo "Process already terminated"
             rm gateway.pid
           fi
+
       - name: Shut down oauth2-authorization-server
         run: |
           if [ -f oauth2-authorization-server.pid ]; then
