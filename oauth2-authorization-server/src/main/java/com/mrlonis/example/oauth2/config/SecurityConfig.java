@@ -30,6 +30,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
+import org.springframework.security.oauth2.server.authorization.InMemoryOAuth2AuthorizationService;
+import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
@@ -128,10 +132,10 @@ public class SecurityConfig {
             for (String scope : client.getScopes()) {
                 registeredClientBuilder.scope(scope);
             }
-            registeredClientBuilder.clientSettings(ClientSettings.builder()
+            var clientSettingsBuilder = ClientSettings.builder()
                     .requireAuthorizationConsent(client.getClientSettings().isRequireAuthorizationConsent())
-                    .requireProofKey(client.getClientSettings().isRequireProofKey())
-                    .build());
+                    .requireProofKey(client.getClientSettings().isRequireProofKey());
+            registeredClientBuilder.clientSettings(clientSettingsBuilder.build());
 
             registeredClients.add(registeredClientBuilder.build());
         }
@@ -148,6 +152,11 @@ public class SecurityConfig {
     }
 
     @Bean
+    public JwtEncoder jwtEncoder(JWKSource<SecurityContext> jwkSource) {
+        return new NimbusJwtEncoder(jwkSource);
+    }
+
+    @Bean
     public JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) {
         return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource);
     }
@@ -155,5 +164,10 @@ public class SecurityConfig {
     @Bean
     public AuthorizationServerSettings authorizationServerSettings() {
         return AuthorizationServerSettings.builder().build();
+    }
+
+    @Bean
+    public OAuth2AuthorizationService authorizationService() {
+        return new InMemoryOAuth2AuthorizationService();
     }
 }

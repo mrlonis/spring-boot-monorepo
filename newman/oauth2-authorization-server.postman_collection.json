@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "78647f5f-ed0e-4c06-99c6-f7f1f44dad56",
-		"name": "oauth2-server",
+		"name": "oauth2-authorization-server",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "10017040"
 	},
@@ -179,7 +179,7 @@
 			"name": "Test Controller",
 			"item": [
 				{
-					"name": "Get Test - OAuth 2.0 Login",
+					"name": "/v1/test - OIDC Login",
 					"event": [
 						{
 							"listen": "test",
@@ -226,6 +226,11 @@
 							"type": "oauth2",
 							"oauth2": [
 								{
+									"key": "clientId",
+									"value": "{{oidcClientId}}",
+									"type": "string"
+								},
+								{
 									"key": "useBrowser",
 									"value": true,
 									"type": "boolean"
@@ -243,11 +248,6 @@
 								{
 									"key": "authUrl",
 									"value": "{{baseUrl}}/oauth2/authorize",
-									"type": "string"
-								},
-								{
-									"key": "clientId",
-									"value": "{{clientId}}",
 									"type": "string"
 								},
 								{
@@ -273,6 +273,135 @@
 								{
 									"key": "tokenName",
 									"value": "Postman Login",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/v1/test",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "OAuth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response Status Code is 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Capture Access Token to Environment Variable\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.environment.set(\"access_token\", responseJson.access_token);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{oauthClientSecret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{oauthClientId}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "{{oauthScopes}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/oauth2/token",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"oauth2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/test - OAuth2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									" pm.test(\"Response Status Code is 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
