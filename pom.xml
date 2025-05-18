@@ -164,7 +164,6 @@
               <includes>
                 <include>.mvn/wrapper/maven-wrapper.properties</include>
                 <include>.gitattributes</include>
-                <include>oauth2-authorization-server/.gitignore</include>
                 <include>.gitignore</include>
                 <include>.gitmodules</include>
                 <include>lombok.config</include>
@@ -222,18 +221,6 @@
             </format>
           </formats>
           <java>
-            <includes>
-              <include>flowable-engine/src/main/java/**/*.java</include>
-              <include>flowable-engine/src/test/java/**/*.java</include>
-              <include>gateway/src/main/java/**/*.java</include>
-              <include>gateway/src/test/java/**/*.java</include>
-              <include>mysql-timestamp-to-datetime/src/main/java/**/*.java</include>
-              <include>mysql-timestamp-to-datetime/src/test/java/**/*.java</include>
-              <include>oauth2-authorization-server/src/main/java/**/*.java</include>
-              <include>oauth2-authorization-server/src/test/java/**/*.java</include>
-              <include>spring-security/src/main/java/**/*.java</include>
-              <include>spring-security/src/test/java/**/*.java</include>
-            </includes>
             <cleanthat>
               <version>${cleanthat.version}</version>
               <mutators>
@@ -253,15 +240,6 @@
             <endWithNewline/>
           </java>
           <pom>
-            <includes>
-              <include>flowable-engine/pom.xml</include>
-              <include>gateway/pom.xml</include>
-              <include>jacoco-report-aggregate/pom.xml</include>
-              <include>mysql-timestamp-to-datetime/pom.xml</include>
-              <include>oauth2-authorization-server/pom.xml</include>
-              <include>spring-security/pom.xml</include>
-              <include>pom.xml</include>
-            </includes>
             <sortPom>
               <expandEmptyElements>false</expandEmptyElements>
               <lineSeparator>\n</lineSeparator>
@@ -294,9 +272,7 @@
             <excludes>
               <exclude>.hooks/**/*</exclude>
               <exclude>.idea/**/*</exclude>
-              <exclude>newman/**/*</exclude>
               <exclude>**/target/**/*</exclude>
-              <exclude>**/pom.xml</exclude>
             </excludes>
             <prettier>
               <npmInstallCache>true</npmInstallCache>

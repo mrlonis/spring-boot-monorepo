@@ -52,6 +52,18 @@ application:
         - email
       client-settings:
         require-proof-key: true
+    spring-security:
+      client-id: spring-security-client
+      client-secret: "{noop}spring-security-secret"
+      client-authentication-method: client_secret_basic
+      authorization-grant-type: client_credentials
+      redirect-uris:
+        - /login/oauth2/code/spring-security-client
+      post-logout-redirect-uri: /
+      scopes:
+        - spring-security
+      client-settings:
+        require-authorization-consent: false
 ---
 spring:
   config:

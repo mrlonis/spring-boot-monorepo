@@ -1,6 +1,15 @@
 spring:
   application:
     name: demo
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+          - metrics
+          - mappings
 ---
 spring:
   config:
