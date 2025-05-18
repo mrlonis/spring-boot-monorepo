@@ -82,124 +82,6 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>com.diffplug.spotless</groupId>
-        <artifactId>spotless-maven-plugin</artifactId>
-        <version>${spotless.version}</version>
-        <configuration>
-          <formats>
-            <format>
-              <includes>
-                <include>.gitignore</include>
-              </includes>
-              <trimTrailingWhitespace/>
-              <endWithNewline/>
-            </format>
-            <format>
-              <includes>
-                <include>src/**/*.json</include>
-                <include>src/**/*.html</include>
-                <include>src/**/*.xml</include>
-                <include>src/**/*.yaml</include>
-                <include>src/**/*.yml</include>
-                <include>compose.yml</include>
-                <include>compose.yaml</include>
-              </includes>
-              <prettier>
-                <npmInstallCache>true</npmInstallCache>
-                <devDependencyProperties>
-                  <property>
-                    <name>prettier</name>
-                    <value>^3</value>
-                  </property>
-                  <property>
-                    <name>@prettier/plugin-xml</name>
-                    <value>^3</value>
-                  </property>
-                </devDependencyProperties>
-                <config>
-                  <printWidth>120</printWidth>
-                  <xmlSelfClosingSpace>false</xmlSelfClosingSpace>
-                  <xmlSortAttributesByKey>true</xmlSortAttributesByKey>
-                  <xmlWhitespaceSensitivity>strict</xmlWhitespaceSensitivity>
-                  <plugins>@prettier/plugin-xml</plugins>
-                </config>
-              </prettier>
-              <trimTrailingWhitespace/>
-              <endWithNewline/>
-            </format>
-          </formats>
-          <java>
-            <includes>
-              <include>src/main/java/**/*.java</include>
-              <include>src/test/java/**/*.java</include>
-            </includes>
-            <cleanthat>
-              <version>${cleanthat.version}</version>
-              <mutators>
-                <mutator>SafeAndConsensual</mutator>
-                <mutator>SafeButNotConsensual</mutator>
-              </mutators>
-            </cleanthat>
-            <palantirJavaFormat>
-              <version>${palantir-java-format.version}</version>
-              <style>PALANTIR</style>
-              <formatJavadoc>true</formatJavadoc>
-            </palantirJavaFormat>
-            <formatAnnotations/>
-            <removeUnusedImports/>
-            <importOrder/>
-            <trimTrailingWhitespace/>
-            <endWithNewline/>
-          </java>
-          <pom>
-            <includes>
-              <include>pom.xml</include>
-            </includes>
-            <sortPom>
-              <expandEmptyElements>false</expandEmptyElements>
-              <lineSeparator>\n</lineSeparator>
-              <keepBlankLines>false</keepBlankLines>
-              <sortDependencies>scope,groupId,artifactId</sortDependencies>
-              <sortDependencyExclusions>groupId,artifactId</sortDependencyExclusions>
-              <sortDependencyManagement>scope,groupId,artifactId</sortDependencyManagement>
-              <sortPlugins>groupId,artifactId</sortPlugins>
-              <sortProperties>true</sortProperties>
-            </sortPom>
-            <trimTrailingWhitespace/>
-            <endWithNewline/>
-          </pom>
-          <sql>
-            <includes>
-              <include>src/**/*.sql</include>
-            </includes>
-            <prettier>
-              <npmInstallCache>true</npmInstallCache>
-              <devDependencyProperties>
-                <property>
-                  <name>prettier</name>
-                  <value>^3</value>
-                </property>
-                <property>
-                  <name>prettier-plugin-sql</name>
-                  <value>~0.18</value>
-                </property>
-              </devDependencyProperties>
-              <config>
-                <printWidth>120</printWidth>
-                <plugins>prettier-plugin-sql</plugins>
-              </config>
-            </prettier>
-          </sql>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
@@ -244,7 +126,7 @@
                 <rule>
                   <element>BUNDLE</element>
                   <excludes>
-                    <exclude>com.mrlonis.flowable.example.ExampleSpringBootFlowableEngineAppApplication</exclude>
+                    <exclude>com.mrlonis.flowable.example.FlowableEngineApplication</exclude>
                   </excludes>
                   <limits>
                     <limit>

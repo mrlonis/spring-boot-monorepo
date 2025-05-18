@@ -29,10 +29,10 @@ import org.springframework.test.context.ActiveProfiles;
  * the application code can remain completely unchanged and still work against the database regardless of what the
  * underlying datetime data type is being using in the database table.
  */
-class ApplicationTimestampTests {
+class MySqlTimestampToDatetimeApplicationTimestampTests {
     @SpringBootTest
     @ActiveProfiles("test-timestamp")
-    abstract static class BaseApplicationTimestampTest {
+    abstract static class BaseMySqlTimestampToDatetimeApplicationTimestampTest {
         @Autowired
         private TestEntityCalendarRepository testEntityCalendarRepository;
 
@@ -86,13 +86,16 @@ class ApplicationTimestampTests {
 
     @Nested
     @Import(TestcontainersConfigurations.TestcontainersConfigurationMySQL5_7.class)
-    class ApplicationTimestampMySQL5_7Tests extends BaseApplicationTimestampTest {}
+    class MySqlTimestampToDatetimeApplicationTimestampMySQL5_7Tests
+            extends BaseMySqlTimestampToDatetimeApplicationTimestampTest {}
 
     @Nested
     @Import(TestcontainersConfigurations.TestcontainersConfigurationMySQL8.class)
-    class ApplicationTimestampMySQL8Tests extends BaseApplicationTimestampTest {}
+    class MySqlTimestampToDatetimeApplicationTimestampMySQL8Tests
+            extends BaseMySqlTimestampToDatetimeApplicationTimestampTest {}
 
     @Nested
     @Import(TestcontainersConfigurations.TestcontainersConfigurationMySQL9_0.class)
-    class ApplicationTimestampMySQL9Tests extends BaseApplicationTimestampTest {}
+    class MySqlTimestampToDatetimeApplicationTimestampMySQL9Tests
+            extends BaseMySqlTimestampToDatetimeApplicationTimestampTest {}
 }

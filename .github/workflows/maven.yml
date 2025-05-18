@@ -5,41 +5,53 @@
 # They are provided by a third-party and are governed by
 # separate terms of service, privacy policy, and support
 # documentation.
-
 name: Java CI with Maven
-
 on:
   push:
     branches: ["main"]
   pull_request:
     branches: ["main"]
-
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     permissions:
       contents: write
-
     steps:
       - uses: actions/checkout@v4
-
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install newman
+        run: npm install -g newman
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
           java-version: "21"
           distribution: "temurin"
           cache: maven
-
       - name: Build with Maven
         run: ./mvnw clean verify
-
       - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           coverage-reports: target/site/jacoco-aggregate/jacoco.xml
-
-      # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
       - name: Update dependency graph
-        uses: advanced-security/maven-dependency-submission-action@v4.1.2 # https://github.com/advanced-security/maven-dependency-submission-action/releases
+        uses: advanced-security/maven-dependency-submission-action@v4.1.2
+      - name: Run oauth2-authorization-server in the background
+        run: |
+          cd oauth2-authorization-server
+          mvn spring-boot:run -Dspring-boot.run.profiles=local &
+          echo $! > oauth2-authorization-server.pid
+      - name: Wait for oauth2-authorization-server to start
+        run: sleep 15
+        shell: bash
+      - name: Run newman for oauth2-authorization-server
+        run: newman run ./newman/oauth2-server.postman_collection.json -e ./newman/oauth2-server-local.postman_environment.json --env-var "CI=true"
+      - name: Shut down oauth2-authorization-server
+        run: |
+          if [ -f oauth2-authorization-server.pid ]; then
+            kill $(cat oauth2-authorization-server.pid) || echo "Process already terminated"
+            rm oauth2-authorization-server.pid
+          fi

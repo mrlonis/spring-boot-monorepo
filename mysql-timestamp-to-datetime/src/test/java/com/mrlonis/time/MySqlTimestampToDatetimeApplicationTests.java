@@ -12,9 +12,9 @@ import org.springframework.context.annotation.Import;
  * This is a basic context load test to ensure that the application can start up and that the Spring context is able to
  * load
  */
-class ApplicationTests {
+class MySqlTimestampToDatetimeApplicationTests {
     @SpringBootTest
-    abstract static class BaseApplicationTest {
+    abstract static class BaseMySqlTimestampToDatetimeApplicationTest {
         @Test
         void contextLoads() {
             assertTrue(true);
@@ -23,13 +23,13 @@ class ApplicationTests {
 
     @Nested
     @Import(TestcontainersConfigurations.TestcontainersConfigurationMySQL5_7.class)
-    class ApplicationMySQL5_7Tests extends BaseApplicationTest {}
+    class MySqlTimestampToDatetimeApplicationMySQL5_7Tests extends BaseMySqlTimestampToDatetimeApplicationTest {}
 
     @Nested
     @Import(TestcontainersConfigurations.TestcontainersConfigurationMySQL8.class)
-    class ApplicationMySQL8Tests extends BaseApplicationTest {}
+    class MySqlTimestampToDatetimeApplicationMySQL8Tests extends BaseMySqlTimestampToDatetimeApplicationTest {}
 
     @Nested
     @Import(TestcontainersConfigurations.TestcontainersConfigurationMySQL9_0.class)
-    class ApplicationMySQL9Tests extends BaseApplicationTest {}
+    class MySqlTimestampToDatetimeApplicationMySQL9Tests extends BaseMySqlTimestampToDatetimeApplicationTest {}
 }

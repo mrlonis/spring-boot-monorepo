@@ -7,8 +7,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 @SpringBootApplication
 @EnableConfigurationProperties(ApplicationProperties.class)
-public class Application {
+public class OAuth2AuthorizationServerApplication {
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(OAuth2AuthorizationServerApplication.class, args);
     }
 }

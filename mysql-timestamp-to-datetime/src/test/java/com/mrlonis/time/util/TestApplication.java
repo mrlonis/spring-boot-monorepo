@@ -1,6 +1,6 @@
 package com.mrlonis.time.util;
 
-import com.mrlonis.time.Application;
+import com.mrlonis.time.MySqlTimestampToDatetimeApplication;
 import org.springframework.boot.SpringApplication;
 
 /**
@@ -11,7 +11,7 @@ import org.springframework.boot.SpringApplication;
  */
 public class TestApplication {
     public static void main(String[] args) {
-        SpringApplication.from(Application::main)
+        SpringApplication.from(MySqlTimestampToDatetimeApplication::main)
                 .with(TestcontainersConfigurations.class)
                 .run(args);
     }
