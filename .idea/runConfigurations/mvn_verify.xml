@@ -13,6 +13,7 @@
             <list>
               <option value="spotless:apply" />
               <option value="verify" />
+              <option value="-fae" />
             </list>
           </option>
           <option name="multimoduleDir" />

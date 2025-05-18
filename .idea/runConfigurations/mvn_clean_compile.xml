@@ -14,6 +14,7 @@
               <option value="clean" />
               <option value="spotless:apply" />
               <option value="compile" />
+              <option value="-fae" />
             </list>
           </option>
           <option name="multimoduleDir" />
