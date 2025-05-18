@@ -14,13 +14,13 @@
   <name>spring-boot-monorepo</name>
   <description>Demo project for Spring Boot</description>
   <modules>
-    <module>oauth2-authorization-server</module>
-    <module>gateway</module>
-    <module>spring-security</module>
-    <module>mysql-timestamp-to-datetime</module>
     <module>flowable-engine</module>
+    <module>gateway</module>
     <module>jacoco-report-aggregate</module>
+    <module>mysql-timestamp-to-datetime</module>
+    <module>oauth2-authorization-server</module>
     <module>pre-commit</module>
+    <module>spring-security</module>
   </modules>
   <properties>
     <cleanthat.version>2.22</cleanthat.version>
@@ -154,6 +154,25 @@
     </dependency>
   </dependencies>
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>versions-maven-plugin</artifactId>
+          <version>${versions-maven-plugin.version}</version>
+          <configuration>
+            <ruleSet>
+              <ignoreVersions>
+                <ignoreVersion>
+                  <type>regex</type>
+                  <version>.*[-.]?(?i:alpha|beta|rc|cr|m|milestone|preview|snapshot|dev|final)([.-]?\d*)?$</version>
+                </ignoreVersion>
+              </ignoreVersions>
+            </ruleSet>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <plugins>
       <plugin>
         <groupId>com.diffplug.spotless</groupId>
@@ -248,6 +267,8 @@
               <sortDependencies>scope,groupId,artifactId</sortDependencies>
               <sortDependencyExclusions>groupId,artifactId</sortDependencyExclusions>
               <sortDependencyManagement>scope,groupId,artifactId</sortDependencyManagement>
+              <sortExecutions>true</sortExecutions>
+              <sortModules>true</sortModules>
               <sortPlugins>groupId,artifactId</sortPlugins>
               <sortProperties>true</sortProperties>
             </sortPom>
@@ -303,24 +324,6 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>com.rudikershaw.gitbuildhook</groupId>
-        <artifactId>git-build-hook-maven-plugin</artifactId>
-        <version>${git-build-hook-maven-plugin.version}</version>
-        <configuration>
-          <installHooks>
-            <pre-commit>.hooks/pre-commit</pre-commit>
-            <post-commit>.hooks/post-commit</post-commit>
-          </installHooks>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>install</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
         <executions>
@@ -339,60 +342,6 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>versions-maven-plugin</artifactId>
-        <version>${versions-maven-plugin.version}</version>
-        <configuration>
-          <ruleSet>
-            <ignoreVersions>
-              <ignoreVersion>
-                <type>regex</type>
-                <version>.*[-.]?(?i:alpha|beta|rc|cr|m|milestone|preview|snapshot|dev|final)([.-]?\d*)?$</version>
-              </ignoreVersion>
-            </ignoreVersions>
-          </ruleSet>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
-  <profiles>
-    <profile>
-      <id>local-development</id>
-      <activation>
-        <property>
-          <name>!env.SOME_ENV_VAR</name>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>exec-maven-plugin</artifactId>
-            <version>${exec-maven-plugin.version}</version>
-            <inherited>false</inherited>
-            <executions>
-              <execution>
-                <id>git submodule update</id>
-                <goals>
-                  <goal>exec</goal>
-                </goals>
-                <phase>initialize</phase>
-                <configuration>
-                  <executable>git</executable>
-                  <arguments>
-                    <argument>submodule</argument>
-                    <argument>update</argument>
-                    <argument>--init</argument>
-                    <argument>--remote</argument>
-                    <argument>--force</argument>
-                  </arguments>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
 </project>
