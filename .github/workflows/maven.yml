@@ -48,7 +48,7 @@ jobs:
         run: sleep 15
         shell: bash
       - name: Run newman for oauth2-authorization-server
-        run: newman run ./newman/oauth2-server.postman_collection.json -e ./newman/oauth2-server-local.postman_environment.json --env-var "CI=true"
+        run: newman run ./newman/oauth2-authorization-server.postman_collection.json -e ./newman/oauth2-authorization-server-local.postman_environment.json --env-var "CI=true"
       - name: Run gateway in the background
         run: |
           cd gateway
