@@ -480,8 +480,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Response Status Code is 200\", function(){\r",
-									"    pm.response.to.have.status(200);\r",
+									"pm.test(\"Response Status Code is 401\", function(){\r",
+									"    pm.response.to.have.status(401);\r",
 									"});\r",
 									""
 								],
