@@ -9,10 +9,15 @@ gate_policy:
   minCoverageVariationPercent: -25
   minDiffCoveragePercent: 70
 exclude_paths:
-  - "./github/**"
-  - "./.hooks/**"
-  - "./.idea/**"
-  - "./.mvn/**"
+  - "/github/**"
+  - "/.hooks/**"
+  - "/.idea/**"
+  - "/.mvn/**"
+  - "/flowable-engine/src/test/**"
+  - "/gateway/src/test/**"
+  - "/mysql-timestamp-to-datetime/src/test/**"
+  - "/oauth2-authorization-server/src/test/**"
+  - "/spring-security/src/test/**"
   - ".gitattributes"
   - ".gitignore"
   - ".gitmodules"
