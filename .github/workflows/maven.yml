@@ -53,7 +53,7 @@ jobs:
           echo $! > oauth2-authorization-server.pid
 
       - name: Wait for oauth2-authorization-server to start
-        run: sleep 15
+        run: sleep 10
         shell: bash
 
       - name: Run newman for oauth2-authorization-server
@@ -66,7 +66,7 @@ jobs:
           echo $! > gateway.pid
 
       - name: Wait for gateway to start
-        run: sleep 15
+        run: sleep 10
         shell: bash
 
       - name: Run newman for gateway
@@ -79,28 +79,22 @@ jobs:
           echo $! > spring-security.pid
 
       - name: Wait for spring-security to start
-        run: sleep 15
+        run: sleep 10
         shell: bash
 
       - name: Run newman for spring-security
         run: newman run ./newman/spring-security.postman_collection.json -e ./newman/spring-security-local.postman_environment.json --env-var "CI=true"
 
-      - name: Shut down spring-security
+      - name: Shut down services
         run: |
           if [ -f spring-security.pid ]; then
             kill $(cat spring-security.pid) || echo "Process already terminated"
             rm spring-security.pid
           fi
-
-      - name: Shut down gateway
-        run: |
           if [ -f gateway.pid ]; then
             kill $(cat gateway.pid) || echo "Process already terminated"
             rm gateway.pid
           fi
-
-      - name: Shut down oauth2-authorization-server
-        run: |
           if [ -f oauth2-authorization-server.pid ]; then
             kill $(cat oauth2-authorization-server.pid) || echo "Process already terminated"
             rm oauth2-authorization-server.pid
