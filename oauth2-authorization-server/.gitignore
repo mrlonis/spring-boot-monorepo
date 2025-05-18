@@ -1,2 +1,2 @@
-./src/main/resources/id_rsa
-./src/main/resources/id_rsa.pub
+src/main/resources/id_rsa
+src/main/resources/id_rsa.pub
