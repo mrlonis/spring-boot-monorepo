@@ -221,6 +221,37 @@
               <endWithNewline/>
             </format>
           </formats>
+          <java>
+            <includes>
+              <include>flowable-engine/src/main/java/**/*.java</include>
+              <include>flowable-engine/src/test/java/**/*.java</include>
+              <include>gateway/src/main/java/**/*.java</include>
+              <include>gateway/src/test/java/**/*.java</include>
+              <include>mysql-timestamp-to-datetime/src/main/java/**/*.java</include>
+              <include>mysql-timestamp-to-datetime/src/test/java/**/*.java</include>
+              <include>oauth2-authorization-server/src/main/java/**/*.java</include>
+              <include>oauth2-authorization-server/src/test/java/**/*.java</include>
+              <include>spring-security/src/main/java/**/*.java</include>
+              <include>spring-security/src/test/java/**/*.java</include>
+            </includes>
+            <cleanthat>
+              <version>${cleanthat.version}</version>
+              <mutators>
+                <mutator>SafeAndConsensual</mutator>
+                <mutator>SafeButNotConsensual</mutator>
+              </mutators>
+            </cleanthat>
+            <palantirJavaFormat>
+              <version>${palantir-java-format.version}</version>
+              <style>PALANTIR</style>
+              <formatJavadoc>true</formatJavadoc>
+            </palantirJavaFormat>
+            <formatAnnotations/>
+            <removeUnusedImports/>
+            <importOrder/>
+            <trimTrailingWhitespace/>
+            <endWithNewline/>
+          </java>
           <pom>
             <includes>
               <include>flowable-engine/pom.xml</include>
