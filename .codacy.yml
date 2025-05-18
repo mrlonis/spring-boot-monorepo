@@ -9,4 +9,17 @@ gate_policy:
   minCoverageVariationPercent: -1
   minDiffCoveragePercent: 70
 exclude_paths:
+  - "./github/**"
+  - "./.hooks/**"
+  - "./.idea/**"
+  - "./.mvn/**"
+  - ".gitattributes"
+  - ".gitignore"
+  - ".gitmodules"
+  - ".prettierrc"
+  - "CONTRIBUTING.md"
+  - "LICENSE"
+  - "lombok.config"
+  - "mvnw"
+  - "mvnw.cmd"
   - "README.md"
