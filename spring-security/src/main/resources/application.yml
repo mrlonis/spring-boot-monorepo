@@ -1,6 +1,9 @@
 spring:
   application:
-    name: demo
+    name: spring-security
+  threads:
+    virtual:
+      enabled: true
 management:
   endpoints:
     web:

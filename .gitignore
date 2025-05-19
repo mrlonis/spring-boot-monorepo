@@ -4,10 +4,16 @@
 !**/src/test/**/target/
 
 ### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
+.idea/**
+!.idea/dictionaries
+!.idea/dictionaries/**
+!.idea/runConfigurations
+!.idea/runConfigurations/**
+!.idea/encodings.xml
+!.idea/misc.xml
+!.idea/palantir-java-format.xml
+!.idea/sqldialects.xml
+!.idea/vcs.xml
 *.iws
 *.iml
 *.ipr

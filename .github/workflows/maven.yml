@@ -35,7 +35,7 @@ jobs:
           cache: maven
 
       - name: Build with Maven
-        run: ./mvnw clean verify
+        run: ./mvnw clean verify -fae
 
       - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
@@ -65,22 +65,18 @@ jobs:
           mvn spring-boot:run -Dspring-boot.run.profiles=local &
           echo $! > gateway.pid
 
-      - name: Wait for gateway to start
-        run: sleep 10
-        shell: bash
-
-      - name: Run newman for gateway
-        run: newman run ./newman/gateway.postman_collection.json -e ./newman/gateway-local.postman_environment.json --env-var "CI=true"
-
       - name: Run spring-security in the background
         run: |
           cd spring-security
           mvn spring-boot:run -Dspring-boot.run.profiles=local &
           echo $! > spring-security.pid
 
-      - name: Wait for spring-security to start
-        run: sleep 10
+      - name: Wait for remaining services to start
+        run: sleep 15
         shell: bash
+
+      - name: Run newman for gateway
+        run: newman run ./newman/gateway.postman_collection.json -e ./newman/gateway-local.postman_environment.json --env-var "CI=true"
 
       - name: Run newman for spring-security
         run: newman run ./newman/spring-security.postman_collection.json -e ./newman/spring-security-local.postman_environment.json --env-var "CI=true"

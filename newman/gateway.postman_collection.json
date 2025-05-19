@@ -329,8 +329,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Response Status Code is 401\", function(){\r",
-									"    pm.response.to.have.status(401);\r",
+									"pm.test(\"Response Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
 									"});\r",
 									""
 								],
@@ -344,7 +344,13 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "text/plain",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/v1/test",
 							"host": [
@@ -513,8 +519,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Response Status Code is 401\", function(){\r",
-									"    pm.response.to.have.status(401);\r",
+									"pm.test(\"Response Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
 									"});\r",
 									""
 								],
