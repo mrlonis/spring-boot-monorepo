@@ -35,7 +35,7 @@ jobs:
           cache: maven
 
       - name: Build with Maven
-        run: ./mvnw clean verify
+        run: ./mvnw clean verify -fae
 
       - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
