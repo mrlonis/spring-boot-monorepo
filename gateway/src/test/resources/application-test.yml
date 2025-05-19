@@ -21,4 +21,6 @@ spring:
           issuer-uri: http://localhost:${MOCK_WEB_SERVER_PORT}
 logging:
   level:
+    org.springframework.data.redis: debug
     org.springframework.security: debug
+    org.springframework.session: debug
