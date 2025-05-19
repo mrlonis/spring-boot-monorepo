@@ -37,7 +37,7 @@ class RouteTests extends AbstractMockWebServerTests {
         // Cookie Processing
         var rawSetCookieHeaders = result.getResponseHeaders().get("Set-Cookie");
         assertNotNull(rawSetCookieHeaders);
-        assertEquals(2, rawSetCookieHeaders.size());
+        assertEquals(3, rawSetCookieHeaders.size());
         for (var header : rawSetCookieHeaders) {
             log.info("Raw Set-Cookie: {}", header);
         }

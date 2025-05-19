@@ -18,6 +18,7 @@ spring:
   cloud:
     gateway:
       default-filters:
+        - SessionTouched
         - SaveSession
       routes:
         - id: example_route
