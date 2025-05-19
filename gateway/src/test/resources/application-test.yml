@@ -1,3 +1,24 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          oidc:
+            client-id: oidc-client
+            client-secret: oidc-secret
+            scope:
+              - openid
+              - profile
+              - email
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:${MOCK_WEB_SERVER_PORT}/login/oauth2/code/oidc-client
+            provider: oidc
+        provider:
+          oidc:
+            issuer-uri: http://localhost:${MOCK_WEB_SERVER_PORT}
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:${MOCK_WEB_SERVER_PORT}
 logging:
   level:
     org.springframework.security: debug

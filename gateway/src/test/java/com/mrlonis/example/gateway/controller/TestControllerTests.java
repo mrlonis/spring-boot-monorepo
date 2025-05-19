@@ -31,6 +31,6 @@ class TestControllerTests extends AbstractMockWebServerTests {
 
     @Test
     void testController_unauthenticated() {
-        webTestClient.get().uri("/v1/test").exchange().expectStatus().isUnauthorized();
+        webTestClient.get().uri("/v1/test").exchange().expectStatus().isFound();
     }
 }

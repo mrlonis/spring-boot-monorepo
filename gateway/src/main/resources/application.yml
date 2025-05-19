@@ -1,8 +1,23 @@
+server:
+  reactive:
+    session:
+      cookie:
+        same-site: none
+        http-only: false
+        secure: false
 spring:
   application:
     name: example-spring-cloud-gateway-reactive-app
+  session:
+    redis:
+      save-mode: always
+  threads:
+    virtual:
+      enabled: true
   cloud:
     gateway:
+      default-filters:
+        - SaveSession
       routes:
         - id: example_route
           uri: https://www.google.com

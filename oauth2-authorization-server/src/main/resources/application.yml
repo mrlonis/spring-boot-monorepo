@@ -3,6 +3,9 @@ spring:
     name: oauth2-server
   liquibase:
     enabled: false
+  threads:
+    virtual:
+      enabled: true
 management:
   endpoints:
     web:
