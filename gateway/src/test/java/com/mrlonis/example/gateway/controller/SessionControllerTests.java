@@ -37,7 +37,7 @@ class SessionControllerTests extends AbstractMockWebServerTests {
     }
 
     @Test
-    @Disabled
+    @Disabled("Disabled until we can figure out how to get the cookie")
     void getSessionId_whenAuthenticated_succeeds_andCanBeReUsed() {
         var response = webTestClient
                 .mutateWith(mockOidcLogin())
