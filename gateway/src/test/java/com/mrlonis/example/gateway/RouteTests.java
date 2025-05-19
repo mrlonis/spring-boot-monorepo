@@ -7,7 +7,6 @@ import static org.springframework.security.test.web.reactive.server.SecurityMock
 
 import com.mrlonis.example.gateway.test.AbstractMockWebServerTests;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
 
@@ -19,7 +18,6 @@ class RouteTests extends AbstractMockWebServerTests {
     }
 
     @Test
-    @Disabled
     void testGoogle() {
         var result = webTestClient
                 .mutateWith(mockOidcLogin())
