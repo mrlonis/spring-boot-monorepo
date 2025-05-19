@@ -5,6 +5,7 @@ server:
         same-site: none
         http-only: false
         secure: false
+        name: CUSTOM-SESSION-NAME
 spring:
   application:
     name: example-spring-cloud-gateway-reactive-app

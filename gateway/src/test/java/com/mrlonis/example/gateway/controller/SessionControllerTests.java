@@ -74,7 +74,7 @@ class SessionControllerTests extends AbstractMockWebServerTests {
                 .mutateWith(mockOidcLogin())
                 .get()
                 .uri("/v1/session/id")
-                .cookie("SESSION", sessionCookieValue)
+                .cookie("CUSTOM-SESSION-NAME", sessionCookieValue)
                 .exchange()
                 .expectStatus()
                 .isOk()
