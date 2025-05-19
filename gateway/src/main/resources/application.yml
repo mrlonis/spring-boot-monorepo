@@ -42,6 +42,21 @@ spring:
       on-profile: local
   security:
     oauth2:
+      client:
+        registration:
+          oidc:
+            client-id: oidc-client
+            client-secret: oidc-secret
+            scope:
+              - openid
+              - profile
+              - email
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:9562/login/oauth2/code/oidc-client
+            provider: oidc
+        provider:
+          oidc:
+            issuer-uri: http://localhost:9562
       resourceserver:
         jwt:
           issuer-uri: http://localhost:9562
@@ -49,4 +64,4 @@ server:
   port: 9203
 logging:
   level:
-    com.mrlonis.example.gateway: debug
+    root: debug

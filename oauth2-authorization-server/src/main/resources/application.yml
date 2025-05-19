@@ -14,6 +14,20 @@ management:
           - mappings
 application:
   clients:
+    oidc:
+      client-id: oidc-client
+      client-secret: "{noop}oidc-secret"
+      client-authentication-method: none
+      authorization-grant-type: authorization_code
+      redirect-uris:
+        - /login/oauth2/code/oidc-client
+      post-logout-redirect-uri: /
+      scopes:
+        - openid
+        - profile
+        - email
+      client-settings:
+        require-authorization-consent: false
     gateway:
       client-id: gateway-client
       client-secret: "{noop}gateway-secret"
