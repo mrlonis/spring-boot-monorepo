@@ -19,6 +19,7 @@
     <module>jacoco-report-aggregate</module>
     <module>mysql-timestamp-to-datetime</module>
     <module>oauth2-authorization-server</module>
+    <module>oauth2-autoconfig</module>
     <module>pre-commit</module>
     <module>spring-security</module>
   </modules>
