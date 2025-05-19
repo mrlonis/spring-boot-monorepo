@@ -12,6 +12,11 @@
   <description>Demo project for Spring Boot Security. This module is intended to use the oauth2-authorization-server module for authentication.</description>
   <dependencies>
     <dependency>
+      <groupId>com.mrlonis</groupId>
+      <artifactId>oauth2-autoconfig</artifactId>
+      <version>${revision}</version>
+    </dependency>
+    <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <optional>true</optional>
