@@ -13,6 +13,9 @@
             <list>
               <option value="spring-boot:run" />
               <option value="-Dspring-boot.run.profiles=local" />
+              <option value="-pl" />
+              <option value="flowable-engine" />
+              <option value="-am" />
             </list>
           </option>
           <option name="multimoduleDir" />
@@ -24,7 +27,7 @@
             <list />
           </option>
           <option name="resolveToWorkspace" value="false" />
-          <option name="workingDirPath" value="$PROJECT_DIR$/flowable-engine" />
+          <option name="workingDirPath" value="$PROJECT_DIR$" />
         </MavenRunnerParameters>
       </option>
     </MavenSettings>

@@ -13,6 +13,9 @@
             <list>
               <option value="spring-boot:run" />
               <option value="-Dspring-boot.run.profiles=local" />
+              <option value="-pl" />
+              <option value="gateway" />
+              <option value="-am" />
             </list>
           </option>
           <option name="multimoduleDir" />
