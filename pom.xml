@@ -21,6 +21,7 @@
     <module>oauth2-authorization-server</module>
     <module>pre-commit</module>
     <module>spring-security</module>
+    <module>test-controller-autoconfig</module>
   </modules>
   <properties>
     <cleanthat.version>2.22</cleanthat.version>
@@ -341,6 +342,13 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
       </plugin>
     </plugins>
   </build>

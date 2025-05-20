@@ -35,7 +35,7 @@ jobs:
           cache: maven
 
       - name: Build with Maven
-        run: ./mvnw clean verify -fae
+        run: ./mvnw clean verify -fae -T 1C
 
       - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
@@ -48,8 +48,7 @@ jobs:
 
       - name: Run oauth2-authorization-server in the background
         run: |
-          cd oauth2-authorization-server
-          mvn spring-boot:run -Dspring-boot.run.profiles=local &
+          mvn spring-boot:run -Dspring-boot.run.profiles=local -pl oauth2-authorization-server -am &
           echo $! > oauth2-authorization-server.pid
 
       - name: Wait for oauth2-authorization-server to start
@@ -61,14 +60,12 @@ jobs:
 
       - name: Run gateway in the background
         run: |
-          cd gateway
-          mvn spring-boot:run -Dspring-boot.run.profiles=local &
+          mvn spring-boot:run -Dspring-boot.run.profiles=local -pl gateway -am &
           echo $! > gateway.pid
 
       - name: Run spring-security in the background
         run: |
-          cd spring-security
-          mvn spring-boot:run -Dspring-boot.run.profiles=local &
+          mvn spring-boot:run -Dspring-boot.run.profiles=local -pl spring-security -am &
           echo $! > spring-security.pid
 
       - name: Wait for remaining services to start
