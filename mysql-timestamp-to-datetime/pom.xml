@@ -9,7 +9,8 @@
   <groupId>com.mrlonis.time</groupId>
   <artifactId>mysql-timestamp-to-datetime</artifactId>
   <name>mysql-timestamp-to-datetime</name>
-  <description>This is a simple Spring Boot application that demonstrates how to convert a MySQL TIMESTAMP column to a MySQL DATETIME column.</description>
+  <description>This is a simple Spring Boot application that demonstrates how to convert a MySQL TIMESTAMP column to a
+    MySQL DATETIME column.</description>
   <dependencies>
     <dependency>
       <groupId>org.flywaydb</groupId>

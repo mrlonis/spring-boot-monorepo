@@ -30,10 +30,6 @@ import org.springframework.core.io.Resource;
 @UtilityClass
 @Slf4j
 public class PemUtils {
-    private static Resource loadResource(String filenameAndPath) {
-        return new ClassPathResource(filenameAndPath);
-    }
-
     public static RSAKey generateRsaKey(String privateKeyNameAndPath, String publicKeyNameAndPath)
             throws NoSuchAlgorithmException, IOException, InvalidKeySpecException {
         KeyPair keyPair = readOrGenerateRsaKeyPair(privateKeyNameAndPath, publicKeyNameAndPath);
@@ -45,20 +41,42 @@ public class PemUtils {
                 .build();
     }
 
-    private static void writePemFile(Key key, String description, String filename) throws IOException {
-        Path path = Paths.get(filename);
-        Path parentDir = path.getParent();
+    private static KeyPair readOrGenerateRsaKeyPair(String privateKeyNameAndPath, String publicKeyNameAndPath)
+            throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+        RSAPublicKey publicKey;
+        RSAPrivateKey privateKey;
 
-        // Ensure parent directories exist
-        if (parentDir != null && !Files.exists(parentDir)) {
-            Files.createDirectories(parentDir);
-            log.info("Created missing directories: {}", parentDir.toAbsolutePath());
+        Resource privateKeyFile = loadResource(privateKeyNameAndPath);
+        Resource publicKeyFile = loadResource(publicKeyNameAndPath);
+
+        if (publicKeyFile.exists() && privateKeyFile.exists()) {
+            log.info("Loading RSA key pair from files.");
+            publicKey = readX509PublicKey(publicKeyFile.getFile());
+            privateKey = readPKCS8PrivateKey(privateKeyFile.getFile());
+        } else {
+            log.info("Generating new RSA key pair.");
+            KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
+            generator.initialize(2048);
+            KeyPair keyPair = generator.generateKeyPair();
+
+            writePemFile(keyPair.getPublic(), "PUBLIC KEY", "./src/main/resources/" + publicKeyNameAndPath);
+            writePemFile(keyPair.getPrivate(), "PRIVATE KEY", "./src/main/resources/" + privateKeyNameAndPath);
+
+            return keyPair;
         }
 
-        PemFile pemFile = new PemFile(key, description);
-        pemFile.write(filename);
+        return new KeyPair(publicKey, privateKey);
+    }
 
-        log.info("{} successfully writen in file {}.", description, filename);
+    private static String generateKeyId(RSAPublicKey publicKey) throws NoSuchAlgorithmException {
+        MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
+        byte[] keyBytes = publicKey.getEncoded();
+        byte[] digest = sha256.digest(keyBytes);
+        return Base64.getUrlEncoder().withoutPadding().encodeToString(digest);
+    }
+
+    private static Resource loadResource(String filenameAndPath) {
+        return new ClassPathResource(filenameAndPath);
     }
 
     private RSAPublicKey readX509PublicKey(File file)
@@ -89,37 +107,19 @@ public class PemUtils {
         }
     }
 
-    private static String generateKeyId(RSAPublicKey publicKey) throws NoSuchAlgorithmException {
-        MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
-        byte[] keyBytes = publicKey.getEncoded();
-        byte[] digest = sha256.digest(keyBytes);
-        return Base64.getUrlEncoder().withoutPadding().encodeToString(digest);
-    }
+    private static void writePemFile(Key key, String description, String filename) throws IOException {
+        Path path = Paths.get(filename);
+        Path parentDir = path.getParent();
 
-    private static KeyPair readOrGenerateRsaKeyPair(String privateKeyNameAndPath, String publicKeyNameAndPath)
-            throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
-        RSAPublicKey publicKey;
-        RSAPrivateKey privateKey;
-
-        Resource privateKeyFile = loadResource(privateKeyNameAndPath);
-        Resource publicKeyFile = loadResource(publicKeyNameAndPath);
-
-        if (publicKeyFile.exists() && privateKeyFile.exists()) {
-            log.info("Loading RSA key pair from files.");
-            publicKey = readX509PublicKey(publicKeyFile.getFile());
-            privateKey = readPKCS8PrivateKey(privateKeyFile.getFile());
-        } else {
-            log.info("Generating new RSA key pair.");
-            KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
-            generator.initialize(2048);
-            KeyPair keyPair = generator.generateKeyPair();
-
-            writePemFile(keyPair.getPublic(), "PUBLIC KEY", "./src/main/resources/" + publicKeyNameAndPath);
-            writePemFile(keyPair.getPrivate(), "PRIVATE KEY", "./src/main/resources/" + privateKeyNameAndPath);
-
-            return keyPair;
+        // Ensure parent directories exist
+        if (parentDir != null && !Files.exists(parentDir)) {
+            Files.createDirectories(parentDir);
+            log.info("Created missing directories: {}", parentDir.toAbsolutePath());
         }
 
-        return new KeyPair(publicKey, privateKey);
+        PemFile pemFile = new PemFile(key, description);
+        pemFile.write(filename);
+
+        log.info("{} successfully writen in file {}.", description, filename);
     }
 }
