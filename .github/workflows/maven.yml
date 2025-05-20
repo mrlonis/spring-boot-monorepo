@@ -58,13 +58,6 @@ jobs:
           mvn spring-boot:run -Dspring-boot.run.profiles=local -pl oauth2-authorization-server -am &
           echo $! > oauth2-authorization-server.pid
 
-      - name: Wait for oauth2-authorization-server to start
-        run: sleep 10
-        shell: bash
-
-      - name: Run newman for oauth2-authorization-server
-        run: newman run ./newman/oauth2-authorization-server.postman_collection.json -e ./newman/oauth2-authorization-server-local.postman_environment.json --env-var "CI=true"
-
       - name: Run gateway in the background
         run: |
           mvn spring-boot:run -Dspring-boot.run.profiles=local -pl gateway -am &
@@ -75,15 +68,12 @@ jobs:
           mvn spring-boot:run -Dspring-boot.run.profiles=local -pl spring-security -am &
           echo $! > spring-security.pid
 
-      - name: Wait for remaining services to start
+      - name: Wait for services to start
         run: sleep 15
         shell: bash
 
-      - name: Run newman for gateway
-        run: newman run ./newman/gateway.postman_collection.json -e ./newman/gateway-local.postman_environment.json --env-var "CI=true"
-
-      - name: Run newman for spring-security
-        run: newman run ./newman/spring-security.postman_collection.json -e ./newman/spring-security-local.postman_environment.json --env-var "CI=true"
+      - name: Run newman
+        run: newman run ./newman/spring-boot-monorepo.postman_collection.json -e ./newman/spring-boot-monorepo-local.postman_environment.json --env-var "CI=true"
 
       - name: Shut down services
         run: |
