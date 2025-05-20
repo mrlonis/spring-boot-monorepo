@@ -1,0 +1,44 @@
+package com.mrlonis.oauth2.autoconfig.properties;
+
+import com.mrlonis.oauth2.autoconfig.security.MatcherRequestAccess;
+import com.mrlonis.oauth2.autoconfig.security.RequestAccess;
+import java.util.ArrayList;
+import java.util.List;
+import lombok.Data;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
+
+@Data
+@AutoConfiguration
+@ConfigurationProperties(prefix = "oauth2")
+public class AutoConfigurationProperties {
+    @NestedConfigurationProperty
+    private SecurityConfiguration security;
+
+    @NestedConfigurationProperty
+    private FederateConfiguration federate;
+
+    @Data
+    public static class SecurityConfiguration {
+        private boolean enabled = true;
+        private RequestAccess defaultAnyRequestAccess = RequestAccess.DENY_ALL;
+
+        @NestedConfigurationProperty
+        private List<Matcher> matchers = new ArrayList<>();
+
+        @Data
+        public static class Matcher {
+            private MatcherRequestAccess access;
+            private List<String> authorities = new ArrayList<>();
+            private List<String> paths = new ArrayList<>();
+        }
+    }
+
+    @Data
+    public static class FederateConfiguration {
+        private boolean enabled = false;
+        private String issuerUri;
+        private String jwkSetUri;
+    }
+}
