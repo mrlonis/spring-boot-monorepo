@@ -6,7 +6,9 @@
     <artifactId>spring-boot-monorepo</artifactId>
     <version>${revision}</version>
   </parent>
+  <groupId>com.mrlonis.test.controller.autoconfigure</groupId>
   <artifactId>test-controller-autoconfig</artifactId>
+  <version>${revision}</version>
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>

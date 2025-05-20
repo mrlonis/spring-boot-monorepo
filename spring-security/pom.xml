@@ -8,6 +8,7 @@
   </parent>
   <groupId>com.mrlonis.example.security</groupId>
   <artifactId>spring-security</artifactId>
+  <version>${revision}</version>
   <name>spring-security</name>
   <description>Demo project for Spring Boot Security. This module is intended to use the oauth2-authorization-server
     module for authentication.</description>

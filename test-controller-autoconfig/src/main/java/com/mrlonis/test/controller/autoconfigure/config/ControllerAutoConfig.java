@@ -1,6 +1,6 @@
-package com.mrlonis.test.autoconfigure.controller.config;
+package com.mrlonis.test.controller.autoconfigure.config;
 
-import com.mrlonis.test.autoconfigure.controller.controller.TestController;
+import com.mrlonis.test.controller.autoconfigure.controller.TestController;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
 

@@ -6,7 +6,9 @@
     <artifactId>spring-boot-monorepo</artifactId>
     <version>${revision}</version>
   </parent>
+  <groupId>com.mrlonis.example.oauth2.gateway.mvc</groupId>
   <artifactId>oauth2-gateway-mvc</artifactId>
+  <version>${revision}</version>
   <build>
     <plugins>
       <plugin>

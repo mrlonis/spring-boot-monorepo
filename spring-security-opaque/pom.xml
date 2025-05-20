@@ -6,7 +6,9 @@
     <artifactId>spring-boot-monorepo</artifactId>
     <version>${revision}</version>
   </parent>
+  <groupId>com.mrlonis.example.security.opaque</groupId>
   <artifactId>spring-security-opaque</artifactId>
+  <version>${revision}</version>
   <build>
     <plugins>
       <plugin>

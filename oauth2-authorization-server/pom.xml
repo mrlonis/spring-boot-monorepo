@@ -6,8 +6,9 @@
     <artifactId>spring-boot-monorepo</artifactId>
     <version>${revision}</version>
   </parent>
-  <groupId>com.mrlonis.example</groupId>
+  <groupId>com.mrlonis.example.oauth2</groupId>
   <artifactId>oauth2-authorization-server</artifactId>
+  <version>${revision}</version>
   <name>oauth2-server</name>
   <description>Demo project for Spring Boot</description>
   <dependencies>
