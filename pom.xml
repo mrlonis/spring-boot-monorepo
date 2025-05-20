@@ -19,9 +19,9 @@
     <module>jacoco-report-aggregate</module>
     <module>mysql-timestamp-to-datetime</module>
     <module>oauth2-authorization-server</module>
-    <module>oauth2-autoconfig</module>
     <module>pre-commit</module>
     <module>spring-security</module>
+    <module>test-controller-autoconfig</module>
   </modules>
   <properties>
     <cleanthat.version>2.22</cleanthat.version>

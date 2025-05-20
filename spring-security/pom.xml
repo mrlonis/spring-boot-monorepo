@@ -13,7 +13,7 @@
   <dependencies>
     <dependency>
       <groupId>com.mrlonis</groupId>
-      <artifactId>oauth2-autoconfig</artifactId>
+      <artifactId>test-controller-autoconfig</artifactId>
       <version>${revision}</version>
     </dependency>
     <dependency>
