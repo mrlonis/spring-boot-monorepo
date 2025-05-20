@@ -69,7 +69,6 @@ spring:
               - profile
               - email
             authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:9562/login/oauth2/code/oidc-client
             provider: oidc
         provider:
           oidc:
