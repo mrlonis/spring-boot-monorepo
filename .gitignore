@@ -5,6 +5,8 @@
 
 ### IntelliJ IDEA ###
 .idea/**
+!.idea/codeStyles
+!.idea/codeStyles/**
 !.idea/dictionaries
 !.idea/dictionaries/**
 !.idea/runConfigurations
