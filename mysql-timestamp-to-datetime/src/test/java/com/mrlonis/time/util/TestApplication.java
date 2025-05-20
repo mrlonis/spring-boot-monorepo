@@ -12,7 +12,7 @@ import org.springframework.boot.SpringApplication;
 public class TestApplication {
     public static void main(String[] args) {
         SpringApplication.from(MySqlTimestampToDatetimeApplication::main)
-                .with(TestcontainersConfigurations.class)
+                .with(TestcontainersConfiguration.class)
                 .run(args);
     }
 }
