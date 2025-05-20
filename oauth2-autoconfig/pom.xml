@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.mrlonis</groupId>
     <artifactId>spring-boot-monorepo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${revision}</version>
   </parent>
   <artifactId>oauth2-autoconfig</artifactId>
   <dependencies>
