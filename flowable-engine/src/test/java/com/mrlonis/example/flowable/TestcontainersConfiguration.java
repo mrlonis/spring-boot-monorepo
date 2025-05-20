@@ -1,4 +1,4 @@
-package com.mrlonis.flowable.example;
+package com.mrlonis.example.flowable;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;

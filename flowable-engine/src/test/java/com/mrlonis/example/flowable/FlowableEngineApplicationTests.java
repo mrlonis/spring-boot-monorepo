@@ -1,4 +1,4 @@
-package com.mrlonis.flowable.example;
+package com.mrlonis.example.flowable;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
