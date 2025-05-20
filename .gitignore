@@ -9,7 +9,9 @@
 !.idea/dictionaries/**
 !.idea/runConfigurations
 !.idea/runConfigurations/**
+!.idea/compiler.xml
 !.idea/encodings.xml
+!.idea/jarRepositories.xml
 !.idea/misc.xml
 !.idea/palantir-java-format.xml
 !.idea/sqldialects.xml

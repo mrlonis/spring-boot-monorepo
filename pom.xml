@@ -20,8 +20,10 @@
     <module>mysql-timestamp-to-datetime</module>
     <module>oauth2-authorization-server</module>
     <module>oauth2-autoconfig</module>
+    <module>oauth2-gateway-mvc</module>
     <module>pre-commit</module>
     <module>spring-security</module>
+    <module>spring-security-opaque</module>
     <module>test-controller-autoconfig</module>
   </modules>
   <properties>

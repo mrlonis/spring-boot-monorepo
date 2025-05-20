@@ -8,8 +8,10 @@
     <file url="file://$PROJECT_DIR$/mysql-timestamp-to-datetime/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/oauth2-authorization-server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/oauth2-autoconfig/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/oauth2-gateway-mvc/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pre-commit/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pre-commit/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-security-opaque/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-security/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
