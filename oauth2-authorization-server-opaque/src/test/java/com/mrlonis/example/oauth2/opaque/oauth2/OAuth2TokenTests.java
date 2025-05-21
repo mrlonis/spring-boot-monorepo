@@ -17,9 +17,9 @@ import org.springframework.http.MediaType;
 class OAuth2TokenTests extends AbstractMockWebServerTests {
     @Test
     void testOAuth2_token_gateway() {
-        String clientId = "gateway-client";
-        String clientSecret = "gateway-secret";
-        String scope = "gateway";
+        String clientId = "test-client";
+        String clientSecret = "test-secret";
+        String scope = "test";
         String basicAuth = Base64.getEncoder().encodeToString((clientId + ":" + clientSecret).getBytes());
 
         assertDoesNotThrow(() -> mockMvc.perform(post("/oauth2/token")
@@ -33,8 +33,8 @@ class OAuth2TokenTests extends AbstractMockWebServerTests {
 
     @Test
     void testOAuth2_token_gateway_invalidScope() {
-        String clientId = "gateway-client";
-        String clientSecret = "gateway-secret";
+        String clientId = "test-client";
+        String clientSecret = "test-secret";
         String scope = "fake";
         String basicAuth = Base64.getEncoder().encodeToString((clientId + ":" + clientSecret).getBytes());
 
