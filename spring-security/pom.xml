@@ -8,16 +8,18 @@
   </parent>
   <groupId>com.mrlonis.example.security</groupId>
   <artifactId>spring-security</artifactId>
+  <version>${revision}</version>
   <name>spring-security</name>
-  <description>Demo project for Spring Boot Security. This module is intended to use the oauth2-authorization-server module for authentication.</description>
+  <description>Demo project for Spring Boot Security. This module is intended to use the oauth2-authorization-server
+    module for authentication.</description>
   <dependencies>
     <dependency>
-      <groupId>com.mrlonis</groupId>
+      <groupId>com.mrlonis.oauth2.autoconfig</groupId>
       <artifactId>oauth2-autoconfig</artifactId>
       <version>${revision}</version>
     </dependency>
     <dependency>
-      <groupId>com.mrlonis</groupId>
+      <groupId>com.mrlonis.test.controller.autoconfigure</groupId>
       <artifactId>test-controller-autoconfig</artifactId>
       <version>${revision}</version>
     </dependency>

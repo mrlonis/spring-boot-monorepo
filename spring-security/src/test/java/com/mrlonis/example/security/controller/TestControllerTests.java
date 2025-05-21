@@ -9,7 +9,7 @@ import com.mrlonis.example.security.test.AbstractMockWebServerTests;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.test.context.support.WithMockUser;
 
-class TestControllerTests extends AbstractMockWebServerTests {
+class sssTestControllerTests extends AbstractMockWebServerTests {
     @Test
     void contextLoads() {
         assertTrue(true);

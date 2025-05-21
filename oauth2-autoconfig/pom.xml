@@ -6,7 +6,9 @@
     <artifactId>spring-boot-monorepo</artifactId>
     <version>${revision}</version>
   </parent>
+  <groupId>com.mrlonis.oauth2.autoconfig</groupId>
   <artifactId>oauth2-autoconfig</artifactId>
+  <version>${revision}</version>
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>

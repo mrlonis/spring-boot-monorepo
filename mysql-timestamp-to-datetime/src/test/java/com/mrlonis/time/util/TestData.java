@@ -19,6 +19,15 @@ public class TestData {
         return addBaseEntityFields(TestEntityCalendar.builder()).build();
     }
 
+    private static <D, T extends BaseEntity<D>, B extends BaseEntity.BaseEntityBuilder<D, T, B>> B addBaseEntityFields(
+            BaseEntity.BaseEntityBuilder<D, T, B> builder) {
+        return builder.name(TEST_NAME)
+                .type(TEST_TYPE)
+                .code(TEST_CODE)
+                .createdUser(TEST_USER)
+                .updatedUser(TEST_USER);
+    }
+
     public static TestEntityDate getTestEntityDate() {
         return addBaseEntityFields(TestEntityDate.builder()).build();
     }
@@ -33,14 +42,5 @@ public class TestData {
 
     public static TestEntityZonedDateTime getTestEntityZonedDateTime() {
         return addBaseEntityFields(TestEntityZonedDateTime.builder()).build();
-    }
-
-    private static <D, T extends BaseEntity<D>, B extends BaseEntity.BaseEntityBuilder<D, T, B>> B addBaseEntityFields(
-            BaseEntity.BaseEntityBuilder<D, T, B> builder) {
-        return builder.name(TEST_NAME)
-                .type(TEST_TYPE)
-                .code(TEST_CODE)
-                .createdUser(TEST_USER)
-                .updatedUser(TEST_USER);
     }
 }

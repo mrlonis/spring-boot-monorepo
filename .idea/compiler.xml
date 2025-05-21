@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <option name="BUILD_PROCESS_HEAP_SIZE" value="1024" />
+    <excludeFromCompile>
+      <directory url="file://$PROJECT_DIR$/src/main/resources/archetype-resources" includeSubdirectories="true" />
+    </excludeFromCompile>
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+      </profile>
+      <profile name="Annotation profile for spring-boot-monorepo" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.4.5/spring-boot-configuration-processor-3.4.5.jar" />
+        </processorPath>
+        <module name="test-controller-autoconfig" />
+        <module name="spring-security-opaque" />
+        <module name="mysql-timestamp-to-datetime" />
+        <module name="oauth2-gateway-mvc" />
+        <module name="oauth2-authorization-server" />
+        <module name="spring-security" />
+        <module name="oauth2-autoconfig" />
+        <module name="flowable-engine" />
+        <module name="gateway" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="flowable-engine" options="-parameters -Xlint:all -proc:full" />
+      <module name="gateway" options="-parameters -Xlint:all -proc:full" />
+      <module name="jacoco-report-aggregate" options="" />
+      <module name="mysql-timestamp-to-datetime" options="-parameters -Xlint:all -proc:full" />
+      <module name="oauth2-authorization-server" options="-parameters -Xlint:all -proc:full" />
+      <module name="oauth2-autoconfig" options="-parameters -Xlint:all -proc:full" />
+      <module name="oauth2-gateway-mvc" options="-parameters -Xlint:all -proc:full" />
+      <module name="spring-boot-monorepo" options="" />
+      <module name="spring-security" options="-parameters -Xlint:all -proc:full" />
+      <module name="spring-security-opaque" options="-parameters -Xlint:all -proc:full" />
+      <module name="test-controller-autoconfig" options="-parameters -Xlint:all -proc:full" />
+    </option>
+  </component>
+</project>

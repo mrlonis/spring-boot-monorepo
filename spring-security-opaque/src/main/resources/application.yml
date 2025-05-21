@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: spring-security-opaque
+  threads:
+    virtual:
+      enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+          - metrics
+          - mappings
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9562
+server:
+  port: 9055
+logging:
+  level:
+    com.mrlonis.example.security: debug
