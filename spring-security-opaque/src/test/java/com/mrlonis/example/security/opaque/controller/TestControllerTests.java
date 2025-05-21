@@ -1,15 +1,15 @@
-package com.mrlonis.example.security.controller;
+package com.mrlonis.example.security.opaque.controller;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.mrlonis.example.security.test.AbstractMockWebServerTests;
+import com.mrlonis.example.security.opaque.test.AbstractMockWebServerTests;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.test.context.support.WithMockUser;
 
-class sssTestControllerTests extends AbstractMockWebServerTests {
+class TestControllerTests extends AbstractMockWebServerTests {
     @Test
     void contextLoads() {
         assertTrue(true);

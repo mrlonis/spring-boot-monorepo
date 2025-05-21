@@ -10,8 +10,28 @@
   <packaging>pom</packaging>
   <dependencies>
     <dependency>
+      <groupId>com.mrlonis.example.flowable</groupId>
+      <artifactId>flowable-engine</artifactId>
+      <version>${revision}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.mrlonis.example.gateway</groupId>
+      <artifactId>gateway</artifactId>
+      <version>${revision}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.mrlonis.example.oauth2</groupId>
+      <artifactId>oauth2-authorization-server</artifactId>
+      <version>${revision}</version>
+    </dependency>
+    <dependency>
       <groupId>com.mrlonis.example.oauth2.gateway.mvc</groupId>
       <artifactId>oauth2-gateway-mvc</artifactId>
+      <version>${revision}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.mrlonis.example.security</groupId>
+      <artifactId>spring-security</artifactId>
       <version>${revision}</version>
     </dependency>
     <dependency>
@@ -27,26 +47,6 @@
     <dependency>
       <groupId>com.mrlonis.test.controller.autoconfigure</groupId>
       <artifactId>test-controller-autoconfig</artifactId>
-      <version>${revision}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.mrlonis.example</groupId>
-      <artifactId>oauth2-authorization-server</artifactId>
-      <version>${revision}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.mrlonis.example.gateway</groupId>
-      <artifactId>gateway</artifactId>
-      <version>${revision}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.mrlonis.example.security</groupId>
-      <artifactId>spring-security</artifactId>
-      <version>${revision}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.mrlonis.flowable.example</groupId>
-      <artifactId>flowable-engine</artifactId>
       <version>${revision}</version>
     </dependency>
     <dependency>

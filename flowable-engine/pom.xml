@@ -8,6 +8,7 @@
   </parent>
   <groupId>com.mrlonis.example.flowable</groupId>
   <artifactId>flowable-engine</artifactId>
+  <version>${revision}</version>
   <name>flowable-engine</name>
   <description>Demo project for Spring Boot with Flowable Engine</description>
   <dependencies>

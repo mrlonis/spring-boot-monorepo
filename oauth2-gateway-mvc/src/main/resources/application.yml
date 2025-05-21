@@ -1,0 +1,69 @@
+server:
+  reactive:
+    session:
+      cookie:
+        same-site: none
+        http-only: false
+        secure: false
+        name: CUSTOM-SESSION-NAME
+spring:
+  application:
+    name: example-spring-cloud-gateway-reactive-app
+  session:
+    redis:
+      save-mode: always
+  threads:
+    virtual:
+      enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+          - metrics
+          - mappings
+---
+spring:
+  config:
+    activate:
+      on-profile: ssl-redis
+  data:
+    redis:
+      ssl:
+        enabled: true
+  session:
+    redis:
+      save-mode: always
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  security:
+    oauth2:
+      client:
+        registration:
+          oidc:
+            client-id: oidc-client
+            client-secret: oidc-secret
+            scope:
+              - openid
+              - profile
+              - email
+            authorization-grant-type: authorization_code
+            provider: oidc
+        provider:
+          oidc:
+            issuer-uri: http://localhost:9562
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9562
+server:
+  port: 9203
+logging:
+  level:
+    com.mrlonis.example.gateway: debug
+    org.springframework.security: debug
+    root: debug
