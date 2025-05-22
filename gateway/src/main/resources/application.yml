@@ -40,6 +40,23 @@ management:
   endpoint:
     gateway:
       access: read_only
+oauth2:
+  enabled: true
+  security:
+    enabled: true
+    default-any-request-access: authenticated
+    matchers:
+      - paths:
+          - /actuator/**
+          - /google/**
+        access: permit_all
+  federate:
+    enabled: true
+    issuer-uri: http://localhost:9562
+    jwk-set-uri: http://localhost:9562/oauth2/jwks
+    audiences: gateway-client
+  oidc:
+    enabled: true
 ---
 spring:
   config:
