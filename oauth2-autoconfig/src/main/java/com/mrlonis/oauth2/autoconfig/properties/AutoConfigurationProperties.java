@@ -15,6 +15,8 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
 @AutoConfiguration
 @ConfigurationProperties(prefix = "oauth2")
 public class AutoConfigurationProperties {
+    private boolean enabled = false;
+
     @NestedConfigurationProperty
     private SecurityConfiguration security;
 
