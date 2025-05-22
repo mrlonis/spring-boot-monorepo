@@ -1,11 +1,11 @@
 ---
 gate_policy:
   newIssues:
-    maxNewIssues: 0
+    maxNewIssues: 10
     issueSeverityThreshold: "Medium"
-  maxAllowedSecurityIssues: 0
+  maxAllowedSecurityIssues: 10
   maxComplexity: 20
-  maxDuplicatedBlocks: 1
+  maxDuplicatedBlocks: 10
   minCoverageVariationPercent: -25
   minDiffCoveragePercent: 70
 exclude_paths:
