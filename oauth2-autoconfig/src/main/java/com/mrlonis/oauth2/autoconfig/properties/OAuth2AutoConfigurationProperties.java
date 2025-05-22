@@ -7,14 +7,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import lombok.Data;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 @Data
-@AutoConfiguration
 @ConfigurationProperties(prefix = "oauth2")
-public class AutoConfigurationProperties {
+public class OAuth2AutoConfigurationProperties {
     private boolean enabled = false;
 
     @NestedConfigurationProperty
