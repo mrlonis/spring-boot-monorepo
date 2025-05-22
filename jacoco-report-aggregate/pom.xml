@@ -30,6 +30,11 @@
       <version>${revision}</version>
     </dependency>
     <dependency>
+      <groupId>com.mrlonis.example.oauth2.opaque</groupId>
+      <artifactId>oauth2-authorization-server-opaque</artifactId>
+      <version>${revision}</version>
+    </dependency>
+    <dependency>
       <groupId>com.mrlonis.example.security</groupId>
       <artifactId>spring-security</artifactId>
       <version>${revision}</version>

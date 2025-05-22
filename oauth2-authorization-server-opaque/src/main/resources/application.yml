@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: oauth2-server
+  liquibase:
+    enabled: false
+  threads:
+    virtual:
+      enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+          - metrics
+          - mappings
+application:
+  clients:
+    test:
+      client-id: test-client
+      client-secret: "{noop}test-secret"
+      client-authentication-method: client_secret_basic
+      authorization-grant-type: client_credentials
+      redirect-uris:
+        - /login/oauth2/code/test-client
+      post-logout-redirect-uri: /
+      scopes:
+        - test
+      client-settings:
+        require-authorization-consent: false
+    spring-security-opaque:
+      client-id: spring-security-opaque-client
+      client-secret: "{noop}spring-security-opaque-secret"
+      client-authentication-method: client_secret_basic
+      authorization-grant-type: client_credentials
+      redirect-uris:
+        - /login/oauth2/code/spring-security-opaque-client
+      post-logout-redirect-uri: /
+      scopes:
+        - spring-security-opaque
+      client-settings:
+        require-authorization-consent: false
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+server:
+  port: 9563
+logging:
+  level:
+    com.mrlonis.example.oauth2: debug

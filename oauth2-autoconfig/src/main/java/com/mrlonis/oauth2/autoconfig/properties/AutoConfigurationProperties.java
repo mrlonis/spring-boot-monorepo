@@ -3,7 +3,9 @@ package com.mrlonis.oauth2.autoconfig.properties;
 import com.mrlonis.oauth2.autoconfig.security.MatcherRequestAccess;
 import com.mrlonis.oauth2.autoconfig.security.RequestAccess;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import lombok.Data;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -13,11 +15,16 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
 @AutoConfiguration
 @ConfigurationProperties(prefix = "oauth2")
 public class AutoConfigurationProperties {
+    private boolean enabled = false;
+
     @NestedConfigurationProperty
     private SecurityConfiguration security;
 
     @NestedConfigurationProperty
     private FederateConfiguration federate;
+
+    @NestedConfigurationProperty
+    private OidcConfiguration oidc;
 
     @Data
     public static class SecurityConfiguration {
@@ -30,8 +37,8 @@ public class AutoConfigurationProperties {
         @Data
         public static class Matcher {
             private MatcherRequestAccess access;
-            private List<String> authorities = new ArrayList<>();
-            private List<String> paths = new ArrayList<>();
+            private Set<String> authorities = new HashSet<>();
+            private Set<String> paths = new HashSet<>();
         }
     }
 
@@ -40,5 +47,11 @@ public class AutoConfigurationProperties {
         private boolean enabled = false;
         private String issuerUri;
         private String jwkSetUri;
+        private Set<String> audiences = new HashSet<>();
+    }
+
+    @Data
+    public static class OidcConfiguration {
+        private boolean enabled = false;
     }
 }
