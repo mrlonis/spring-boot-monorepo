@@ -35,8 +35,8 @@ public class AutoConfigurationProperties {
         @Data
         public static class Matcher {
             private MatcherRequestAccess access;
-            private List<String> authorities = new ArrayList<>();
-            private List<String> paths = new ArrayList<>();
+            private Set<String> authorities = new HashSet<>();
+            private Set<String> paths = new HashSet<>();
         }
     }
 
