@@ -272,7 +272,7 @@
               <sortDependencies>scope,groupId,artifactId</sortDependencies>
               <sortDependencyExclusions>groupId,artifactId</sortDependencyExclusions>
               <sortDependencyManagement>scope,groupId,artifactId</sortDependencyManagement>
-              <sortExecutions>false</sortExecutions>
+              <sortExecutions>true</sortExecutions>
               <sortModules>true</sortModules>
               <sortPlugins>groupId,artifactId</sortPlugins>
               <sortProperties>true</sortProperties>
