@@ -16,13 +16,13 @@ public class OAuth2AutoConfigurationProperties {
     private boolean enabled = false;
 
     @NestedConfigurationProperty
-    private SecurityConfiguration security;
+    private SecurityConfiguration security = new SecurityConfiguration();
 
     @NestedConfigurationProperty
-    private FederateConfiguration federate;
+    private FederateConfiguration federate = new FederateConfiguration();
 
     @NestedConfigurationProperty
-    private OidcConfiguration oidc;
+    private OidcConfiguration oidc = new OidcConfiguration();
 
     @Data
     public static class SecurityConfiguration {
