@@ -13,6 +13,20 @@ management:
           - info
           - metrics
           - mappings
+oauth2:
+  enabled: true
+  security:
+    enabled: true
+    default-any-request-access: authenticated
+    matchers:
+      - paths:
+          - /actuator/**
+        access: permit_all
+  federate:
+    enabled: true
+    issuer-uri: http://localhost:9562
+    jwk-set-uri: http://localhost:9562/oauth2/jwks
+    audiences: spring-security-client
 ---
 spring:
   config:
