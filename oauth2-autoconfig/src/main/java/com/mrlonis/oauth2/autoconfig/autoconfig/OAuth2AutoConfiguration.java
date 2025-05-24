@@ -2,9 +2,9 @@ package com.mrlonis.oauth2.autoconfig.autoconfig;
 
 import com.mrlonis.oauth2.autoconfig.exception.OAuth2AutoConfigException;
 import com.mrlonis.oauth2.autoconfig.properties.OAuth2AutoConfigurationProperties;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -16,15 +16,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
-import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
-import org.springframework.security.oauth2.core.OAuth2TokenValidator;
-import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.security.oauth2.jwt.JwtClaimNames;
-import org.springframework.security.oauth2.jwt.JwtClaimValidator;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.JwtValidators;
-import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
-import org.springframework.security.oauth2.jwt.NimbusReactiveJwtDecoder;
 import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.server.SecurityWebFilterChain;
@@ -36,10 +28,13 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 public class OAuth2AutoConfiguration {
     private final OAuth2AutoConfigurationProperties properties;
 
+    @AllArgsConstructor(onConstructor_ = {@Autowired(required = false)})
     @Configuration
     @EnableWebSecurity
     @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
     class OAuth2ServletAutoConfiguration {
+        public final JwtDecoder jwtDecoder;
+
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
             if (properties.getSecurity().isEnabled()) {
@@ -79,7 +74,17 @@ public class OAuth2AutoConfiguration {
                     });
                 }
                 if (properties.getFederate().isEnabled()) {
-                    http.oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
+                    if (properties.getFederate().isOpaque()) {
+                        http.oauth2ResourceServer(
+                                oauth2 -> oauth2.opaqueToken(opaqueTokenConfigurer -> opaqueTokenConfigurer
+                                        .introspectionUri(
+                                                properties.getFederate().getIntrospectionUri())
+                                        .introspectionClientCredentials(
+                                                properties.getFederate().getClientId(),
+                                                properties.getFederate().getClientSecret())));
+                    } else {
+                        http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.decoder(jwtDecoder)));
+                    }
                 }
                 if (properties.getOidc().isEnabled()) {
                     http.oauth2Login(Customizer.withDefaults());
@@ -87,31 +92,15 @@ public class OAuth2AutoConfiguration {
             }
             return http.build();
         }
-
-        @Bean
-        @ConditionalOnProperty(name = "oauth2.federate.enabled", havingValue = "true")
-        public JwtDecoder jwtDecoder() {
-            NimbusJwtDecoder decoder = NimbusJwtDecoder.withJwkSetUri(
-                            properties.getFederate().getJwkSetUri())
-                    .build();
-
-            JwtClaimValidator<List<String>> audienceValidator = new JwtClaimValidator<>(
-                    JwtClaimNames.AUD, aud -> aud != null && aud.contains("spring-security-client"));
-
-            OAuth2TokenValidator<Jwt> validator = new DelegatingOAuth2TokenValidator<>(
-                    JwtValidators.createDefaultWithIssuer(
-                            properties.getFederate().getIssuerUri()),
-                    audienceValidator);
-
-            decoder.setJwtValidator(validator);
-            return decoder;
-        }
     }
 
+    @AllArgsConstructor(onConstructor_ = {@Autowired(required = false)})
     @Configuration
     @EnableWebFluxSecurity
     @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
     class OAuth2ReactiveAutoConfiguration {
+        private final ReactiveJwtDecoder reactiveJwtDecoder;
+
         @Bean
         public SecurityWebFilterChain securityFilterChain(ServerHttpSecurity http) {
             if (properties.getSecurity().isEnabled()) {
@@ -148,35 +137,17 @@ public class OAuth2AutoConfiguration {
                     });
                 }
                 if (properties.getFederate().isEnabled()) {
-                    http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtDecoder(jwtDecoder())));
+                    if (properties.getFederate().isOpaque()) {
+                        http.oauth2ResourceServer(oauth2 -> oauth2.opaqueToken(Customizer.withDefaults()));
+                    } else {
+                        http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtDecoder(reactiveJwtDecoder)));
+                    }
                 }
                 if (properties.getOidc().isEnabled()) {
                     http.oauth2Login(Customizer.withDefaults());
                 }
             }
             return http.build();
-        }
-
-        @Bean
-        @ConditionalOnProperty(name = "oauth2.federate.enabled", havingValue = "true")
-        public ReactiveJwtDecoder jwtDecoder() {
-            NimbusReactiveJwtDecoder decoder = NimbusReactiveJwtDecoder.withJwkSetUri(
-                            properties.getFederate().getJwkSetUri())
-                    .build();
-
-            JwtClaimValidator<List<String>> audienceValidator = new JwtClaimValidator<>(
-                    JwtClaimNames.AUD,
-                    aud -> aud != null
-                            && CollectionUtils.containsAny(
-                                    properties.getFederate().getAudiences(), aud));
-
-            OAuth2TokenValidator<Jwt> validator = new DelegatingOAuth2TokenValidator<>(
-                    JwtValidators.createDefaultWithIssuer(
-                            properties.getFederate().getIssuerUri()),
-                    audienceValidator);
-
-            decoder.setJwtValidator(validator);
-            return decoder;
         }
     }
 }

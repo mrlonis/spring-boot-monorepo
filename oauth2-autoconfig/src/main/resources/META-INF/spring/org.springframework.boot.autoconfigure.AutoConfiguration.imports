@@ -1,1 +1,2 @@
+com.mrlonis.oauth2.autoconfig.autoconfig.JwtDecoderAutoConfiguration
 com.mrlonis.oauth2.autoconfig.autoconfig.OAuth2AutoConfiguration

@@ -43,9 +43,13 @@ public class OAuth2AutoConfigurationProperties {
     @Data
     public static class FederateConfiguration {
         private boolean enabled = false;
+        private boolean opaque = false;
         private String issuerUri;
         private String jwkSetUri;
+        private String introspectionUri;
         private Set<String> audiences = new HashSet<>();
+        private String clientId;
+        private String clientSecret;
     }
 
     @Data
