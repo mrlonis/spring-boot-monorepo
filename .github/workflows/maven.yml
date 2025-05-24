@@ -58,6 +58,11 @@ jobs:
           mvn spring-boot:run -Dspring-boot.run.profiles=local -pl oauth2-authorization-server -am &
           echo $! > oauth2-authorization-server.pid
 
+      - name: Run oauth2-authorization-server-opaque in the background
+        run: |
+          mvn spring-boot:run -Dspring-boot.run.profiles=local -pl oauth2-authorization-server-opaque -am &
+          echo $! > oauth2-authorization-server-opaque.pid
+
       - name: Run gateway in the background
         run: |
           mvn spring-boot:run -Dspring-boot.run.profiles=local -pl gateway -am &
@@ -84,6 +89,10 @@ jobs:
           if [ -f gateway.pid ]; then
             kill $(cat gateway.pid) || echo "Process already terminated"
             rm gateway.pid
+          fi
+          if [ -f oauth2-authorization-server-opaque.pid ]; then
+            kill $(cat oauth2-authorization-server-opaque.pid) || echo "Process already terminated"
+            rm oauth2-authorization-server-opaque.pid
           fi
           if [ -f oauth2-authorization-server.pid ]; then
             kill $(cat oauth2-authorization-server.pid) || echo "Process already terminated"
