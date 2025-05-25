@@ -44,13 +44,14 @@ import org.springframework.security.oauth2.server.authorization.settings.TokenSe
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 @AllArgsConstructor
 @Configuration
 @EnableWebSecurity
 @Slf4j
 public class SecurityConfig {
-    private ApplicationProperties applicationProperties;
+    private final ApplicationProperties applicationProperties;
 
     @Bean
     @Order(1)
@@ -58,21 +59,20 @@ public class SecurityConfig {
         OAuth2AuthorizationServerConfigurer authorizationServerConfigurer =
                 OAuth2AuthorizationServerConfigurer.authorizationServer();
 
-        http.securityMatcher(authorizationServerConfigurer.getEndpointsMatcher())
-                .with(
-                        authorizationServerConfigurer,
-                        authorizationServer ->
-                                authorizationServer.oidc(Customizer.withDefaults()) // Enable OpenID Connect 1.0
-                        )
+        RequestMatcher endpoints = authorizationServerConfigurer.getEndpointsMatcher();
+
+        http.securityMatcher(endpoints)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/actuator/**", "/error", "/logout")
+                        .requestMatchers("/actuator/**", "/error", "/logout", "/oauth2/**")
                         .permitAll()
                         .anyRequest()
                         .authenticated())
+                .oauth2ResourceServer(res -> res.opaqueToken(Customizer.withDefaults()))
                 // Redirect to the login page when not authenticated from the
                 // authorization endpoint
                 .exceptionHandling(exceptions -> exceptions.defaultAuthenticationEntryPointFor(
-                        new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED), request -> true));
+                        new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED), request -> true))
+                .with(authorizationServerConfigurer, Customizer.withDefaults());
 
         return http.build();
     }
@@ -85,7 +85,9 @@ public class SecurityConfig {
                         .permitAll()
                         .anyRequest()
                         .authenticated())
-                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
+                .oauth2ResourceServer(res -> res.opaqueToken(Customizer.withDefaults()))
+                .exceptionHandling(exceptions -> exceptions.defaultAuthenticationEntryPointFor(
+                        new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED), request -> true));
 
         return http.build();
     }

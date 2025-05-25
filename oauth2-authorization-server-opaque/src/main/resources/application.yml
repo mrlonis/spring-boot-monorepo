@@ -6,6 +6,13 @@ spring:
   threads:
     virtual:
       enabled: true
+  security:
+    oauth2:
+      resourceserver:
+        opaquetoken:
+          introspection-uri: /oauth2/introspect
+          client-id: oauth2-authorization-server-opaque-client
+          client-secret: oauth2-authorization-server-opaque-secret
 management:
   endpoints:
     web:
@@ -17,6 +24,18 @@ management:
           - mappings
 application:
   clients:
+    oauth2-authorization-server-opaque:
+      client-id: oauth2-authorization-server-opaque-client
+      client-secret: "{noop}oauth2-authorization-server-opaque-secret"
+      client-authentication-method: client_secret_basic
+      authorization-grant-type: client_credentials
+      redirect-uris:
+        - /login/oauth2/code/test-client
+      post-logout-redirect-uri: /
+      scopes:
+        - oauth2-authorization-server-opaque
+      client-settings:
+        require-authorization-consent: false
     test:
       client-id: test-client
       client-secret: "{noop}test-secret"
