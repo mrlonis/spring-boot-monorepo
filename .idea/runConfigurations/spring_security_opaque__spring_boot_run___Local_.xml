@@ -11,6 +11,7 @@
           </option>
           <option name="goals">
             <list>
+              <option value="spotless:apply" />
               <option value="spring-boot:run" />
               <option value="-Dspring-boot.run.profiles=local" />
               <option value="-pl" />
