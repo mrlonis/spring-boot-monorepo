@@ -30,6 +30,7 @@ public abstract class AbstractMockWebServerTests {
 
     @DynamicPropertySource
     static void dynamicProperties(org.springframework.test.context.DynamicPropertyRegistry registry) {
+        registry.add("MOCK_WEB_SERVER_PORT", () -> mockWebServer.getPort());
         registry.add(
                 "spring.security.oauth2.resourceserver.jwt.issuer-uri",
                 () -> "http://localhost:" + mockWebServer.getPort());
