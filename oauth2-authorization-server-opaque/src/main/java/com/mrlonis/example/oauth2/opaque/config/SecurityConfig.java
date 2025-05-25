@@ -67,9 +67,7 @@ public class SecurityConfig {
                         .permitAll()
                         .anyRequest()
                         .authenticated())
-                .oauth2ResourceServer(
-                        res -> res.opaqueToken(ot -> ot.introspectionUri("http://localhost:9563/oauth2/introspect")
-                                .introspectionClientCredentials("test-client", "test-secret")))
+                .oauth2ResourceServer(res -> res.opaqueToken(Customizer.withDefaults()))
                 // Redirect to the login page when not authenticated from the
                 // authorization endpoint
                 .exceptionHandling(exceptions -> exceptions.defaultAuthenticationEntryPointFor(
@@ -87,9 +85,7 @@ public class SecurityConfig {
                         .permitAll()
                         .anyRequest()
                         .authenticated())
-                .oauth2ResourceServer(
-                        res -> res.opaqueToken(ot -> ot.introspectionUri("http://localhost:9563/oauth2/introspect")
-                                .introspectionClientCredentials("test-client", "test-secret")))
+                .oauth2ResourceServer(res -> res.opaqueToken(Customizer.withDefaults()))
                 .exceptionHandling(exceptions -> exceptions.defaultAuthenticationEntryPointFor(
                         new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED), request -> true));
 

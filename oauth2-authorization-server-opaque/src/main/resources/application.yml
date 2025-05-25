@@ -6,6 +6,13 @@ spring:
   threads:
     virtual:
       enabled: true
+  security:
+    oauth2:
+      resourceserver:
+        opaquetoken:
+          introspection-uri: /oauth2/introspect
+          client-id: test-client
+          client-secret: test-secret
 management:
   endpoints:
     web:
