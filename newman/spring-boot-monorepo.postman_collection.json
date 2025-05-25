@@ -1874,6 +1874,556 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "spring-security-opaque",
+			"item": [
+				{
+					"name": "OAuth",
+					"item": [
+						{
+							"name": "OAuth",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response Status Code is 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Capture Access Token to Environment Variable\", function () {\r",
+											"    const responseJson = pm.response.json();\r",
+											"    pm.environment.set(\"access_token\", responseJson.access_token);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{spring-security-opaque-oauth-client-secret}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{spring-security-opaque-oauth-client-id}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "client_credentials",
+											"type": "text"
+										},
+										{
+											"key": "scope",
+											"value": "{{spring-security-opaque-oauth-client-scopes}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{oauth2-authorization-server-opaque-base-uri}}/oauth2/token",
+									"host": [
+										"{{oauth2-authorization-server-opaque-base-uri}}"
+									],
+									"path": [
+										"oauth2",
+										"token"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Actuator",
+					"item": [
+						{
+							"name": "Actuator",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response Status Code is 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{spring-security-opaque-base-uri}}/actuator",
+									"host": [
+										"{{spring-security-opaque-base-uri}}"
+									],
+									"path": [
+										"actuator"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Health",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response Status Code is 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{spring-security-opaque-base-uri}}/actuator/health",
+									"host": [
+										"{{spring-security-opaque-base-uri}}"
+									],
+									"path": [
+										"actuator",
+										"health"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Info",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response Status Code is 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{spring-security-opaque-base-uri}}/actuator/info",
+									"host": [
+										"{{spring-security-opaque-base-uri}}"
+									],
+									"path": [
+										"actuator",
+										"info"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Mappings",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response Status Code is 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{spring-security-opaque-base-uri}}/actuator/mappings",
+									"host": [
+										"{{spring-security-opaque-base-uri}}"
+									],
+									"path": [
+										"actuator",
+										"mappings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Metrics",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response Status Code is 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{spring-security-opaque-base-uri}}/actuator/metrics",
+									"host": [
+										"{{spring-security-opaque-base-uri}}"
+									],
+									"path": [
+										"actuator",
+										"metrics"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Test Controller",
+					"item": [
+						{
+							"name": "/v1/test - Authenticated",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response Status Code is 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{spring-security-opaque-base-uri}}/v1/test",
+									"host": [
+										"{{spring-security-opaque-base-uri}}"
+									],
+									"path": [
+										"v1",
+										"test"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/v1/test - Unauthenticated",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response Status Code is 401\", function(){\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{spring-security-opaque-base-uri}}/v1/test",
+									"host": [
+										"{{spring-security-opaque-base-uri}}"
+									],
+									"path": [
+										"v1",
+										"test"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{access_token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Invalid OAuth",
+					"item": [
+						{
+							"name": "OAuth",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response Status Code is 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Capture Access Token to Environment Variable\", function () {\r",
+											"    const responseJson = pm.response.json();\r",
+											"    pm.environment.set(\"access_token\", responseJson.access_token);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{oauth2-authorization-server-opaque-oauth-client-secret}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{oauth2-authorization-server-opaque-oauth-client-id}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "client_credentials",
+											"type": "text"
+										},
+										{
+											"key": "scope",
+											"value": "{{oauth2-authorization-server-opaque-oauth-scopes}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{oauth2-authorization-server-opaque-base-uri}}/oauth2/token",
+									"host": [
+										"{{oauth2-authorization-server-opaque-base-uri}}"
+									],
+									"path": [
+										"oauth2",
+										"token"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Test Controller with Invalid Token",
+					"item": [
+						{
+							"name": "/v1/test - Authenticated",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response Status Code is 401\", function(){\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{spring-security-opaque-base-uri}}/v1/test",
+									"host": [
+										"{{spring-security-opaque-base-uri}}"
+									],
+									"path": [
+										"v1",
+										"test"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/v1/test - Unauthenticated",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response Status Code is 401\", function(){\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{spring-security-opaque-base-uri}}/v1/test",
+									"host": [
+										"{{spring-security-opaque-base-uri}}"
+									],
+									"path": [
+										"v1",
+										"test"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{access_token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
 		}
 	]
 }
