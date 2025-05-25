@@ -31,7 +31,7 @@ public class SecurityConfig {
                         .permitAll()
                         .anyRequest()
                         .authenticated())
-                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
+                .oauth2ResourceServer(oauth2 -> oauth2.opaqueToken(Customizer.withDefaults()));
         return http.build();
     }
 
@@ -42,7 +42,7 @@ public class SecurityConfig {
                 .build();
 
         JwtClaimValidator<List<String>> audienceValidator = new JwtClaimValidator<>(
-                JwtClaimNames.AUD, aud -> aud != null && aud.contains("spring-security-client"));
+                JwtClaimNames.AUD, aud -> aud != null && aud.contains("spring-security-opaque-client"));
 
         OAuth2TokenValidator<Jwt> validator = new DelegatingOAuth2TokenValidator<>(
                 JwtValidators.createDefaultWithIssuer(

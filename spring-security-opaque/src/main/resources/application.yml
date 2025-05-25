@@ -21,8 +21,10 @@ spring:
   security:
     oauth2:
       resourceserver:
-        jwt:
-          issuer-uri: http://localhost:9562
+        opaquetoken:
+          introspection-uri: http://localhost:9563/oauth2/introspect
+          client-id: spring-security-opaque-client
+          client-secret: spring-security-opaque-secret
 server:
   port: 9055
 logging:

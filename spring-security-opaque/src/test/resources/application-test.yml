@@ -1,0 +1,8 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        opaquetoken:
+          introspection-uri: http://localhost:${MOCK_WEB_SERVER_PORT}/oauth2/introspect
+          client-id: spring-security-opaque-client
+          client-secret: spring-security-opaque-secret
