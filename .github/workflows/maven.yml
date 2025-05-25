@@ -73,6 +73,11 @@ jobs:
           mvn spring-boot:run -Dspring-boot.run.profiles=local -pl spring-security -am &
           echo $! > spring-security.pid
 
+      - name: Run spring-security-opaque in the background
+        run: |
+          mvn spring-boot:run -Dspring-boot.run.profiles=local -pl spring-security-opaque -am &
+          echo $! > spring-security-opaque.pid
+
       - name: Wait for services to start
         run: sleep 15
         shell: bash
@@ -82,6 +87,10 @@ jobs:
 
       - name: Shut down services
         run: |
+          if [ -f spring-security-opaque.pid ]; then
+            kill $(cat spring-security-opaque.pid) || echo "Process already terminated"
+            rm spring-security-opaque.pid
+          fi
           if [ -f spring-security.pid ]; then
             kill $(cat spring-security.pid) || echo "Process already terminated"
             rm spring-security.pid
