@@ -51,7 +51,7 @@ jobs:
           coverage-reports: target/site/jacoco-aggregate/jacoco.xml
 
       - name: Update dependency graph
-        uses: advanced-security/maven-dependency-submission-action@v4.1.2
+        uses: advanced-security/maven-dependency-submission-action@v5.0.0
 
       - name: Run oauth2-authorization-server in the background
         run: |
