@@ -24,8 +24,6 @@ oauth2:
         access: permit_all
   federate:
     enabled: true
-    issuer-uri: http://localhost:9562
-    jwk-set-uri: http://localhost:9562/oauth2/jwks
     audiences: spring-security-client
 ---
 spring:
@@ -39,6 +37,10 @@ spring:
           issuer-uri: http://localhost:9562
 server:
   port: 9054
+oauth2:
+  federate:
+    issuer-uri: http://localhost:9562
+    jwk-set-uri: http://localhost:9562/oauth2/jwks
 logging:
   level:
     com.mrlonis.example.security: debug

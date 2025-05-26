@@ -2,6 +2,7 @@
   <dictionary name="project">
     <words>
       <w>gitmodules</w>
+      <w>jwks</w>
       <w>mrlonis</w>
       <w>opaquetoken</w>
       <w>prettierrc</w>

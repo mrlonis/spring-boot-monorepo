@@ -9,9 +9,12 @@
 !.idea/codeStyles/**
 !.idea/dictionaries
 !.idea/dictionaries/**
+!.idea/inspectionProfiles
+!.idea/inspectionProfiles/**
 !.idea/runConfigurations
 !.idea/runConfigurations/**
 !.idea/compiler.xml
+!.idea/dataSources.xml
 !.idea/encodings.xml
 !.idea/jarRepositories.xml
 !.idea/misc.xml
