@@ -17,7 +17,6 @@ oauth2:
   enabled: true
   security:
     enabled: true
-    default-any-request-access: authenticated
     matchers:
       - paths:
           - /actuator/**
@@ -30,17 +29,8 @@ spring:
   config:
     activate:
       on-profile: local
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:9562
 server:
   port: 9054
-oauth2:
-  federate:
-    issuer-uri: http://localhost:9562
-    jwk-set-uri: http://localhost:9562/oauth2/jwks
 logging:
   level:
     com.mrlonis.example.security: debug

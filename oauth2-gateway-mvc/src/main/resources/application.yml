@@ -8,7 +8,7 @@ server:
         name: CUSTOM-SESSION-NAME
 spring:
   application:
-    name: example-spring-cloud-gateway-reactive-app
+    name: oauth2-gateway-mvc
   session:
     redis:
       save-mode: always
@@ -41,25 +41,6 @@ spring:
   config:
     activate:
       on-profile: local
-  security:
-    oauth2:
-      client:
-        registration:
-          oidc:
-            client-id: oidc-client
-            client-secret: oidc-secret
-            scope:
-              - openid
-              - profile
-              - email
-            authorization-grant-type: authorization_code
-            provider: oidc
-        provider:
-          oidc:
-            issuer-uri: http://localhost:9562
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:9562
 server:
   port: 9203
 logging:
