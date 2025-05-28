@@ -8,7 +8,7 @@ server:
         name: CUSTOM-SESSION-NAME
 spring:
   application:
-    name: example-spring-cloud-gateway-reactive-app
+    name: gateway
   session:
     redis:
       save-mode: always
