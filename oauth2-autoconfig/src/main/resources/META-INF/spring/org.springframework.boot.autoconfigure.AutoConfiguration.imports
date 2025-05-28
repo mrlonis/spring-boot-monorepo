@@ -1,3 +1,4 @@
 com.mrlonis.oauth2.autoconfig.autoconfig.OAuth2PropertiesPostProcessor
+com.mrlonis.oauth2.autoconfig.autoconfig.OAuth2PropertiesConfigurer
 com.mrlonis.oauth2.autoconfig.autoconfig.JwtDecoderAutoConfiguration
 com.mrlonis.oauth2.autoconfig.autoconfig.OAuth2AutoConfiguration
