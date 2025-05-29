@@ -17,7 +17,7 @@
     <module>flowable-engine</module>
     <module>gateway</module>
     <module>jacoco-report-aggregate</module>
-    <module>mysql-timestamp-to-datetime</module>
+    <module>mysql-migrations</module>
     <module>oauth2-authorization-server</module>
     <module>oauth2-authorization-server-opaque</module>
     <module>oauth2-autoconfig</module>
