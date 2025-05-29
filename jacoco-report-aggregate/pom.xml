@@ -56,7 +56,7 @@
     </dependency>
     <dependency>
       <groupId>com.mrlonis.time</groupId>
-      <artifactId>mysql-timestamp-to-datetime</artifactId>
+      <artifactId>mysql-migrations</artifactId>
       <version>${revision}</version>
     </dependency>
   </dependencies>
