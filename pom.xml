@@ -26,6 +26,7 @@
     <module>spring-security</module>
     <module>spring-security-opaque</module>
     <module>test-controller-autoconfig</module>
+    <module>todo-app</module>
   </modules>
   <properties>
     <cleanthat.version>2.22</cleanthat.version>
