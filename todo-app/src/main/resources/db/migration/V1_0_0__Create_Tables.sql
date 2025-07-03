@@ -8,15 +8,15 @@ CREATE TABLE todo_items (
   testing_urls VARCHAR(100000),
   completed BOOL DEFAULT FALSE,
   onenote_url VARCHAR(10000),
-  created_on TIMESTAMP(9)
+  created_on TIMESTAMP(6)
   WITH
     TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    completed_on TIMESTAMP(9)
+    completed_on TIMESTAMP(6)
   WITH
     TIME ZONE,
     pi VARCHAR(50) NOT NULL,
     sprint int NOT NULL,
-    type TINYINT NOT NULL,
+    type smallint NOT NULL,
     archived BOOL DEFAULT FALSE
 );
 

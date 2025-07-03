@@ -1,11 +1,15 @@
 spring:
   application:
     name: todo-service
-  datasource:
-    url: jdbc:h2:file:./data/h2-data
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
   jpa:
     hibernate:
       ddl-auto: validate
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: jdbc:postgres://localhost:5432/todo_db
+    username: myuser
+    password: secret

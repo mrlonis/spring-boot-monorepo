@@ -2,13 +2,13 @@ package com.mrlonis.todo.todo_service.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.mrlonis.todo.todo_service.TestUtils;
 import com.mrlonis.todo.todo_service.entities.PrUrl;
 import com.mrlonis.todo.todo_service.entities.TestingUrl;
 import com.mrlonis.todo.todo_service.entities.TodoItem;
 import com.mrlonis.todo.todo_service.repositories.PrUrlRepository;
 import com.mrlonis.todo.todo_service.repositories.TestingUrlRepository;
 import com.mrlonis.todo.todo_service.repositories.TodoItemRepository;
+import com.mrlonis.todo.todo_service.test.TestUtils;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

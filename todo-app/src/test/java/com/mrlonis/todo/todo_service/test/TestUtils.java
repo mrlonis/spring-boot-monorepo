@@ -1,4 +1,4 @@
-package com.mrlonis.todo.todo_service;
+package com.mrlonis.todo.todo_service.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
