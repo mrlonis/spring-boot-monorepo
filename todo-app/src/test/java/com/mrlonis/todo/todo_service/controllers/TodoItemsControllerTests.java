@@ -2,13 +2,14 @@ package com.mrlonis.todo.todo_service.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.mrlonis.todo.todo_service.TestUtils;
 import com.mrlonis.todo.todo_service.entities.PrUrl;
 import com.mrlonis.todo.todo_service.entities.TestingUrl;
 import com.mrlonis.todo.todo_service.entities.TodoItem;
 import com.mrlonis.todo.todo_service.repositories.PrUrlRepository;
 import com.mrlonis.todo.todo_service.repositories.TestingUrlRepository;
 import com.mrlonis.todo.todo_service.repositories.TodoItemRepository;
+import com.mrlonis.todo.todo_service.test.TestUtils;
+import com.mrlonis.todo.todo_service.test.TestcontainersConfiguration;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,9 +17,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.reactive.function.client.WebClient;
 
+@Import(TestcontainersConfiguration.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 class TodoItemsControllerTests {
