@@ -37,6 +37,12 @@ class TodoItemRepositoryTests {
     void tearDown() {
         todoItemRepository.deleteAll();
         todoItemRepository.flush();
+
+        prUrlRepository.deleteAll();
+        prUrlRepository.flush();
+
+        testingUrlRepository.deleteAll();
+        testingUrlRepository.flush();
     }
 
     @Test
