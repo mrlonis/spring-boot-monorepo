@@ -1,6 +1,8 @@
 package com.mrlonis.todo.todo_service.mappers;
 
 import com.mrlonis.todo.todo_service.dtos.TodoItemDto;
+import com.mrlonis.todo.todo_service.entities.PrUrl;
+import com.mrlonis.todo.todo_service.entities.TestingUrl;
 import com.mrlonis.todo.todo_service.entities.TodoItem;
 import lombok.experimental.UtilityClass;
 
@@ -11,10 +13,12 @@ public class TodoItemMapper {
                 .id(todoItem.getId())
                 .title(todoItem.getTitle())
                 .jiraUrl(todoItem.getJiraUrl())
-                .prUrls(todoItem.getPrUrls())
+                .prUrls(todoItem.getPrUrls().stream().map(PrUrl::getUrl).toList())
                 .cloudForgeConsoleUrl(todoItem.getCloudForgeConsoleUrl())
                 .releaseRequestUrl(todoItem.getReleaseRequestUrl())
-                .urlsUsedForTesting(todoItem.getUrlsUsedForTesting())
+                .urlsUsedForTesting(todoItem.getUrlsUsedForTesting().stream()
+                        .map(TestingUrl::getUrl)
+                        .toList())
                 .completed(todoItem.isCompleted())
                 .oneNoteUrl(todoItem.getOneNoteUrl())
                 .createdOn(todoItem.getCreatedOn())

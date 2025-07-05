@@ -14,7 +14,7 @@ import org.springframework.test.context.ActiveProfiles;
 @Import(TestcontainersConfiguration.class)
 @SpringBootTest
 @ActiveProfiles("test")
-class TodoServiceApplicationTests {
+class TodoServiceApplicationIT {
     @Autowired
     private TodoItemRepository todoItemRepository;
 

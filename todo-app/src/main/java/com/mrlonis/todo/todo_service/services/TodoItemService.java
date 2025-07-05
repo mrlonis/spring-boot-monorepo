@@ -68,10 +68,8 @@ public class TodoItemService {
             for (String prUrl : todoItemDto.getPrUrls()) {
                 Optional<PrUrl> prUrlToUpdate = prUrlRepository.findByUrlAndTodoItemId(prUrl, todoItem.getId());
                 if (prUrlToUpdate.isEmpty()) {
-                    PrUrl newPrUrl = PrUrl.builder()
-                            .url(prUrl)
-                            .todoItemId(todoItem.getId())
-                            .build();
+                    PrUrl newPrUrl =
+                            PrUrl.builder().url(prUrl).todoItem(todoItem).build();
                     prUrlRepository.saveAndFlush(newPrUrl);
                 } else {
                     PrUrl prUrlToUpdateValue = prUrlToUpdate.get();
@@ -89,7 +87,7 @@ public class TodoItemService {
                 if (testingUrlToUpdate.isEmpty()) {
                     TestingUrl newTestingUrl = TestingUrl.builder()
                             .url(testingUrl)
-                            .todoItemId(todoItem.getId())
+                            .todoItem(todoItem)
                             .build();
                     testingUrlRepository.saveAndFlush(newTestingUrl);
                 } else {
