@@ -20,7 +20,7 @@ import org.springframework.test.context.ActiveProfiles;
 @Import(TestcontainersConfiguration.class)
 @SpringBootTest
 @ActiveProfiles("test")
-class TestingUrlRepositoryTests {
+class TestingUrlRepositoryIT {
     @Autowired
     private TodoItemRepository todoItemRepository;
 
@@ -57,13 +57,13 @@ class TestingUrlRepositoryTests {
 
     @Test
     void testSaveAndFlush() {
-        TodoItem expectedTodoItem = TodoItemRepositoryTests.buildObject();
+        TodoItem expectedTodoItem = TodoItemRepositoryIT.buildObject();
         assertNull(expectedTodoItem.getId());
 
         TodoItem actualTodoItem = todoItemRepository.saveAndFlush(expectedTodoItem);
         assertNotNull(actualTodoItem.getId());
 
-        TodoItemRepositoryTests.assertObjects(expectedTodoItem, actualTodoItem);
+        TodoItemRepositoryIT.assertObjects(expectedTodoItem, actualTodoItem);
 
         TestingUrl expected = buildObject(actualTodoItem);
         assertNull(expected.getId());
@@ -84,13 +84,13 @@ class TestingUrlRepositoryTests {
 
     @Test
     void testDelete() {
-        TodoItem expectedTodoItem = TodoItemRepositoryTests.buildObject();
+        TodoItem expectedTodoItem = TodoItemRepositoryIT.buildObject();
         assertNull(expectedTodoItem.getId());
 
         TodoItem actualTodoItem = todoItemRepository.saveAndFlush(expectedTodoItem);
         assertNotNull(actualTodoItem.getId());
 
-        TodoItemRepositoryTests.assertObjects(expectedTodoItem, actualTodoItem);
+        TodoItemRepositoryIT.assertObjects(expectedTodoItem, actualTodoItem);
 
         TestingUrl expected = buildObject(actualTodoItem);
         assertNull(expected.getId());
@@ -111,13 +111,13 @@ class TestingUrlRepositoryTests {
 
     @Test
     void testFindByUrlAndTodoItemId() {
-        TodoItem expectedTodoItem = TodoItemRepositoryTests.buildObject();
+        TodoItem expectedTodoItem = TodoItemRepositoryIT.buildObject();
         assertNull(expectedTodoItem.getId());
 
         TodoItem actualTodoItem = todoItemRepository.saveAndFlush(expectedTodoItem);
         assertNotNull(actualTodoItem.getId());
 
-        TodoItemRepositoryTests.assertObjects(expectedTodoItem, actualTodoItem);
+        TodoItemRepositoryIT.assertObjects(expectedTodoItem, actualTodoItem);
 
         TestingUrl expected = buildObject(actualTodoItem);
         assertNull(expected.getId());
