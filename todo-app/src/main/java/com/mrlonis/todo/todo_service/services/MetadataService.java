@@ -19,7 +19,7 @@ public class MetadataService {
     }
 
     public List<Integer> getAllSprints() {
-        return sprintCacheService.getAllPis();
+        return sprintCacheService.getAllSprints();
     }
 
     public void evictAllCaches() {
