@@ -54,6 +54,14 @@ class TodoItemRepositoryTests {
         List<TodoItem> result = todoItemRepository.findAll();
         assertNotNull(result);
         assertTrue(result.isEmpty());
+
+        List<PrUrl> prUrls = prUrlRepository.findAll();
+        assertNotNull(prUrls);
+        assertTrue(prUrls.isEmpty());
+
+        List<TestingUrl> testingUrls = testingUrlRepository.findAll();
+        assertNotNull(testingUrls);
+        assertTrue(testingUrls.isEmpty());
     }
 
     @Test
@@ -67,7 +75,7 @@ class TodoItemRepositoryTests {
         assertObjects(expected, actual);
     }
 
-    private TodoItem buildObject() {
+    public static TodoItem buildObject() {
         return TodoItem.builder()
                 .title("title")
                 .jiraUrl("jiraUrl")
@@ -84,7 +92,7 @@ class TodoItemRepositoryTests {
                 .build();
     }
 
-    private void assertObjects(TodoItem expected, TodoItem actual) {
+    public static void assertObjects(TodoItem expected, TodoItem actual) {
         assertEquals(expected.getTitle(), actual.getTitle());
         assertEquals(expected.getJiraUrl(), actual.getJiraUrl());
         assertEquals(expected.getCloudForgeConsoleUrl(), actual.getCloudForgeConsoleUrl());
