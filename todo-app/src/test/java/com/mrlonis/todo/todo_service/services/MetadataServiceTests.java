@@ -37,7 +37,7 @@ class MetadataServiceTests {
 
     @Test
     void testGetAllSprints() {
-        when(sprintCacheService.getAllPis()).thenReturn(List.of(1, 2, 3));
+        when(sprintCacheService.getAllSprints()).thenReturn(List.of(1, 2, 3));
 
         List<Integer> result = metadataService.getAllSprints();
         assertNotNull(result);
