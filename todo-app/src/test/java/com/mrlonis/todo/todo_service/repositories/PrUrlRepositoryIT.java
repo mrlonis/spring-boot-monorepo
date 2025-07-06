@@ -1,6 +1,8 @@
 package com.mrlonis.todo.todo_service.repositories;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static com.mrlonis.todo.todo_service.test.TestUtilities.assertPrUrls;
+import static com.mrlonis.todo.todo_service.test.TestUtilities.assertTodoItems;
+import static com.mrlonis.todo.todo_service.test.TestUtilities.buildDefaultTodoItem;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -57,47 +59,42 @@ class PrUrlRepositoryIT {
 
     @Test
     void testSaveAndFlush() {
-        TodoItem expectedTodoItem = TodoItemRepositoryIT.buildObject();
+        TodoItem expectedTodoItem = buildDefaultTodoItem();
         assertNull(expectedTodoItem.getId());
 
         TodoItem actualTodoItem = todoItemRepository.saveAndFlush(expectedTodoItem);
         assertNotNull(actualTodoItem.getId());
 
-        TodoItemRepositoryIT.assertObjects(expectedTodoItem, actualTodoItem);
+        assertTodoItems(expectedTodoItem, actualTodoItem);
 
         PrUrl expected = buildObject(actualTodoItem);
         assertNull(expected.getId());
 
         PrUrl actual = prUrlRepository.saveAndFlush(expected);
         assertNotNull(actual.getId());
-        assertObjects(expected, actual);
+        assertPrUrls(expected, actual);
     }
 
     private static PrUrl buildObject(TodoItem todoItem) {
         return PrUrl.builder().url("url").todoItem(todoItem).build();
     }
 
-    private static void assertObjects(PrUrl expected, PrUrl actual) {
-        assertEquals(expected.getUrl(), actual.getUrl());
-        assertEquals(expected.getTodoItem().getId(), actual.getTodoItem().getId());
-    }
-
     @Test
     void testDelete() {
-        TodoItem expectedTodoItem = TodoItemRepositoryIT.buildObject();
+        TodoItem expectedTodoItem = buildDefaultTodoItem();
         assertNull(expectedTodoItem.getId());
 
         TodoItem actualTodoItem = todoItemRepository.saveAndFlush(expectedTodoItem);
         assertNotNull(actualTodoItem.getId());
 
-        TodoItemRepositoryIT.assertObjects(expectedTodoItem, actualTodoItem);
+        assertTodoItems(expectedTodoItem, actualTodoItem);
 
         PrUrl expected = buildObject(actualTodoItem);
         assertNull(expected.getId());
 
         PrUrl actual = prUrlRepository.saveAndFlush(expected);
         assertNotNull(actual.getId());
-        assertObjects(expected, actual);
+        assertPrUrls(expected, actual);
 
         prUrlRepository.delete(actual);
         prUrlRepository.flush();
@@ -111,24 +108,24 @@ class PrUrlRepositoryIT {
 
     @Test
     void testFindByUrlAndTodoItemId() {
-        TodoItem expectedTodoItem = TodoItemRepositoryIT.buildObject();
+        TodoItem expectedTodoItem = buildDefaultTodoItem();
         assertNull(expectedTodoItem.getId());
 
         TodoItem actualTodoItem = todoItemRepository.saveAndFlush(expectedTodoItem);
         assertNotNull(actualTodoItem.getId());
 
-        TodoItemRepositoryIT.assertObjects(expectedTodoItem, actualTodoItem);
+        assertTodoItems(expectedTodoItem, actualTodoItem);
 
         PrUrl expected = buildObject(actualTodoItem);
         assertNull(expected.getId());
 
         PrUrl actual = prUrlRepository.saveAndFlush(expected);
         assertNotNull(actual.getId());
-        assertObjects(expected, actual);
+        assertPrUrls(expected, actual);
 
         Optional<PrUrl> result = prUrlRepository.findByUrlAndTodoItemId(actual.getUrl(), actualTodoItem.getId());
         assertNotNull(result);
         assertTrue(result.isPresent());
-        assertObjects(expected, result.get());
+        assertPrUrls(expected, result.get());
     }
 }

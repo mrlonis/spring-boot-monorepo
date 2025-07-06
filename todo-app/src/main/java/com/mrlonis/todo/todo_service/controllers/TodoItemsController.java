@@ -1,7 +1,6 @@
 package com.mrlonis.todo.todo_service.controllers;
 
 import com.mrlonis.todo.todo_service.dtos.TodoItemDto;
-import com.mrlonis.todo.todo_service.entities.TodoItem;
 import com.mrlonis.todo.todo_service.exceptions.TodoItemNotFoundException;
 import com.mrlonis.todo.todo_service.services.TodoItemService;
 import java.util.List;
@@ -30,7 +29,7 @@ public class TodoItemsController {
     }
 
     @PostMapping("/item")
-    public TodoItem createOrUpdateTodoItem(@RequestBody TodoItemDto todoItemDto) throws TodoItemNotFoundException {
+    public TodoItemDto createOrUpdateTodoItem(@RequestBody TodoItemDto todoItemDto) throws TodoItemNotFoundException {
         return todoItemService.createOrUpdateTodoItem(todoItemDto);
     }
 

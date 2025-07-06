@@ -1,5 +1,7 @@
 package com.mrlonis.todo.todo_service.repositories;
 
+import static com.mrlonis.todo.todo_service.test.TestUtilities.assertTodoItems;
+import static com.mrlonis.todo.todo_service.test.TestUtilities.buildDefaultTodoItem;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -8,9 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.mrlonis.todo.todo_service.entities.PrUrl;
 import com.mrlonis.todo.todo_service.entities.TestingUrl;
 import com.mrlonis.todo.todo_service.entities.TodoItem;
-import com.mrlonis.todo.todo_service.enums.TodoItemType;
 import com.mrlonis.todo.todo_service.test.TestcontainersConfiguration;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
@@ -23,7 +23,7 @@ import org.springframework.test.context.ActiveProfiles;
 @Import(TestcontainersConfiguration.class)
 @SpringBootTest
 @ActiveProfiles("test")
-public class TodoItemRepositoryIT {
+class TodoItemRepositoryIT {
     @Autowired
     private TodoItemRepository todoItemRepository;
 
@@ -66,56 +66,24 @@ public class TodoItemRepositoryIT {
 
     @Test
     void testSaveAndFlush() {
-        TodoItem expected = buildObject();
+        TodoItem expected = buildDefaultTodoItem();
         assertNull(expected.getId());
 
         TodoItem actual = todoItemRepository.saveAndFlush(expected);
         assertNotNull(actual.getId());
 
-        assertObjects(expected, actual);
-    }
-
-    public static TodoItem buildObject() {
-        return TodoItem.builder()
-                .title("title")
-                .jiraUrl("jiraUrl")
-                .cloudForgeConsoleUrl("cloudForgeConsoleUrl")
-                .releaseRequestUrl("releaseRequestUrl")
-                .completed(false)
-                .oneNoteUrl("oneNoteUrl")
-                .createdOn(ZonedDateTime.now())
-                .completedOn(ZonedDateTime.now())
-                .pi("pi")
-                .sprint(0)
-                .type(TodoItemType.ASSIGNED)
-                .archived(false)
-                .build();
-    }
-
-    public static void assertObjects(TodoItem expected, TodoItem actual) {
-        assertEquals(expected.getTitle(), actual.getTitle());
-        assertEquals(expected.getJiraUrl(), actual.getJiraUrl());
-        assertEquals(expected.getCloudForgeConsoleUrl(), actual.getCloudForgeConsoleUrl());
-        assertEquals(expected.getReleaseRequestUrl(), actual.getReleaseRequestUrl());
-        assertEquals(expected.isCompleted(), actual.isCompleted());
-        assertEquals(expected.getOneNoteUrl(), actual.getOneNoteUrl());
-        assertEquals(expected.getCreatedOn(), actual.getCreatedOn());
-        assertEquals(expected.getCompletedOn(), actual.getCompletedOn());
-        assertEquals(expected.getPi(), actual.getPi());
-        assertEquals(expected.getSprint(), actual.getSprint());
-        assertEquals(expected.getType(), actual.getType());
-        assertEquals(expected.isArchived(), actual.isArchived());
+        assertTodoItems(expected, actual);
     }
 
     @Test
     void testDelete() {
-        TodoItem expected = buildObject();
+        TodoItem expected = buildDefaultTodoItem();
         assertNull(expected.getId());
 
         TodoItem actual = todoItemRepository.saveAndFlush(expected);
         assertNotNull(actual.getId());
 
-        assertObjects(expected, actual);
+        assertTodoItems(expected, actual);
 
         todoItemRepository.delete(actual);
         todoItemRepository.flush();
@@ -130,13 +98,13 @@ public class TodoItemRepositoryIT {
     @Test
     void testSaveAndFlush_withPrUrls() {
         // Create a TodoItem with no PrUrls
-        TodoItem expected = buildObject();
+        TodoItem expected = buildDefaultTodoItem();
         assertNull(expected.getId());
 
         TodoItem actual = todoItemRepository.saveAndFlush(expected);
         assertNotNull(actual.getId());
 
-        assertObjects(expected, actual);
+        assertTodoItems(expected, actual);
 
         // Add a PrUrl to the TodoItem
         PrUrl prUrl = PrUrl.builder().url("url").todoItem(actual).build();
@@ -158,13 +126,13 @@ public class TodoItemRepositoryIT {
     @Test
     void testSaveAndFlush_withUrlsUsedForTesting() {
         // Create a TodoItem with no TestingUrls
-        TodoItem expected = buildObject();
+        TodoItem expected = buildDefaultTodoItem();
         assertNull(expected.getId());
 
         TodoItem actual = todoItemRepository.saveAndFlush(expected);
         assertNotNull(actual.getId());
 
-        assertObjects(expected, actual);
+        assertTodoItems(expected, actual);
 
         // Add a TestingUrl to the TodoItem
         TestingUrl testingUrl =
