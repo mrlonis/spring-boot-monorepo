@@ -17,16 +17,18 @@ spring:
       enabled: true
   cloud:
     gateway:
-      default-filters:
-        - SessionTouched
-        - SaveSession
-      routes:
-        - id: example_route
-          uri: https://www.google.com
-          predicates:
-            - Path=/google/**
-          filters:
-            - StripPrefix=1
+      server:
+        webflux:
+          default-filters:
+            - SessionTouched
+            - SaveSession
+          routes:
+            - id: example_route
+              uri: https://www.google.com
+              predicates:
+                - Path=/google/**
+              filters:
+                - StripPrefix=1
 management:
   endpoints:
     web:

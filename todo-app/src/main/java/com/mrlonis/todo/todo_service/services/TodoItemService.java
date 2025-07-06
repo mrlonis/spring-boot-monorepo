@@ -17,6 +17,7 @@ import java.util.Optional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @AllArgsConstructor
@@ -26,14 +27,17 @@ public class TodoItemService {
     private PrUrlRepository prUrlRepository;
     private TestingUrlRepository testingUrlRepository;
     private MetadataService metadataService;
+    private TodoItemMapper todoItemMapper;
 
+    @Transactional
     public List<TodoItemDto> getTodoItems() {
         return todoItemRepository.findAll().stream()
-                .map(TodoItemMapper::mapTodoItemToTodoItemDto)
+                .map(todoItem -> todoItemMapper.mapTodoItemToTodoItemDto(todoItem))
                 .toList();
     }
 
-    public TodoItem createOrUpdateTodoItem(TodoItemDto todoItemDto) throws TodoItemNotFoundException {
+    @Transactional
+    public TodoItemDto createOrUpdateTodoItem(TodoItemDto todoItemDto) throws TodoItemNotFoundException {
         log.info("Received the following TodoItemDto: {}", todoItemDto);
         TodoItem todoItem;
         if (todoItemDto.getId() != null) {
@@ -98,18 +102,21 @@ public class TodoItemService {
             }
         }
 
-        return todoItemRepository.getReferenceById(todoItem.getId());
+        return todoItemMapper.mapTodoItemToTodoItemDto(todoItemRepository.getReferenceById(todoItem.getId()));
     }
 
+    @Transactional
     public Map<String, List<TodoItemDto>> getTodoItemsByPi() {
         return todoItemRepository.findAll().stream()
-                .map(TodoItemMapper::mapTodoItemToTodoItemDto)
+                .map(todoItem -> todoItemMapper.mapTodoItemToTodoItemDto(todoItem))
                 .collect(groupingBy(TodoItemDto::getPi));
     }
 
+    @Transactional
     public Map<String, Map<Integer, List<TodoItemDto>>> getTodoItemsByPiAndBySprint(
             Boolean hideCompleted, Boolean archived) {
-        var temp = todoItemRepository.findAll().stream().map(TodoItemMapper::mapTodoItemToTodoItemDto);
+        var temp = todoItemRepository.findAll().stream()
+                .map(todoItem -> todoItemMapper.mapTodoItemToTodoItemDto(todoItem));
         if (Boolean.TRUE.equals(hideCompleted) && !Boolean.TRUE.equals(archived)) {
             temp = temp.filter(todoItemDto -> !todoItemDto.isCompleted());
         }

@@ -11,6 +11,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="test-controller-autoconfig" />
+        <module name="spring-security-opaque" />
+        <module name="oauth2-authorization-server" />
+        <module name="spring-security" />
+        <module name="oauth2-autoconfig" />
+        <module name="flowable-engine" />
+        <module name="mysql-migrations" />
+        <module name="gateway" />
       </profile>
       <profile name="Annotation profile for spring-boot-monorepo" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -18,19 +26,11 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.4.6/spring-boot-configuration-processor-3.4.6.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.5.3/spring-boot-configuration-processor-3.5.3.jar" />
         </processorPath>
-        <module name="test-controller-autoconfig" />
-        <module name="spring-security-opaque" />
         <module name="oauth2-gateway-mvc" />
         <module name="oauth2-authorization-server-opaque" />
-        <module name="oauth2-authorization-server" />
         <module name="todo-app" />
-        <module name="spring-security" />
-        <module name="oauth2-autoconfig" />
-        <module name="flowable-engine" />
-        <module name="mysql-migrations" />
-        <module name="gateway" />
       </profile>
     </annotationProcessing>
   </component>
