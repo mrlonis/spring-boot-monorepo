@@ -13,14 +13,12 @@
         <outputRelativeToContentRoot value="true" />
         <module name="test-controller-autoconfig" />
         <module name="spring-security-opaque" />
-        <module name="oauth2-authorization-server" />
-        <module name="spring-security" />
+        <module name="oauth2-gateway-mvc" />
+        <module name="oauth2-authorization-server-opaque" />
+        <module name="todo-app" />
         <module name="oauth2-autoconfig" />
-        <module name="flowable-engine" />
-        <module name="mysql-migrations" />
-        <module name="gateway" />
       </profile>
-      <profile name="Annotation profile for spring-boot-monorepo" enabled="true">
+      <profile name="Annotation profile for flowable-engine" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -28,9 +26,47 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.5.3/spring-boot-configuration-processor-3.5.3.jar" />
         </processorPath>
-        <module name="oauth2-gateway-mvc" />
-        <module name="oauth2-authorization-server-opaque" />
-        <module name="todo-app" />
+        <module name="flowable-engine" />
+      </profile>
+      <profile name="Annotation profile for gateway" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.5.3/spring-boot-configuration-processor-3.5.3.jar" />
+        </processorPath>
+        <module name="gateway" />
+      </profile>
+      <profile name="Annotation profile for mysql-migrations" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.5.3/spring-boot-configuration-processor-3.5.3.jar" />
+        </processorPath>
+        <module name="mysql-migrations" />
+      </profile>
+      <profile name="Annotation profile for oauth2-authorization-server" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.5.3/spring-boot-configuration-processor-3.5.3.jar" />
+        </processorPath>
+        <module name="oauth2-authorization-server" />
+      </profile>
+      <profile name="Annotation profile for spring-security" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.5.3/spring-boot-configuration-processor-3.5.3.jar" />
+        </processorPath>
+        <module name="spring-security" />
       </profile>
     </annotationProcessing>
   </component>

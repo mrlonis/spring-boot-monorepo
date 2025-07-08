@@ -31,6 +31,7 @@
   <properties>
     <cleanthat.version>2.22</cleanthat.version>
     <commons-collections4.version>4.5.0</commons-collections4.version>
+    <commons-collections4.version>4.5.0</commons-collections4.version>
     <commons-compress.version>1.27.1</commons-compress.version>
     <commons-io.version>2.19.0</commons-io.version>
     <commons-lang3.version>3.17.0</commons-lang3.version>
@@ -109,6 +110,11 @@
         <groupId>io.github.solven-eu.cleanthat</groupId>
         <artifactId>spotless</artifactId>
         <version>${cleanthat.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-collections4</artifactId>
+        <version>${commons-collections4.version}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.commons</groupId>

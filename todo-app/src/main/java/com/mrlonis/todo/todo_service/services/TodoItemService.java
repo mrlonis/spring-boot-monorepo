@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -68,7 +69,7 @@ public class TodoItemService {
         // TODO - It is possible I decide Sprints & PIs cannot be modified, so this might only need to happen on create
         metadataService.evictAllCaches();
 
-        if (todoItemDto.getPrUrls() != null && !todoItemDto.getPrUrls().isEmpty()) {
+        if (CollectionUtils.isNotEmpty(todoItemDto.getPrUrls())) {
             for (String prUrl : todoItemDto.getPrUrls()) {
                 Optional<PrUrl> prUrlToUpdate = prUrlRepository.findByUrlAndTodoItemId(prUrl, todoItem.getId());
                 if (prUrlToUpdate.isEmpty()) {
@@ -83,8 +84,7 @@ public class TodoItemService {
             }
         }
 
-        if (todoItemDto.getUrlsUsedForTesting() != null
-                && !todoItemDto.getUrlsUsedForTesting().isEmpty()) {
+        if (CollectionUtils.isNotEmpty(todoItemDto.getUrlsUsedForTesting())) {
             for (String testingUrl : todoItemDto.getUrlsUsedForTesting()) {
                 Optional<TestingUrl> testingUrlToUpdate =
                         testingUrlRepository.findByUrlAndTodoItemId(testingUrl, todoItem.getId());
