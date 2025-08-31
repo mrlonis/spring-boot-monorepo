@@ -8,6 +8,17 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/flowable-engine/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/gateway/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/mysql-migrations/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/oauth2-authorization-server-opaque/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/oauth2-authorization-server/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/oauth2-autoconfig/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/oauth2-gateway-mvc/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/spring-security-opaque/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/spring-security/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/test-controller-autoconfig/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/todo-app/target/maven-archiver/pom.properties" />
       </list>
     </option>
   </component>

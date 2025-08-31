@@ -1,8 +1,6 @@
 package com.mrlonis.todo.todo_service.dtos;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mrlonis.todo.todo_service.enums.TodoItemType;
-import com.mrlonis.todo.todo_service.utils.ZonedDateTimeSerializer;
 import java.time.ZonedDateTime;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,12 +36,8 @@ public class TodoItemDto {
 
     @Nullable private String oneNoteUrl;
 
-    @JsonSerialize(using = ZonedDateTimeSerializer.class)
     private ZonedDateTime createdOn;
-
-    @JsonSerialize(using = ZonedDateTimeSerializer.class)
     private ZonedDateTime completedOn;
-
     private String pi;
     private int sprint;
     private TodoItemType type;
