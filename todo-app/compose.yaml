@@ -1,9 +1,9 @@
 services:
   postgres:
-    image: "postgres:latest"
+    image: postgres:latest
     environment:
-      - "POSTGRES_DB=todo_db"
-      - "POSTGRES_PASSWORD=secret"
-      - "POSTGRES_USER=myuser"
+      POSTGRES_DB: todo_db
+      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: myuser
     ports:
       - "5432:5432"

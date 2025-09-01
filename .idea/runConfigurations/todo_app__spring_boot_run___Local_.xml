@@ -13,6 +13,7 @@
             <list>
               <option value="spring-boot:run" />
               <option value="-Dspring-boot.run.profiles=local" />
+              <option value="-Dspring-boot.run.jvmArguments=-Duser.timezone=UTC" />
               <option value="-pl" />
               <option value="todo-app" />
               <option value="-am" />

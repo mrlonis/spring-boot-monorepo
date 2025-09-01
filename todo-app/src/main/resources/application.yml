@@ -10,6 +10,6 @@ spring:
     activate:
       on-profile: local
   datasource:
-    url: jdbc:postgres://localhost:5432/todo_db
+    url: jdbc:postgresql://localhost:5432/todo_db
     username: myuser
     password: secret

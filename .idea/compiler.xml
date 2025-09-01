@@ -11,10 +11,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="maven-archiver (2)" />
-        <module name="maven-archiver (3)" />
-        <module name="maven-archiver (1)" />
-        <module name="maven-archiver (10)" />
+        <module name="oauth2-authorization-server-opaque" />
+        <module name="todo-app" />
         <module name="maven-archiver (11)" />
         <module name="maven-archiver (8)" />
         <module name="maven-archiver (9)" />
@@ -22,6 +20,11 @@
         <module name="maven-archiver (7)" />
         <module name="maven-archiver (4)" />
         <module name="maven-archiver (5)" />
+        <module name="maven-archiver (2)" />
+        <module name="maven-archiver (3)" />
+        <module name="maven-archiver (1)" />
+        <module name="maven-archiver (10)" />
+        <module name="gateway" />
       </profile>
       <profile name="Annotation profile for spring-boot-monorepo" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -34,14 +37,11 @@
         <module name="test-controller-autoconfig" />
         <module name="spring-security-opaque" />
         <module name="oauth2-gateway-mvc" />
-        <module name="oauth2-authorization-server-opaque" />
         <module name="oauth2-authorization-server" />
-        <module name="todo-app" />
         <module name="spring-security" />
         <module name="oauth2-autoconfig" />
         <module name="flowable-engine" />
         <module name="mysql-migrations" />
-        <module name="gateway" />
       </profile>
     </annotationProcessing>
   </component>
