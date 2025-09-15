@@ -51,7 +51,7 @@
     <okhttp-bom.version>4.12.0</okhttp-bom.version>
     <org.bouncycastle.version>1.80</org.bouncycastle.version>
     <org.checkerframework.version>3.49.5</org.checkerframework.version>
-    <org.jetbrains.annotations.version>26.0.2</org.jetbrains.annotations.version>
+    <org.jetbrains.annotations.version>26.0.2-1</org.jetbrains.annotations.version>
     <palantir-java-format.version>2.70.0</palantir-java-format.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
