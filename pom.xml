@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.5.3</version>
+    <version>3.5.7</version>
     <relativePath/>
   </parent>
   <groupId>com.mrlonis</groupId>
@@ -29,37 +29,37 @@
     <module>todo-app</module>
   </modules>
   <properties>
-    <cleanthat.version>2.22</cleanthat.version>
+    <cleanthat.version>2.24</cleanthat.version>
     <commons-collections4.version>4.5.0</commons-collections4.version>
     <commons-collections4.version>4.5.0</commons-collections4.version>
-    <commons-compress.version>1.27.1</commons-compress.version>
-    <commons-io.version>2.19.0</commons-io.version>
+    <commons-compress.version>1.28.0</commons-compress.version>
+    <commons-io.version>2.20.0</commons-io.version>
     <commons-lang3.version>3.18.0</commons-lang3.version>
-    <commons-text.version>1.13.1</commons-text.version>
+    <commons-text.version>1.14.0</commons-text.version>
     <exec-maven-plugin.version>3.5.0</exec-maven-plugin.version>
     <flowable.version>7.1.0</flowable.version>
     <git-build-hook-maven-plugin.version>3.5.0</git-build-hook-maven-plugin.version>
-    <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
+    <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
     <java.version>21</java.version>
     <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
     <maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
     <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
-    <nimbus-jose-jwt.version>10.4.2</nimbus-jose-jwt.version>
+    <nimbus-jose-jwt.version>10.5</nimbus-jose-jwt.version>
     <oauth2-oidc-sdk.version>11.25</oauth2-oidc-sdk.version>
     <okhttp-bom.version>4.12.0</okhttp-bom.version>
     <org.bouncycastle.version>1.80</org.bouncycastle.version>
-    <org.checkerframework.version>3.49.5</org.checkerframework.version>
+    <org.checkerframework.version>3.51.1</org.checkerframework.version>
     <org.jetbrains.annotations.version>26.0.2</org.jetbrains.annotations.version>
-    <palantir-java-format.version>2.70.0</palantir-java-format.version>
+    <palantir-java-format.version>2.81.0</palantir-java-format.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <revision>0.0.1-SNAPSHOT</revision>
     <spotless.version>2.44.5</spotless.version>
     <spring-cloud.version>2025.0.0</spring-cloud.version>
     <testcontainers.version>1.21.3</testcontainers.version>
-    <versions-maven-plugin.version>2.18.0</versions-maven-plugin.version>
+    <versions-maven-plugin.version>2.19.1</versions-maven-plugin.version>
   </properties>
   <dependencyManagement>
     <dependencies>
