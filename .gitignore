@@ -5,22 +5,8 @@
 
 ### IntelliJ IDEA ###
 .idea/**
-!.idea/codeStyles
-!.idea/codeStyles/**
-!.idea/dictionaries
-!.idea/dictionaries/**
-!.idea/inspectionProfiles
-!.idea/inspectionProfiles/**
 !.idea/runConfigurations
 !.idea/runConfigurations/**
-!.idea/compiler.xml
-!.idea/dataSources.xml
-!.idea/encodings.xml
-!.idea/jarRepositories.xml
-!.idea/misc.xml
-!.idea/palantir-java-format.xml
-!.idea/sqldialects.xml
-!.idea/vcs.xml
 *.iws
 *.iml
 *.ipr
