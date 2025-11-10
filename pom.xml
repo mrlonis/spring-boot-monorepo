@@ -273,6 +273,9 @@
             <endWithNewline/>
           </java>
           <pom>
+            <includes>
+              <include>**/pom.xml</include>
+            </includes>
             <sortPom>
               <expandEmptyElements>false</expandEmptyElements>
               <lineSeparator>\n</lineSeparator>
@@ -345,6 +348,7 @@
             <goals>
               <goal>enforce</goal>
             </goals>
+            <inherited>false</inherited>
             <configuration>
               <rules>
                 <requireJavaVersion>
@@ -358,6 +362,7 @@
             <goals>
               <goal>enforce</goal>
             </goals>
+            <inherited>false</inherited>
             <configuration>
               <rules>
                 <requireMavenVersion>
