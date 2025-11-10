@@ -33,7 +33,7 @@
     <commons-collections4.version>4.5.0</commons-collections4.version>
     <commons-collections4.version>4.5.0</commons-collections4.version>
     <commons-compress.version>1.28.0</commons-compress.version>
-    <commons-io.version>2.20.0</commons-io.version>
+    <commons-io.version>2.21.0</commons-io.version>
     <commons-lang3.version>3.18.0</commons-lang3.version>
     <commons-text.version>1.14.0</commons-text.version>
     <exec-maven-plugin.version>3.5.0</exec-maven-plugin.version>
@@ -46,11 +46,11 @@
     <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
-    <nimbus-jose-jwt.version>10.5</nimbus-jose-jwt.version>
+    <nimbus-jose-jwt.version>10.6</nimbus-jose-jwt.version>
     <oauth2-oidc-sdk.version>11.25</oauth2-oidc-sdk.version>
     <okhttp-bom.version>5.3.0</okhttp-bom.version>
     <org.bouncycastle.version>1.82</org.bouncycastle.version>
-    <org.checkerframework.version>3.51.1</org.checkerframework.version>
+    <org.checkerframework.version>3.52.0</org.checkerframework.version>
     <org.jetbrains.annotations.version>26.0.2-1</org.jetbrains.annotations.version>
     <palantir-java-format.version>2.81.0</palantir-java-format.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
