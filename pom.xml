@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.5.7</version>
+    <version>3.5.8</version>
     <relativePath/>
   </parent>
   <groupId>com.mrlonis</groupId>
@@ -48,7 +48,7 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <nimbus-jose-jwt.version>10.6</nimbus-jose-jwt.version>
     <oauth2-oidc-sdk.version>11.25</oauth2-oidc-sdk.version>
-    <okhttp-bom.version>5.3.1</okhttp-bom.version>
+    <okhttp-bom.version>5.3.2</okhttp-bom.version>
     <org.bouncycastle.version>1.82</org.bouncycastle.version>
     <org.checkerframework.version>3.52.0</org.checkerframework.version>
     <org.jetbrains.annotations.version>26.0.2-1</org.jetbrains.annotations.version>
@@ -56,10 +56,10 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <revision>0.0.1-SNAPSHOT</revision>
-    <spotless.version>3.0.0</spotless.version>
+    <spotless.version>3.1.0</spotless.version>
     <spring-cloud.version>2025.0.0</spring-cloud.version>
     <testcontainers.version>1.21.3</testcontainers.version>
-    <versions-maven-plugin.version>2.19.1</versions-maven-plugin.version>
+    <versions-maven-plugin.version>2.20.0</versions-maven-plugin.version>
   </properties>
   <dependencyManagement>
     <dependencies>
