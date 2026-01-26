@@ -59,7 +59,7 @@
     <spotless.version>3.0.0</spotless.version>
     <spring-cloud.version>2025.0.0</spring-cloud.version>
     <testcontainers.version>1.21.3</testcontainers.version>
-    <versions-maven-plugin.version>2.19.1</versions-maven-plugin.version>
+    <versions-maven-plugin.version>2.21.0</versions-maven-plugin.version>
   </properties>
   <dependencyManagement>
     <dependencies>
