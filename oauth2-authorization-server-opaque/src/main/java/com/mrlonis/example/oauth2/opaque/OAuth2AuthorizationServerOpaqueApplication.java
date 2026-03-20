@@ -1,6 +1,7 @@
 package com.mrlonis.example.oauth2.opaque;
 
 import com.mrlonis.example.oauth2.opaque.config.properties.ApplicationProperties;
+import java.util.TimeZone;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -9,6 +10,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @EnableConfigurationProperties(ApplicationProperties.class)
 public class OAuth2AuthorizationServerOpaqueApplication {
     public static void main(String[] args) {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         SpringApplication.run(OAuth2AuthorizationServerOpaqueApplication.class, args);
     }
 }
