@@ -33,8 +33,8 @@ public class OAuth2PropertiesConfigurer {
                 && properties.getFederate().isEnabled()) {
             if (!properties.getFederate().isOpaque()) {
                 defaults.put("spring.security.oauth2.resourceserver.jwt.issuer-uri", "http://localhost:9562");
-                defaults.put("oauth2.security.federate.issuer-uri", "http://localhost:9562");
-                defaults.put("oauth2.security.federate.jwk-set-uri", "http://localhost:9562/oauth2/jwks");
+                defaults.put("oauth2.federate.issuer-uri", "http://localhost:9562");
+                defaults.put("oauth2.federate.jwk-set-uri", "http://localhost:9562/oauth2/jwks");
             } else {
                 defaults.put("spring.security.oauth2.resourceserver.jwt.issuer-uri", "http://localhost:9563");
                 defaults.put(

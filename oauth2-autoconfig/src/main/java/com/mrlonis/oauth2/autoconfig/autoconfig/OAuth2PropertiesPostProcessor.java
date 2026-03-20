@@ -12,6 +12,7 @@ import org.springframework.core.env.MapPropertySource;
 public class OAuth2PropertiesPostProcessor implements EnvironmentPostProcessor {
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
+        log.info("Setting default-any-request-access to AUTHENTICATED");
         environment
                 .getPropertySources()
                 .addFirst(new MapPropertySource(
