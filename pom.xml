@@ -36,9 +36,9 @@
     <commons-io.version>2.21.0</commons-io.version>
     <commons-lang3.version>3.18.0</commons-lang3.version>
     <commons-text.version>1.15.0</commons-text.version>
-    <exec-maven-plugin.version>3.5.0</exec-maven-plugin.version>
+    <exec-maven-plugin.version>3.6.3</exec-maven-plugin.version>
     <flowable.version>7.1.0</flowable.version>
-    <git-build-hook-maven-plugin.version>3.5.0</git-build-hook-maven-plugin.version>
+    <git-build-hook-maven-plugin.version>3.6.0</git-build-hook-maven-plugin.version>
     <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
     <java.version>21</java.version>
     <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
