@@ -38,7 +38,7 @@ class RouteTests extends AbstractMockWebServerTests {
         for (var header : rawSetCookieHeaders) {
             log.info("Raw Set-Cookie: {}", header);
         }
-        assertEquals(3, rawSetCookieHeaders.size());
+        assertEquals(5, rawSetCookieHeaders.size());
 
         assertTrue(rawSetCookieHeaders.stream().anyMatch(header -> header.startsWith("CUSTOM-SESSION-NAME=")));
 

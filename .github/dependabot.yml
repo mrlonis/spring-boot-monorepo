@@ -50,7 +50,7 @@ updates:
           - "minor"
     ignore:
       - dependency-name: "org.springframework.cloud:spring-cloud-dependencies"
-        update-types: ["version-update:semver-major"]
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
       - dependency-name: "org.springframework.boot:spring-boot-starter-parent"
         update-types: ["version-update:semver-major", "version-update:semver-minor"]
       - dependency-name: "com.nimbusds:nimbus-jose-jwt"
