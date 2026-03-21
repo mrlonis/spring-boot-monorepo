@@ -33,4 +33,4 @@ server:
   port: 9054
 logging:
   level:
-    com.mrlonis.example.security: debug
+    com.mrlonis: debug

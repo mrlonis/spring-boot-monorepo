@@ -90,4 +90,4 @@ server:
   port: 9562
 logging:
   level:
-    com.mrlonis.example.oauth2: debug
+    com.mrlonis: debug
