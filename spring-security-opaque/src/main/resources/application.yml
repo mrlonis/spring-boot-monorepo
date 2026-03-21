@@ -13,6 +13,20 @@ management:
           - info
           - metrics
           - mappings
+oauth2:
+  enabled: true
+  security:
+    enabled: true
+    matchers:
+      - paths:
+          - /actuator/**
+        access: permit_all
+  federate:
+    enabled: true
+    audiences: spring-security-opaque-client
+    opaque: true
+    client-id:
+    client-secret:
 ---
 spring:
   config:
@@ -24,8 +38,12 @@ spring:
         opaquetoken:
           client-id: spring-security-opaque-client
           client-secret: spring-security-opaque-secret
+oauth2:
+  federate:
+    client-id: spring-security-opaque-client
+    client-secret: spring-security-opaque-secret
 server:
   port: 9055
 logging:
   level:
-    com.mrlonis.example.security: debug
+    com.mrlonis: debug

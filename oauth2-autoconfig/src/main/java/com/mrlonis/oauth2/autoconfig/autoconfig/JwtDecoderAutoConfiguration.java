@@ -29,6 +29,7 @@ public class JwtDecoderAutoConfiguration {
 
     @Bean
     @ConditionalOnProperty(name = "oauth2.federate.enabled", havingValue = "true")
+    @ConditionalOnProperty(name = "oauth2.federate.opaque", havingValue = "false")
     @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
     public JwtDecoder jwtDecoder() {
         NimbusJwtDecoder decoder = NimbusJwtDecoder.withJwkSetUri(
@@ -43,6 +44,7 @@ public class JwtDecoderAutoConfiguration {
 
     @Bean
     @ConditionalOnProperty(name = "oauth2.federate.enabled", havingValue = "true")
+    @ConditionalOnProperty(name = "oauth2.federate.opaque", havingValue = "false")
     @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
     public ReactiveJwtDecoder reactiveJwtDecoder() {
         NimbusReactiveJwtDecoder decoder = NimbusReactiveJwtDecoder.withJwkSetUri(
