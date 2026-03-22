@@ -15,9 +15,16 @@ updates:
       - "/flowable-engine"
       - "/gateway"
       - "/jacoco-report-aggregate"
-      - "/mysql-timestamp-to-datetime"
+      - "/mysql-migrations"
       - "/oauth2-authorization-server"
+      - "/oauth2-authorization-server-opaque"
+      - "/oauth2-autoconfig"
+      - "/oauth2-gateway-mvc"
+      - "/pre-commit"
       - "/spring-security"
+      - "/spring-security-opaque"
+      - "/test-controller-autoconfig"
+      - "/todo-app"
     schedule:
       interval: "weekly"
     allow:
@@ -54,4 +61,6 @@ updates:
       - dependency-name: "org.springframework.boot:spring-boot-starter-parent"
         update-types: ["version-update:semver-major", "version-update:semver-minor"]
       - dependency-name: "com.nimbusds:nimbus-jose-jwt"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "org.flowable:flowable-spring-boot-starter"
         update-types: ["version-update:semver-major"]
