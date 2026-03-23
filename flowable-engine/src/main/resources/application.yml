@@ -1,4 +1,28 @@
 spring:
+  application:
+    name: flowable-engine
+  docker:
+    compose:
+      enabled: false
+  liquibase:
+    enabled: true
   threads:
     virtual:
       enabled: true
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: jdbc:mysql://localhost:3307/mydatabase
+    username: myuser
+    password: secret
+  liquibase:
+    user: root
+    password: verysecret
+  docker:
+    compose:
+      enabled: true
+server:
+  port: 5367
