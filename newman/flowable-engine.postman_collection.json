@@ -1,0 +1,82 @@
+{
+  "info": {
+    "_postman_id": "d026a53a-5e77-441b-ac1a-2d12566ea89b",
+    "name": "flowable-engine",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "10017040"
+  },
+  "item": [
+    {
+      "name": "Actuator",
+      "item": [
+        {
+          "name": "Actuator",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Response Status Code is 200\", function(){\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base-uri}}/actuator",
+              "host": [
+                "{{base-uri}}"
+              ],
+              "path": [
+                "actuator"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Health",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Response Status Code is 200\", function(){\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base-uri}}/actuator/health",
+              "host": [
+                "{{base-uri}}"
+              ],
+              "path": [
+                "actuator",
+                "health"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
