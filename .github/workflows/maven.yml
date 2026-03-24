@@ -25,23 +25,25 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v6
+      - name: Checout Repository
+        uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v6
+      - name: Setup Node
+        uses: actions/setup-node@v6
         with:
           node-version: 24
 
       - name: Install newman
         run: npm install -g newman
 
-      - name: Set up JDK 21
+      - name: Setup Java
         uses: actions/setup-java@v5
         with:
           java-version: "21"
           distribution: "temurin"
           cache: maven
 
-      - name: Build with Maven
+      - name: Maven Verify
         run: ./mvnw -B clean verify -fae -T 1C
 
       - name: Run codacy-coverage-reporter
