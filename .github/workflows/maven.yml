@@ -200,3 +200,44 @@ jobs:
               kill $(cat mysql-migrations.pid) || echo "Process already terminated"
               rm mysql-migrations.pid
           fi
+  todo-app-integration-test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Install newman
+        run: npm install -g newman
+
+      - name: Setup java
+        uses: actions/setup-java@v5
+        with:
+          java-version: "21"
+          distribution: "temurin"
+          cache: maven
+
+      - name: Run todo-app in the background
+        run: |
+          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl todo-app -am &
+          echo $! > todo-app.pid
+
+      - name: Wait for services to start
+        run: sleep 60
+        shell: bash
+
+      - name: Run todo-app integration tests with newman
+        run: newman run ./newman/todo-app.postman_collection.json -e ./newman/todo-app-local.postman_environment.json
+
+      - name: Shut down todo-app
+        run: |
+          if [ -f todo-app.pid ]; then
+              kill $(cat todo-app.pid) || echo "Process already terminated"
+              rm todo-app.pid
+          fi
