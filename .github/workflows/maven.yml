@@ -70,11 +70,6 @@ jobs:
           mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl gateway -am &
           echo $! > gateway.pid
 
-      - name: Run mysql-migrations in the background
-        run: |
-          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl mysql-migrations -am &
-          echo $! > mysql-migrations.pid
-
       - name: Run spring-security in the background
         run: |
           mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl spring-security -am &
@@ -110,10 +105,6 @@ jobs:
           if [ -f spring-security.pid ]; then
             kill $(cat spring-security.pid) || echo "Process already terminated"
             rm spring-security.pid
-          fi
-          if [ -f mysql-migrations.pid ]; then
-            kill $(cat mysql-migrations.pid) || echo "Process already terminated"
-            rm mysql-migrations.pid
           fi
           if [ -f gateway.pid ]; then
             kill $(cat gateway.pid) || echo "Process already terminated"
@@ -167,4 +158,45 @@ jobs:
           if [ -f flowable-engine.pid ]; then
               kill $(cat flowable-engine.pid) || echo "Process already terminated"
               rm flowable-engine.pid
+          fi
+  mysql-migrations-integration-test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Install newman
+        run: npm install -g newman
+
+      - name: Setup java
+        uses: actions/setup-java@v5
+        with:
+          java-version: "21"
+          distribution: "temurin"
+          cache: maven
+
+      - name: Run mysql-migrations in the background
+        run: |
+          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl mysql-migrations -am &
+          echo $! > mysql-migrations.pid
+
+      - name: Wait for services to start
+        run: sleep 60
+        shell: bash
+
+      - name: Run mysql-migrations integration tests with newman
+        run: newman run ./newman/mysql-migrations.postman_collection.json -e ./newman/mysql-migrations-local.postman_environment.json
+
+      - name: Shut down mysql-migrations
+        run: |
+          if [ -f mysql-migrations.pid ]; then
+              kill $(cat mysql-migrations.pid) || echo "Process already terminated"
+              rm mysql-migrations.pid
           fi
