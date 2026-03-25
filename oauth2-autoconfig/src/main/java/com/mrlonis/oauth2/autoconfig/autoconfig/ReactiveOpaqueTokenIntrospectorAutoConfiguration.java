@@ -26,6 +26,9 @@ public class ReactiveOpaqueTokenIntrospectorAutoConfiguration {
     @ConditionalOnProperty(name = "oauth2.federate.enabled", havingValue = "true")
     @ConditionalOnProperty(name = "oauth2.federate.opaque", havingValue = "true")
     public ReactiveOpaqueTokenIntrospector reactiveOpaqueTokenIntrospector() {
+        log.debug(
+                "Configuring ReactiveOpaqueTokenIntrospector with Introspection URI: {}",
+                properties.getFederate().getIntrospectionUri());
         var delegate = new NimbusReactiveOpaqueTokenIntrospector(
                 properties.getFederate().getIntrospectionUri(),
                 properties.getFederate().getClientId(),
