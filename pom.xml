@@ -25,6 +25,7 @@
     <module>pre-commit</module>
     <module>spring-security</module>
     <module>spring-security-opaque</module>
+    <module>spring-security-reactive</module>
     <module>test-controller-autoconfig</module>
     <module>todo-app</module>
   </modules>

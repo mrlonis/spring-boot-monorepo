@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: spring-security
+  threads:
+    virtual:
+      enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+          - metrics
+          - mappings
+oauth2:
+  enabled: true
+  security:
+    enabled: true
+    matchers:
+      - paths:
+          - /actuator/**
+        access: permit_all
+  federate:
+    enabled: true
+    audiences: spring-security-client
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+server:
+  port: 9054
+logging:
+  level:
+    com.mrlonis: debug
