@@ -117,7 +117,7 @@ jobs:
           echo $! > spring-security-opaque.pid
 
       - name: Wait for services to start
-        run: sleep 60
+        run: sleep 90
         shell: bash
 
       - name: Run newman
@@ -174,7 +174,7 @@ jobs:
           echo $! > flowable-engine.pid
 
       - name: Wait for services to start
-        run: sleep 60
+        run: sleep 90
         shell: bash
 
       - name: Run flowable-engine integration tests with newman
@@ -215,7 +215,7 @@ jobs:
           echo $! > mysql-migrations.pid
 
       - name: Wait for services to start
-        run: sleep 60
+        run: sleep 90
         shell: bash
 
       - name: Run mysql-migrations integration tests with newman
@@ -256,7 +256,7 @@ jobs:
           echo $! > todo-app.pid
 
       - name: Wait for services to start
-        run: sleep 60
+        run: sleep 90
         shell: bash
 
       - name: Run todo-app integration tests with newman
