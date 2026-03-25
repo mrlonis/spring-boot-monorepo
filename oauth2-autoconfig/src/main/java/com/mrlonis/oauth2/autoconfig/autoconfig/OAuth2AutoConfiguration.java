@@ -75,13 +75,7 @@ public class OAuth2AutoConfiguration {
                 }
                 if (properties.getFederate().isEnabled()) {
                     if (properties.getFederate().isOpaque()) {
-                        http.oauth2ResourceServer(
-                                oauth2 -> oauth2.opaqueToken(opaqueTokenConfigurer -> opaqueTokenConfigurer
-                                        .introspectionUri(
-                                                properties.getFederate().getIntrospectionUri())
-                                        .introspectionClientCredentials(
-                                                properties.getFederate().getClientId(),
-                                                properties.getFederate().getClientSecret())));
+                        http.oauth2ResourceServer(oauth2 -> oauth2.opaqueToken(Customizer.withDefaults()));
                     } else {
                         http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.decoder(jwtDecoder)));
                     }
