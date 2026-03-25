@@ -1,11 +1,11 @@
-package com.mrlonis.example.security;
+package com.mrlonis.example.security.reactive;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.mrlonis.example.security.test.AbstractMockWebServerIT;
+import com.mrlonis.example.security.reactive.test.AbstractMockWebServerIT;
 import org.junit.jupiter.api.Test;
 
-class SpringSecurityApplicationIT extends AbstractMockWebServerIT {
+class SpringSecurityReactiveApplicationIT extends AbstractMockWebServerIT {
     @Test
     void contextLoads() {
         assertTrue(true);

@@ -1,8 +1,8 @@
-package com.mrlonis.example.security.controller;
+package com.mrlonis.example.security.reactive.controller;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.mrlonis.example.security.test.AbstractMockWebServerIT;
+import com.mrlonis.example.security.reactive.test.AbstractMockWebServerIT;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.test.context.support.WithMockUser;
 
