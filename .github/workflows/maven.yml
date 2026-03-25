@@ -31,7 +31,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version-file: ".nvmrc"
 
       - name: Install newman
         run: npm install -g newman
@@ -39,7 +39,7 @@ jobs:
       - name: Setup java
         uses: actions/setup-java@v5
         with:
-          java-version: "21"
+          java-version-file: ".java-version"
           distribution: "temurin"
           cache: maven
 
@@ -62,7 +62,7 @@ jobs:
       - name: Setup java
         uses: actions/setup-java@v5
         with:
-          java-version: "21"
+          java-version-file: ".java-version"
           distribution: "temurin"
           cache: maven
 
@@ -79,7 +79,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version-file: ".nvmrc"
 
       - name: Install newman
         run: npm install -g newman
@@ -87,7 +87,7 @@ jobs:
       - name: Setup java
         uses: actions/setup-java@v5
         with:
-          java-version: "21"
+          java-version-file: ".java-version"
           distribution: "temurin"
           cache: maven
 
@@ -156,7 +156,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version-file: ".nvmrc"
 
       - name: Install newman
         run: npm install -g newman
@@ -164,7 +164,7 @@ jobs:
       - name: Setup java
         uses: actions/setup-java@v5
         with:
-          java-version: "21"
+          java-version-file: ".java-version"
           distribution: "temurin"
           cache: maven
 
@@ -197,7 +197,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version-file: ".nvmrc"
 
       - name: Install newman
         run: npm install -g newman
@@ -205,7 +205,7 @@ jobs:
       - name: Setup java
         uses: actions/setup-java@v5
         with:
-          java-version: "21"
+          java-version-file: ".java-version"
           distribution: "temurin"
           cache: maven
 
@@ -238,7 +238,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version-file: ".nvmrc"
 
       - name: Install newman
         run: npm install -g newman
@@ -246,7 +246,7 @@ jobs:
       - name: Setup java
         uses: actions/setup-java@v5
         with:
-          java-version: "21"
+          java-version-file: ".java-version"
           distribution: "temurin"
           cache: maven
 
