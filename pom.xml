@@ -264,6 +264,7 @@
                 <include>.gitattributes</include>
                 <include>.gitignore</include>
                 <include>.gitmodules</include>
+                <include>.nvmrc</include>
                 <include>lombok.config</include>
                 <include>mvnw</include>
               </includes>

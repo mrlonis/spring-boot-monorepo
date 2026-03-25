@@ -31,7 +31,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version-file: ".nvmrc"
 
       - name: Install newman
         run: npm install -g newman
@@ -79,7 +79,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version-file: ".nvmrc"
 
       - name: Install newman
         run: npm install -g newman
@@ -156,7 +156,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version-file: ".nvmrc"
 
       - name: Install newman
         run: npm install -g newman
@@ -197,7 +197,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version-file: ".nvmrc"
 
       - name: Install newman
         run: npm install -g newman
@@ -238,7 +238,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version-file: ".nvmrc"
 
       - name: Install newman
         run: npm install -g newman
