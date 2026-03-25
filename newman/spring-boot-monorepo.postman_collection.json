@@ -661,6 +661,53 @@
           "name": "Test Controller",
           "item": [
             {
+              "name": "/v1/test - No Auth",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      " pm.test(\"Response Status Code is 401\", function(){\r",
+                      "    pm.response.to.have.status(401);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{oauth2-authorization-server-opaque-base-uri}}/v1/test",
+                  "host": [
+                    "{{oauth2-authorization-server-opaque-base-uri}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "test"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
               "name": "OAuth",
               "event": [
                 {
@@ -1315,42 +1362,6 @@
                 }
               },
               "response": []
-            },
-            {
-              "name": "/v1/test - Unauthenticated",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Response Status Code is 400\", function(){\r",
-                      "    pm.response.to.have.status(400);\r",
-                      "});\r",
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{gateway-base-uri}}/v1/test",
-                  "host": [
-                    "{{gateway-base-uri}}"
-                  ],
-                  "path": [
-                    "v1",
-                    "test"
-                  ]
-                }
-              },
-              "response": []
             }
           ],
           "auth": {
@@ -1869,42 +1880,6 @@
                 }
               },
               "response": []
-            },
-            {
-              "name": "/v1/test - Unauthenticated",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Response Status Code is 401\", function(){\r",
-                      "    pm.response.to.have.status(401);\r",
-                      "});\r",
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{spring-security-base-uri}}/v1/test",
-                  "host": [
-                    "{{spring-security-base-uri}}"
-                  ],
-                  "path": [
-                    "v1",
-                    "test"
-                  ]
-                }
-              },
-              "response": []
             }
           ],
           "auth": {
@@ -2409,42 +2384,6 @@
                 }
               ],
               "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{spring-security-opaque-base-uri}}/v1/test",
-                  "host": [
-                    "{{spring-security-opaque-base-uri}}"
-                  ],
-                  "path": [
-                    "v1",
-                    "test"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "/v1/test - Unauthenticated",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Response Status Code is 401\", function(){\r",
-                      "    pm.response.to.have.status(401);\r",
-                      "});\r",
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
                 "method": "GET",
                 "header": [],
                 "url": {
