@@ -117,7 +117,7 @@ jobs:
           echo $! > spring-security-opaque.pid
 
       - name: Wait for services to start
-        run: sleep 30
+        run: sleep 60
         shell: bash
 
       - name: Run newman
