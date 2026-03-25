@@ -70,7 +70,6 @@
       <plugin>
         <groupId>com.diffplug.spotless</groupId>
         <artifactId>spotless-maven-plugin</artifactId>
-        <version>${spotless.version}</version>
         <configuration combine.self="override"/>
       </plugin>
       <plugin>
@@ -85,6 +84,7 @@
             <configuration>
               <dataFileIncludes>
                 <dataFileInclude>**/jacoco.exec</dataFileInclude>
+                <dataFileInclude>**/jacoco-it.exec</dataFileInclude>
               </dataFileIncludes>
               <outputDirectory>${maven.multiModuleProjectDirectory}/target/site/jacoco-aggregate/</outputDirectory>
             </configuration>

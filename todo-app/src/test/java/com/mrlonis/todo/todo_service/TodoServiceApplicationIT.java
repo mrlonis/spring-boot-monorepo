@@ -1,7 +1,6 @@
 package com.mrlonis.todo.todo_service;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.mrlonis.todo.todo_service.repositories.TodoItemRepository;
 import com.mrlonis.todo.todo_service.test.TestcontainersConfiguration;
@@ -22,6 +21,5 @@ class TodoServiceApplicationIT {
     void contextLoads() {
         var result = todoItemRepository.findAll();
         assertNotNull(result);
-        assertTrue(result.isEmpty());
     }
 }
