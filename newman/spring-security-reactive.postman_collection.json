@@ -1,0 +1,505 @@
+{
+  "info": {
+    "_postman_id": "665084f2-de98-45b8-98b4-5a9caa828474",
+    "name": "spring-security-reactive",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "10017040"
+  },
+  "item": [
+    {
+      "name": "OAuth",
+      "item": [
+        {
+          "name": "OAuth",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Response Status Code is 200\", function(){\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Capture Access Token to Environment Variable\", function () {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "    pm.environment.set(\"access_token\", responseJson.access_token);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{oauth-client-secret}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "{{oauth-client-id}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials",
+                  "type": "text",
+                  "uuid": "e3a6b737-fb24-4cb1-b95a-fcc947f0aa87"
+                },
+                {
+                  "key": "scope",
+                  "value": "{{oauth-scopes}}",
+                  "type": "text",
+                  "uuid": "6442a038-d2bb-474a-adf2-be148a80288c"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{oauth-base-uri}}/oauth2/token",
+              "host": [
+                "{{oauth-base-uri}}"
+              ],
+              "path": [
+                "oauth2",
+                "token"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Actuator",
+      "item": [
+        {
+          "name": "Actuator",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Response Status Code is 200\", function(){\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base-uri}}/actuator",
+              "host": [
+                "{{base-uri}}"
+              ],
+              "path": [
+                "actuator"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Health",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Response Status Code is 200\", function(){\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base-uri}}/actuator/health",
+              "host": [
+                "{{base-uri}}"
+              ],
+              "path": [
+                "actuator",
+                "health"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Info",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Response Status Code is 200\", function(){\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base-uri}}/actuator/info",
+              "host": [
+                "{{base-uri}}"
+              ],
+              "path": [
+                "actuator",
+                "info"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Mappings",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Response Status Code is 200\", function(){\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base-uri}}/actuator/mappings",
+              "host": [
+                "{{base-uri}}"
+              ],
+              "path": [
+                "actuator",
+                "mappings"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Metrics",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Response Status Code is 200\", function(){\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base-uri}}/actuator/metrics",
+              "host": [
+                "{{base-uri}}"
+              ],
+              "path": [
+                "actuator",
+                "metrics"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "/v1/test",
+      "item": [
+        {
+          "name": "Unauthenticated",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Response Status Code is 401\", function(){\r",
+                  "    pm.response.to.have.status(401);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base-uri}}/v1/test",
+              "host": [
+                "{{base-uri}}"
+              ],
+              "path": [
+                "v1",
+                "test"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Authenticated",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Response Status Code is 200\", function(){\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base-uri}}/v1/test",
+              "host": [
+                "{{base-uri}}"
+              ],
+              "path": [
+                "v1",
+                "test"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Invalid OAuth",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Response Status Code is 200\", function(){\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Capture Access Token to Environment Variable\", function () {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "    pm.environment.set(\"invalid_access_token\", responseJson.access_token);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{invalid-oauth-client-secret}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "{{invalid-oauth-client-id}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials",
+                  "type": "text",
+                  "uuid": "e3a6b737-fb24-4cb1-b95a-fcc947f0aa87"
+                },
+                {
+                  "key": "scope",
+                  "value": "{{invalid-oauth-scopes}}",
+                  "type": "text",
+                  "uuid": "6442a038-d2bb-474a-adf2-be148a80288c"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{oauth-base-uri}}/oauth2/token",
+              "host": [
+                "{{oauth-base-uri}}"
+              ],
+              "path": [
+                "oauth2",
+                "token"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Invalid Authentication",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Response Status Code is 401\", function(){\r",
+                  "    pm.response.to.have.status(401);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{invalid_access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base-uri}}/v1/test",
+              "host": [
+                "{{base-uri}}"
+              ],
+              "path": [
+                "v1",
+                "test"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
