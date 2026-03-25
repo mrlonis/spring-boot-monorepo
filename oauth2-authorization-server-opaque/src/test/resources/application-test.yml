@@ -1,3 +1,9 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        opaquetoken:
+          introspection-uri: /oauth2/introspect
 logging:
   level:
     org.springframework.security: debug
