@@ -39,7 +39,7 @@ jobs:
       - name: Setup java
         uses: actions/setup-java@v5
         with:
-          java-version: "21"
+          java-version-file: ".java-version"
           distribution: "temurin"
           cache: maven
 
@@ -62,7 +62,7 @@ jobs:
       - name: Setup java
         uses: actions/setup-java@v5
         with:
-          java-version: "21"
+          java-version-file: ".java-version"
           distribution: "temurin"
           cache: maven
 
@@ -87,7 +87,7 @@ jobs:
       - name: Setup java
         uses: actions/setup-java@v5
         with:
-          java-version: "21"
+          java-version-file: ".java-version"
           distribution: "temurin"
           cache: maven
 
@@ -164,7 +164,7 @@ jobs:
       - name: Setup java
         uses: actions/setup-java@v5
         with:
-          java-version: "21"
+          java-version-file: ".java-version"
           distribution: "temurin"
           cache: maven
 
@@ -205,7 +205,7 @@ jobs:
       - name: Setup java
         uses: actions/setup-java@v5
         with:
-          java-version: "21"
+          java-version-file: ".java-version"
           distribution: "temurin"
           cache: maven
 
@@ -246,7 +246,7 @@ jobs:
       - name: Setup java
         uses: actions/setup-java@v5
         with:
-          java-version: "21"
+          java-version-file: ".java-version"
           distribution: "temurin"
           cache: maven
 
