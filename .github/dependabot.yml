@@ -51,3 +51,5 @@ updates:
         update-types: ["version-update:semver-major"]
       - dependency-name: "org.flowable:flowable-spring-boot-starter"
         update-types: ["version-update:semver-major"]
+      - dependency-name: "org.testcontainers:testcontainers-bom"
+        update-types: ["version-update:semver-major"]
