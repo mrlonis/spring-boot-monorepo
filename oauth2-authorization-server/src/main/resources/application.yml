@@ -81,6 +81,18 @@ application:
         - spring-security
       client-settings:
         require-authorization-consent: false
+    spring-security-reactive:
+      client-id: spring-security-reactive-client
+      client-secret: "{noop}spring-security-reactive-secret"
+      client-authentication-method: client_secret_basic
+      authorization-grant-type: client_credentials
+      redirect-uris:
+        - /login/oauth2/code/spring-security-reactive-client
+      post-logout-redirect-uri: /
+      scopes:
+        - spring-security-reactive
+      client-settings:
+        require-authorization-consent: false
 ---
 spring:
   config:

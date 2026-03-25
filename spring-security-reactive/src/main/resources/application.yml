@@ -23,7 +23,7 @@ oauth2:
         access: permit_all
   federate:
     enabled: true
-    audiences: spring-security-client
+    audiences: spring-security-reactive-client
 ---
 spring:
   config:
