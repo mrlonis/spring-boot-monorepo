@@ -1,6 +1,6 @@
 spring:
   application:
-    name: spring-security-reactive
+    name: spring-security
   threads:
     virtual:
       enabled: true
