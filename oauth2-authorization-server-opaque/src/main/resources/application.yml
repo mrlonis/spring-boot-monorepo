@@ -10,7 +10,6 @@ spring:
     oauth2:
       resourceserver:
         opaquetoken:
-          introspection-uri: /oauth2/introspect
           client-id: oauth2-authorization-server-opaque-client
           client-secret: oauth2-authorization-server-opaque-secret
 management:
@@ -65,6 +64,11 @@ spring:
   config:
     activate:
       on-profile: local
+  security:
+    oauth2:
+      resourceserver:
+        opaquetoken:
+          introspection-uri: http://localhost:9563/oauth2/introspect
 server:
   port: 9563
 logging:
