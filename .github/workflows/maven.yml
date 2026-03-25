@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Java CI with Maven
+name: Validate
 
 on:
   push:
@@ -25,23 +25,25 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v6
+      - name: Checkout repository
+        uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v6
+      - name: Setup node
+        uses: actions/setup-node@v6
         with:
           node-version: 24
 
       - name: Install newman
         run: npm install -g newman
 
-      - name: Set up JDK 21
+      - name: Setup java
         uses: actions/setup-java@v5
         with:
           java-version: "21"
           distribution: "temurin"
           cache: maven
 
-      - name: Build with Maven
+      - name: Maven verify
         run: ./mvnw -B clean verify -fae -T 1C
 
       - name: Run codacy-coverage-reporter
@@ -49,9 +51,45 @@ jobs:
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           coverage-reports: target/site/jacoco-aggregate/jacoco.xml
+  update-dependency-graph:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup java
+        uses: actions/setup-java@v5
+        with:
+          java-version: "21"
+          distribution: "temurin"
+          cache: maven
 
       - name: Update dependency graph
         uses: advanced-security/maven-dependency-submission-action@v5.0.0
+  security-integration-test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Install newman
+        run: npm install -g newman
+
+      - name: Setup java
+        uses: actions/setup-java@v5
+        with:
+          java-version: "21"
+          distribution: "temurin"
+          cache: maven
 
       - name: Run oauth2-authorization-server in the background
         run: |
@@ -79,7 +117,7 @@ jobs:
           echo $! > spring-security-opaque.pid
 
       - name: Wait for services to start
-        run: sleep 15
+        run: sleep 60
         shell: bash
 
       - name: Run newman
@@ -106,4 +144,127 @@ jobs:
           if [ -f oauth2-authorization-server.pid ]; then
             kill $(cat oauth2-authorization-server.pid) || echo "Process already terminated"
             rm oauth2-authorization-server.pid
+          fi
+  flowable-engine-integration-test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Install newman
+        run: npm install -g newman
+
+      - name: Setup java
+        uses: actions/setup-java@v5
+        with:
+          java-version: "21"
+          distribution: "temurin"
+          cache: maven
+
+      - name: Run flowable-engine in the background
+        run: |
+          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl flowable-engine -am &
+          echo $! > flowable-engine.pid
+
+      - name: Wait for services to start
+        run: sleep 60
+        shell: bash
+
+      - name: Run flowable-engine integration tests with newman
+        run: newman run ./newman/flowable-engine.postman_collection.json -e ./newman/flowable-engine-local.postman_environment.json
+
+      - name: Shut down flowable-engine
+        run: |
+          if [ -f flowable-engine.pid ]; then
+              kill $(cat flowable-engine.pid) || echo "Process already terminated"
+              rm flowable-engine.pid
+          fi
+  mysql-migrations-integration-test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Install newman
+        run: npm install -g newman
+
+      - name: Setup java
+        uses: actions/setup-java@v5
+        with:
+          java-version: "21"
+          distribution: "temurin"
+          cache: maven
+
+      - name: Run mysql-migrations in the background
+        run: |
+          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl mysql-migrations -am &
+          echo $! > mysql-migrations.pid
+
+      - name: Wait for services to start
+        run: sleep 60
+        shell: bash
+
+      - name: Run mysql-migrations integration tests with newman
+        run: newman run ./newman/mysql-migrations.postman_collection.json -e ./newman/mysql-migrations-local.postman_environment.json
+
+      - name: Shut down mysql-migrations
+        run: |
+          if [ -f mysql-migrations.pid ]; then
+              kill $(cat mysql-migrations.pid) || echo "Process already terminated"
+              rm mysql-migrations.pid
+          fi
+  todo-app-integration-test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Install newman
+        run: npm install -g newman
+
+      - name: Setup java
+        uses: actions/setup-java@v5
+        with:
+          java-version: "21"
+          distribution: "temurin"
+          cache: maven
+
+      - name: Run todo-app in the background
+        run: |
+          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl todo-app -am &
+          echo $! > todo-app.pid
+
+      - name: Wait for services to start
+        run: sleep 60
+        shell: bash
+
+      - name: Run todo-app integration tests with newman
+        run: newman run ./newman/todo-app.postman_collection.json -e ./newman/todo-app-local.postman_environment.json
+
+      - name: Shut down todo-app
+        run: |
+          if [ -f todo-app.pid ]; then
+              kill $(cat todo-app.pid) || echo "Process already terminated"
+              rm todo-app.pid
           fi

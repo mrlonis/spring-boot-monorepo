@@ -21,7 +21,7 @@ spring:
     activate:
       on-profile: local
   datasource:
-    url: jdbc:mysql://localhost:3306/mydatabase
+    url: jdbc:mysql://localhost:3308/mydatabase
     username: myuser
     password: secret
   flyway:
@@ -30,3 +30,5 @@ spring:
   docker:
     compose:
       enabled: true
+server:
+  port: 5368
