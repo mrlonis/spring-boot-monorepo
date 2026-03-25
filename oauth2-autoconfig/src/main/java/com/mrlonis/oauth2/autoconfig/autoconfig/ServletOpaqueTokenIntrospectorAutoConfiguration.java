@@ -36,6 +36,11 @@ public class ServletOpaqueTokenIntrospectorAutoConfiguration {
 
             Object audClaim = principal.getAttribute("aud");
 
+            log.debug(
+                    "Validating audience claim {} against allowed audiences {}",
+                    audClaim,
+                    properties.getFederate().getAudiences());
+
             boolean valid = false;
 
             if (audClaim instanceof String aud) {

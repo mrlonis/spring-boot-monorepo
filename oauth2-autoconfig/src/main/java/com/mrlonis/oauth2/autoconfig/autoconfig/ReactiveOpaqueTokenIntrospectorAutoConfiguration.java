@@ -26,7 +26,6 @@ public class ReactiveOpaqueTokenIntrospectorAutoConfiguration {
     @ConditionalOnProperty(name = "oauth2.federate.enabled", havingValue = "true")
     @ConditionalOnProperty(name = "oauth2.federate.opaque", havingValue = "true")
     public ReactiveOpaqueTokenIntrospector reactiveOpaqueTokenIntrospector() {
-
         var delegate = new NimbusReactiveOpaqueTokenIntrospector(
                 properties.getFederate().getIntrospectionUri(),
                 properties.getFederate().getClientId(),
@@ -34,6 +33,11 @@ public class ReactiveOpaqueTokenIntrospectorAutoConfiguration {
 
         return token -> delegate.introspect(token).map(principal -> {
             Object audClaim = principal.getAttribute("aud");
+
+            log.debug(
+                    "Validating audience claim {} against allowed audiences {}",
+                    audClaim,
+                    properties.getFederate().getAudiences());
 
             boolean valid = false;
 
