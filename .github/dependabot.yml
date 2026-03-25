@@ -12,19 +12,6 @@ updates:
   - package-ecosystem: "maven" # See documentation for possible values
     directories:
       - "/"
-      - "/flowable-engine"
-      - "/gateway"
-      - "/jacoco-report-aggregate"
-      - "/mysql-migrations"
-      - "/oauth2-authorization-server"
-      - "/oauth2-authorization-server-opaque"
-      - "/oauth2-autoconfig"
-      - "/oauth2-gateway-mvc"
-      - "/pre-commit"
-      - "/spring-security"
-      - "/spring-security-opaque"
-      - "/test-controller-autoconfig"
-      - "/todo-app"
     schedule:
       interval: "weekly"
     allow:
