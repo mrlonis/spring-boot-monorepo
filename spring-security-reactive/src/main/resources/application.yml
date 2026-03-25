@@ -30,7 +30,7 @@ spring:
     activate:
       on-profile: local
 server:
-  port: 9054
+  port: 9373
 logging:
   level:
     com.mrlonis: debug
