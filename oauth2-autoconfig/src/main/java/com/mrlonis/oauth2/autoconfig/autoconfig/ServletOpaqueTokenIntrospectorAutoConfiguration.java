@@ -26,6 +26,9 @@ public class ServletOpaqueTokenIntrospectorAutoConfiguration {
     @ConditionalOnProperty(name = "oauth2.federate.enabled", havingValue = "true")
     @ConditionalOnProperty(name = "oauth2.federate.opaque", havingValue = "true")
     public OpaqueTokenIntrospector opaqueTokenIntrospector() {
+        log.debug(
+                "Configuring OpaqueTokenIntrospector with Introspection URI: {}",
+                properties.getFederate().getIntrospectionUri());
         var delegate = new NimbusOpaqueTokenIntrospector(
                 properties.getFederate().getIntrospectionUri(),
                 properties.getFederate().getClientId(),
@@ -35,6 +38,11 @@ public class ServletOpaqueTokenIntrospectorAutoConfiguration {
             var principal = delegate.introspect(token);
 
             Object audClaim = principal.getAttribute("aud");
+
+            log.debug(
+                    "Validating audience claim {} against allowed audiences {}",
+                    audClaim,
+                    properties.getFederate().getAudiences());
 
             boolean valid = false;
 

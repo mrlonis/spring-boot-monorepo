@@ -3,6 +3,7 @@ package com.mrlonis.oauth2.autoconfig.autoconfig;
 import com.mrlonis.oauth2.autoconfig.exception.OAuth2AutoConfigException;
 import com.mrlonis.oauth2.autoconfig.properties.OAuth2AutoConfigurationProperties;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -16,8 +17,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
@@ -25,6 +24,7 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 @AllArgsConstructor
 @AutoConfiguration
 @ConditionalOnProperty(name = "oauth2.enabled", havingValue = "true")
+@Slf4j
 public class OAuth2AutoConfiguration {
     private final OAuth2AutoConfigurationProperties properties;
 
@@ -33,11 +33,13 @@ public class OAuth2AutoConfiguration {
     @EnableWebSecurity
     @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
     class OAuth2ServletAutoConfiguration {
-        public final JwtDecoder jwtDecoder;
-
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
             if (properties.getSecurity().isEnabled()) {
+                log.debug(
+                        "Configuring security filter chain with matchers {} and default any request access: {}",
+                        properties.getSecurity().getMatchers(),
+                        properties.getSecurity().getDefaultAnyRequestAccess());
                 if (properties.getSecurity().getDefaultAnyRequestAccess() != null
                         || CollectionUtils.isNotEmpty(properties.getSecurity().getMatchers())) {
                     http.authorizeHttpRequests(authorize -> {
@@ -75,12 +77,15 @@ public class OAuth2AutoConfiguration {
                 }
                 if (properties.getFederate().isEnabled()) {
                     if (properties.getFederate().isOpaque()) {
+                        log.debug("Configuring opaque token resource server");
                         http.oauth2ResourceServer(oauth2 -> oauth2.opaqueToken(Customizer.withDefaults()));
                     } else {
-                        http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.decoder(jwtDecoder)));
+                        log.debug("Configuring JWT resource server");
+                        http.oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
                     }
                 }
                 if (properties.getOidc().isEnabled()) {
+                    log.debug("Configuring OIDC login");
                     http.oauth2Login(Customizer.withDefaults());
                 }
             }
@@ -93,11 +98,13 @@ public class OAuth2AutoConfiguration {
     @EnableWebFluxSecurity
     @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
     class OAuth2ReactiveAutoConfiguration {
-        private final ReactiveJwtDecoder reactiveJwtDecoder;
-
         @Bean
         public SecurityWebFilterChain securityFilterChain(ServerHttpSecurity http) {
             if (properties.getSecurity().isEnabled()) {
+                log.debug(
+                        "Configuring reactive security filter chain with matchers {} and default any request access: {}",
+                        properties.getSecurity().getMatchers(),
+                        properties.getSecurity().getDefaultAnyRequestAccess());
                 if (properties.getSecurity().getDefaultAnyRequestAccess() != null
                         || CollectionUtils.isNotEmpty(properties.getSecurity().getMatchers())) {
                     http.authorizeExchange(authorize -> {
@@ -132,12 +139,15 @@ public class OAuth2AutoConfiguration {
                 }
                 if (properties.getFederate().isEnabled()) {
                     if (properties.getFederate().isOpaque()) {
+                        log.debug("Configuring reactive opaque token resource server");
                         http.oauth2ResourceServer(oauth2 -> oauth2.opaqueToken(Customizer.withDefaults()));
                     } else {
-                        http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtDecoder(reactiveJwtDecoder)));
+                        log.debug("Configuring reactive JWT resource server");
+                        http.oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
                     }
                 }
                 if (properties.getOidc().isEnabled()) {
+                    log.debug("Configuring OIDC login");
                     http.oauth2Login(Customizer.withDefaults());
                 }
             }
