@@ -30,12 +30,6 @@ spring:
   config:
     activate:
       on-profile: local
-  security:
-    oauth2:
-      resourceserver:
-        opaquetoken:
-          client-id: spring-security-opaque-client
-          client-secret: spring-security-opaque-secret
 oauth2:
   federate:
     client-id: spring-security-opaque-client

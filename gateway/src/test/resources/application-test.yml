@@ -16,9 +16,6 @@ spring:
         provider:
           oidc:
             issuer-uri: http://localhost:${MOCK_WEB_SERVER_PORT}
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:${MOCK_WEB_SERVER_PORT}
 oauth2:
   federate:
     issuer-uri: http://localhost:${MOCK_WEB_SERVER_PORT}
