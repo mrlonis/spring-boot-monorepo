@@ -36,7 +36,6 @@ runs:
           > "$LOG_FILE" 2>&1 &
 
         PID=$!
-        echo $PID > "${{ inputs.module }}.pid"
 
         echo "pid=$PID" >> $GITHUB_OUTPUT
         echo "log_file=$LOG_FILE" >> $GITHUB_OUTPUT
@@ -46,6 +45,8 @@ runs:
       run: |
         echo "Waiting for ${{ inputs.module }}..."
 
+        PID="${{ steps.start.outputs.pid }}"
+
         for i in {1..60}; do
           RESPONSE=$(curl -sf http://localhost:${{ inputs.port }}/actuator/health || true)
 
@@ -54,7 +55,6 @@ runs:
             exit 0
           fi
 
-          PID=$(cat "${{ inputs.module }}.pid")
           if ! kill -0 $PID 2>/dev/null; then
             echo "${{ inputs.module }} process died"
             exit 1
