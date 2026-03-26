@@ -4,6 +4,7 @@ import static com.mrlonis.oauth2.autoconfig.util.AudienceValidator.INVALID_TOKEN
 import static com.mrlonis.oauth2.autoconfig.util.AudienceValidator.isValidAudience;
 
 import com.mrlonis.oauth2.autoconfig.properties.OAuth2AutoConfigurationProperties;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -41,13 +42,11 @@ public class ServletOpaqueTokenIntrospectorAutoConfiguration {
         return token -> {
             var principal = delegate.introspect(token);
             Object audClaim = principal.getAttribute("aud");
+            Set<String> allowedAudiences = properties.getFederate().getAudiences();
 
-            log.debug(
-                    "Validating audience claim {} against allowed audiences {}",
-                    audClaim,
-                    properties.getFederate().getAudiences());
+            log.debug("Validating audience claim {} against allowed audiences {}", audClaim, allowedAudiences);
 
-            if (!isValidAudience(audClaim, properties.getFederate().getAudiences())) {
+            if (!isValidAudience(audClaim, allowedAudiences)) {
                 throw new OAuth2AuthenticationException(INVALID_TOKEN_ERROR);
             }
 
