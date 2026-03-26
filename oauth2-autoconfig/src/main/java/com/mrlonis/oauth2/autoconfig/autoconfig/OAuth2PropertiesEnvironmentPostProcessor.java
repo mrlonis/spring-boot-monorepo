@@ -4,7 +4,6 @@ import com.mrlonis.oauth2.autoconfig.security.RequestAccess;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.Strings;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.springframework.boot.SpringApplication;
@@ -16,7 +15,6 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
 
 /** This class is used to configure property defaults for applications that use this autoconfiguration jar. */
-@Slf4j
 public class OAuth2PropertiesEnvironmentPostProcessor
         implements EnvironmentPostProcessor, ApplicationListener<ApplicationContextInitializedEvent> {
     private static final DeferredLog DEFERRED_LOG = new DeferredLog();
