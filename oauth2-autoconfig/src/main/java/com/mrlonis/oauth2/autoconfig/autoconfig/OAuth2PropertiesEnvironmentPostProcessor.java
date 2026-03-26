@@ -63,6 +63,10 @@ public class OAuth2PropertiesEnvironmentPostProcessor
             }
         }
 
+        // Register this class as an application listener to ensure that deferred logs are replayed once the application
+        // context is initialized and the logging system is fully set up. This allows us to see the debug logs that were
+        // generated during the postProcessEnvironment method, which would otherwise not be visible due to the logging
+        // system not being initialized at that point.
         application.addListeners(this);
 
         environment.getPropertySources().addLast(new MapPropertySource("oauth2-autoconfig.defaults", defaults));
