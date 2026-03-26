@@ -1,5 +1,6 @@
 package com.mrlonis.oauth2.autoconfig.autoconfig;
 
+import static com.mrlonis.oauth2.autoconfig.util.AudienceValidator.INVALID_TOKEN_ERROR;
 import static com.mrlonis.oauth2.autoconfig.util.AudienceValidator.isValidAudience;
 
 import com.mrlonis.oauth2.autoconfig.properties.OAuth2AutoConfigurationProperties;
@@ -11,7 +12,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplicat
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
-import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.server.resource.introspection.ReactiveOpaqueTokenIntrospector;
 import org.springframework.security.oauth2.server.resource.introspection.SpringReactiveOpaqueTokenIntrospector;
 
@@ -22,8 +22,6 @@ import org.springframework.security.oauth2.server.resource.introspection.SpringR
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
 @Slf4j
 public class ReactiveOpaqueTokenIntrospectorAutoConfiguration {
-    private static final OAuth2Error INVALID_TOKEN_ERROR = new OAuth2Error("invalid_token", "Invalid audience", null);
-
     private final OAuth2AutoConfigurationProperties properties;
 
     @Bean
