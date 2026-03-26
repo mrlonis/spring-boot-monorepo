@@ -4,7 +4,7 @@ description: "Checks out the repo and installs Node and Java"
 runs:
   using: "composite"
   steps:
-    - name: Checkout repository and setup node
+    - name: Setup node
       uses: ./.github/actions/setup-node
 
     - name: Setup java

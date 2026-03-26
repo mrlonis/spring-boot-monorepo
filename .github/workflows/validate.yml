@@ -25,7 +25,10 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Checkout repository and setup node and java
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup node and java
         uses: ./.github/actions/setup-node-java
 
       - name: Maven verify
@@ -58,7 +61,10 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Checkout repository and setup node, newman, and java
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup node, java, and newman
         uses: ./.github/actions/setup-node-java-newman
 
       - name: Start flowable-engine
@@ -90,7 +96,10 @@ jobs:
       contents: write
     needs: oauth2-authorization-server-integration-test
     steps:
-      - name: Checkout repository and setup node, newman, and java
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup node, java, and newman
         uses: ./.github/actions/setup-node-java-newman
 
       - name: Start oauth2-authorization-server
@@ -135,7 +144,10 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Checkout repository and setup node, newman, and java
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup node, java, and newman
         uses: ./.github/actions/setup-node-java-newman
 
       - name: Start mysql-migrations
@@ -166,7 +178,10 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Checkout repository and setup node, newman, and java
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup node, java, and newman
         uses: ./.github/actions/setup-node-java-newman
 
       - name: Start oauth2-authorization-server
@@ -197,7 +212,10 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Checkout repository and setup node, newman, and java
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup node, java, and newman
         uses: ./.github/actions/setup-node-java-newman
 
       - name: Start oauth2-authorization-server-opaque
@@ -229,7 +247,10 @@ jobs:
       contents: write
     needs: oauth2-authorization-server-integration-test
     steps:
-      - name: Checkout repository and setup node, newman, and java
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup node, java, and newman
         uses: ./.github/actions/setup-node-java-newman
 
       - name: Start oauth2-authorization-server
@@ -275,7 +296,10 @@ jobs:
       contents: write
     needs: oauth2-authorization-server-opaque-integration-test
     steps:
-      - name: Checkout repository and setup node, newman, and java
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup node, java, and newman
         uses: ./.github/actions/setup-node-java-newman
 
       - name: Start oauth2-authorization-server-opaque
@@ -321,7 +345,10 @@ jobs:
       contents: write
     needs: oauth2-authorization-server-integration-test
     steps:
-      - name: Checkout repository and setup node, newman, and java
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup node, java, and newman
         uses: ./.github/actions/setup-node-java-newman
 
       - name: Start oauth2-authorization-server
@@ -366,7 +393,10 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Checkout repository and setup node, newman, and java
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup node, java, and newman
         uses: ./.github/actions/setup-node-java-newman
 
       - name: Start todo-app

@@ -1,12 +1,9 @@
-name: "Checkout Repository and Setup Node"
-description: "Checks out the repo and installs Node"
+name: "Setup Node"
+description: "Installs Node"
 
 runs:
   using: "composite"
   steps:
-    - name: Checkout repository
-      uses: actions/checkout@v6
-
     - name: Setup node
       uses: actions/setup-node@v6
       with:
