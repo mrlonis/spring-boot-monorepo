@@ -1,0 +1,17 @@
+name: "Stop Spring Service"
+description: "Stops a Spring Boot process by PID"
+
+inputs:
+  pid:
+    description: "Process ID"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Stop service
+      shell: bash
+      run: |
+        kill "${{ inputs.pid }}" || true
+        sleep 2
+        kill -9 "${{ inputs.pid }}" 2>/dev/null || true
