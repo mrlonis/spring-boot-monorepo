@@ -68,65 +68,6 @@ jobs:
 
       - name: Update dependency graph
         uses: advanced-security/maven-dependency-submission-action@v5.0.0
-  security-integration-test:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-
-      - name: Install newman
-        run: npm install -g newman
-
-      - name: Setup java
-        uses: actions/setup-java@v5
-        with:
-          java-version-file: ".java-version"
-          distribution: "temurin"
-          cache: maven
-
-      - name: Run oauth2-authorization-server in the background
-        run: |
-          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl oauth2-authorization-server -am &
-          echo $! > oauth2-authorization-server.pid
-
-      - name: Run oauth2-authorization-server-opaque in the background
-        run: |
-          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl oauth2-authorization-server-opaque -am &
-          echo $! > oauth2-authorization-server-opaque.pid
-
-      - name: Run gateway in the background
-        run: |
-          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl gateway -am &
-          echo $! > gateway.pid
-
-      - name: Wait for services to start
-        run: sleep 90
-        shell: bash
-
-      - name: Run newman
-        run: newman run ./newman/spring-boot-monorepo.postman_collection.json -e ./newman/spring-boot-monorepo-local.postman_environment.json --env-var "CI=true"
-
-      - name: Shut down services
-        run: |
-          if [ -f gateway.pid ]; then
-            kill $(cat gateway.pid) || echo "Process already terminated"
-            rm gateway.pid
-          fi
-          if [ -f oauth2-authorization-server-opaque.pid ]; then
-            kill $(cat oauth2-authorization-server-opaque.pid) || echo "Process already terminated"
-            rm oauth2-authorization-server-opaque.pid
-          fi
-          if [ -f oauth2-authorization-server.pid ]; then
-            kill $(cat oauth2-authorization-server.pid) || echo "Process already terminated"
-            rm oauth2-authorization-server.pid
-          fi
   flowable-engine-integration-test:
     runs-on: ubuntu-latest
     permissions:
@@ -167,6 +108,56 @@ jobs:
           if [ -f flowable-engine.pid ]; then
               kill $(cat flowable-engine.pid) || echo "Process already terminated"
               rm flowable-engine.pid
+          fi
+  gateway-integration-test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Install newman
+        run: npm install -g newman
+
+      - name: Setup java
+        uses: actions/setup-java@v5
+        with:
+          java-version-file: ".java-version"
+          distribution: "temurin"
+          cache: maven
+
+      - name: Run oauth2-authorization-server in the background
+        run: |
+          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl oauth2-authorization-server -am &
+          echo $! > oauth2-authorization-server.pid
+
+      - name: Run gateway in the background
+        run: |
+          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl gateway -am &
+          echo $! > gateway.pid
+
+      - name: Wait for services to start
+        run: sleep 90
+        shell: bash
+
+      - name: Run newman
+        run: newman run ./newman/gateway.postman_collection.json -e ./newman/gateway-local.postman_environment.json
+
+      - name: Shut down services
+        run: |
+          if [ -f gateway.pid ]; then
+            kill $(cat gateway.pid) || echo "Process already terminated"
+            rm gateway.pid
+          fi
+          if [ -f oauth2-authorization-server.pid ]; then
+            kill $(cat oauth2-authorization-server.pid) || echo "Process already terminated"
+            rm oauth2-authorization-server.pid
           fi
   mysql-migrations-integration-test:
     runs-on: ubuntu-latest
