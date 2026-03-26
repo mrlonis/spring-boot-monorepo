@@ -93,22 +93,44 @@ jobs:
 
       - name: Run flowable-engine in the background
         run: |
-          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl flowable-engine -am &
+          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl flowable-engine -am > flowable-engine-${{ github.run_id }}.log 2>&1 &
           echo $! > flowable-engine.pid
 
-      - name: Wait for services to start
-        run: sleep 120
-        shell: bash
+      - name: Wait for flowable-engine readiness
+        run: |
+          echo "Waiting for flowable-engine..."
+          for i in {1..60}; do
+            if curl -sf http://localhost:5367/actuator/health | grep -q '"status":"UP"'; then
+              echo "flowable-engine is up!"
+              exit 0
+            fi
+            PID=$(cat flowable-engine.pid)
+            if ! kill -0 $PID 2>/dev/null; then
+              echo "flowable-engine process died"
+              exit 1
+            fi
+            sleep 2
+          done
+          echo "flowable-engine failed to start"
+          exit 1
 
       - name: Run flowable-engine integration tests with newman
         run: newman run ./newman/flowable-engine.postman_collection.json -e ./newman/flowable-engine-local.postman_environment.json
 
       - name: Shut down flowable-engine
+        if: always()
         run: |
           if [ -f flowable-engine.pid ]; then
               kill $(cat flowable-engine.pid) || echo "Process already terminated"
               rm flowable-engine.pid
           fi
+
+      - name: Dump logs on failure
+        if: failure()
+        run: |
+          echo "==== START FLOWABLE-ENGINE LOG ===="
+          cat flowable-engine-${{ github.run_id }}.log || true
+          echo "==== END FLOWABLE-ENGINE LOG ===="
   gateway-integration-test:
     runs-on: ubuntu-latest
     permissions:
@@ -135,22 +157,55 @@ jobs:
 
       - name: Run oauth2-authorization-server in the background
         run: |
-          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl oauth2-authorization-server -am &
+          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl oauth2-authorization-server -am > oauth2-authorization-server-${{ github.run_id }}.log 2>&1 &
           echo $! > oauth2-authorization-server.pid
+
+      - name: Wait for oauth2-authorization-server readiness
+        run: |
+          echo "Waiting for oauth2-authorization-server..."
+          for i in {1..60}; do
+            if curl -sf http://localhost:9562/actuator/health | grep -q '"status":"UP"'; then
+              echo "oauth2-authorization-server is up!"
+              exit 0
+            fi
+            PID=$(cat oauth2-authorization-server.pid)
+            if ! kill -0 $PID 2>/dev/null; then
+              echo "oauth2-authorization-server process died"
+              exit 1
+            fi
+            sleep 2
+          done
+          echo "oauth2-authorization-server failed to start"
+          exit 1
 
       - name: Run gateway in the background
         run: |
-          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl gateway -am &
+          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl gateway -am > gateway-${{ github.run_id }}.log 2>&1 &
           echo $! > gateway.pid
 
-      - name: Wait for services to start
-        run: sleep 120
-        shell: bash
+      - name: Wait for gateway readiness
+        run: |
+          echo "Waiting for gateway..."
+          for i in {1..60}; do
+            if curl -sf http://localhost:9203/actuator/health | grep -q '"status":"UP"'; then
+              echo "Gateway is up!"
+              exit 0
+            fi
+            PID=$(cat gateway.pid)
+            if ! kill -0 $PID 2>/dev/null; then
+              echo "Gateway process died"
+              exit 1
+            fi
+            sleep 2
+          done
+          echo "Gateway failed to start"
+          exit 1
 
       - name: Run newman
         run: newman run ./newman/gateway.postman_collection.json -e ./newman/gateway-local.postman_environment.json
 
       - name: Shut down services
+        if: always()
         run: |
           if [ -f gateway.pid ]; then
             kill $(cat gateway.pid) || echo "Process already terminated"
@@ -160,6 +215,16 @@ jobs:
             kill $(cat oauth2-authorization-server.pid) || echo "Process already terminated"
             rm oauth2-authorization-server.pid
           fi
+
+      - name: Dump logs on failure
+        if: failure()
+        run: |
+          echo "==== START GATEWAY LOG ===="
+          cat gateway-${{ github.run_id }}.log || true
+          echo "==== END GATEWAY LOG ===="
+          echo "==== START AUTH SERVER LOG ===="
+          cat oauth2-authorization-server-${{ github.run_id }}.log || true
+          echo "==== END AUTH SERVER LOG ===="
   mysql-migrations-integration-test:
     runs-on: ubuntu-latest
     permissions:
@@ -185,22 +250,44 @@ jobs:
 
       - name: Run mysql-migrations in the background
         run: |
-          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl mysql-migrations -am &
+          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl mysql-migrations -am > mysql-migrations-${{ github.run_id }}.log 2>&1 &
           echo $! > mysql-migrations.pid
 
-      - name: Wait for services to start
-        run: sleep 120
-        shell: bash
+      - name: Wait for mysql-migrations readiness
+        run: |
+          echo "Waiting for mysql-migrations..."
+          for i in {1..60}; do
+            if curl -sf http://localhost:5368/actuator/health | grep -q '"status":"UP"'; then
+              echo "mysql-migrations is up!"
+              exit 0
+            fi
+            PID=$(cat mysql-migrations.pid)
+            if ! kill -0 $PID 2>/dev/null; then
+              echo "mysql-migrations process died"
+              exit 1
+            fi
+            sleep 2
+          done
+          echo "mysql-migrations failed to start"
+          exit 1
 
       - name: Run mysql-migrations integration tests with newman
         run: newman run ./newman/mysql-migrations.postman_collection.json -e ./newman/mysql-migrations-local.postman_environment.json
 
       - name: Shut down mysql-migrations
+        if: always()
         run: |
           if [ -f mysql-migrations.pid ]; then
               kill $(cat mysql-migrations.pid) || echo "Process already terminated"
               rm mysql-migrations.pid
           fi
+
+      - name: Dump logs on failure
+        if: failure()
+        run: |
+          echo "==== START MYSQL-MIGRATIONS LOG ===="
+          cat mysql-migrations-${{ github.run_id }}.log || true
+          echo "==== END MYSQL-MIGRATIONS LOG ===="
   oauth2-authorization-server-integration-test:
     runs-on: ubuntu-latest
     permissions:
@@ -226,22 +313,44 @@ jobs:
 
       - name: Run oauth2-authorization-server in the background
         run: |
-          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl oauth2-authorization-server -am &
+          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl oauth2-authorization-server -am > oauth2-authorization-server-${{ github.run_id }}.log 2>&1 &
           echo $! > oauth2-authorization-server.pid
 
-      - name: Wait for services to start
-        run: sleep 120
-        shell: bash
+      - name: Wait for oauth2-authorization-server readiness
+        run: |
+          echo "Waiting for oauth2-authorization-server..."
+          for i in {1..60}; do
+            if curl -sf http://localhost:9562/actuator/health | grep -q '"status":"UP"'; then
+              echo "oauth2-authorization-server is up!"
+              exit 0
+            fi
+            PID=$(cat oauth2-authorization-server.pid)
+            if ! kill -0 $PID 2>/dev/null; then
+              echo "oauth2-authorization-server process died"
+              exit 1
+            fi
+            sleep 2
+          done
+          echo "oauth2-authorization-server failed to start"
+          exit 1
 
       - name: Run newman
         run: newman run ./newman/oauth2-authorization-server.postman_collection.json -e ./newman/oauth2-authorization-server-local.postman_environment.json --env-var "CI=true"
 
       - name: Shut down services
+        if: always()
         run: |
           if [ -f oauth2-authorization-server.pid ]; then
             kill $(cat oauth2-authorization-server.pid) || echo "Process already terminated"
             rm oauth2-authorization-server.pid
           fi
+
+      - name: Dump logs on failure
+        if: failure()
+        run: |
+          echo "==== START OAUTH2-AUTHORIZATION-SERVER LOG ===="
+          cat oauth2-authorization-server-${{ github.run_id }}.log || true
+          echo "==== END OAUTH2-AUTHORIZATION-SERVER LOG ===="
   oauth2-authorization-server-opaque-integration-test:
     runs-on: ubuntu-latest
     permissions:
@@ -267,22 +376,44 @@ jobs:
 
       - name: Run oauth2-authorization-server-opaque in the background
         run: |
-          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl oauth2-authorization-server-opaque -am &
+          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl oauth2-authorization-server-opaque -am > oauth2-authorization-server-opaque-${{ github.run_id }}.log 2>&1 &
           echo $! > oauth2-authorization-server-opaque.pid
 
-      - name: Wait for services to start
-        run: sleep 120
-        shell: bash
+      - name: Wait for oauth2-authorization-server-opaque readiness
+        run: |
+          echo "Waiting for oauth2-authorization-server-opaque..."
+          for i in {1..60}; do
+            if curl -sf http://localhost:9563/actuator/health | grep -q '"status":"UP"'; then
+              echo "oauth2-authorization-server-opaque is up!"
+              exit 0
+            fi
+            PID=$(cat oauth2-authorization-server-opaque.pid)
+            if ! kill -0 $PID 2>/dev/null; then
+              echo "oauth2-authorization-server-opaque process died"
+              exit 1
+            fi
+            sleep 2
+          done
+          echo "oauth2-authorization-server-opaque failed to start"
+          exit 1
 
       - name: Run newman
         run: newman run ./newman/oauth2-authorization-server-opaque.postman_collection.json -e ./newman/oauth2-authorization-server-opaque-local.postman_environment.json
 
       - name: Shut down services
+        if: always()
         run: |
           if [ -f oauth2-authorization-server-opaque.pid ]; then
             kill $(cat oauth2-authorization-server-opaque.pid) || echo "Process already terminated"
             rm oauth2-authorization-server-opaque.pid
           fi
+
+      - name: Dump logs on failure
+        if: failure()
+        run: |
+          echo "==== START OAUTH2-AUTHORIZATION-SERVER-OPAQUE LOG ===="
+          cat oauth2-authorization-server-opaque-${{ github.run_id }}.log || true
+          echo "==== END OAUTH2-AUTHORIZATION-SERVER-OPAQUE LOG ===="
   spring-security-integration-test:
     runs-on: ubuntu-latest
     permissions:
@@ -309,22 +440,55 @@ jobs:
 
       - name: Run oauth2-authorization-server in the background
         run: |
-          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl oauth2-authorization-server -am &
+          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl oauth2-authorization-server -am > oauth2-authorization-server-${{ github.run_id }}.log 2>&1 &
           echo $! > oauth2-authorization-server.pid
+
+      - name: Wait for oauth2-authorization-server readiness
+        run: |
+          echo "Waiting for oauth2-authorization-server..."
+          for i in {1..60}; do
+            if curl -sf http://localhost:9562/actuator/health | grep -q '"status":"UP"'; then
+              echo "oauth2-authorization-server is up!"
+              exit 0
+            fi
+            PID=$(cat oauth2-authorization-server.pid)
+            if ! kill -0 $PID 2>/dev/null; then
+              echo "oauth2-authorization-server process died"
+              exit 1
+            fi
+            sleep 2
+          done
+          echo "oauth2-authorization-server failed to start"
+          exit 1
 
       - name: Run spring-security in the background
         run: |
-          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl spring-security -am &
+          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl spring-security -am > spring-security-${{ github.run_id }}.log 2>&1 &
           echo $! > spring-security.pid
 
-      - name: Wait for services to start
-        run: sleep 120
-        shell: bash
+      - name: Wait for spring-security readiness
+        run: |
+          echo "Waiting for spring-security..."
+          for i in {1..60}; do
+            if curl -sf http://localhost:9054/actuator/health | grep -q '"status":"UP"'; then
+              echo "spring-security is up!"
+              exit 0
+            fi
+            PID=$(cat spring-security.pid)
+            if ! kill -0 $PID 2>/dev/null; then
+              echo "spring-security process died"
+              exit 1
+            fi
+            sleep 2
+          done
+          echo "spring-security failed to start"
+          exit 1
 
       - name: Run newman
         run: newman run ./newman/spring-security.postman_collection.json -e ./newman/spring-security-local.postman_environment.json
 
       - name: Shut down services
+        if: always()
         run: |
           if [ -f spring-security.pid ]; then
             kill $(cat spring-security.pid) || echo "Process already terminated"
@@ -334,6 +498,16 @@ jobs:
             kill $(cat oauth2-authorization-server.pid) || echo "Process already terminated"
             rm oauth2-authorization-server.pid
           fi
+
+      - name: Dump logs on failure
+        if: failure()
+        run: |
+          echo "==== START SPRING-SECURITY LOG ===="
+          cat spring-security-${{ github.run_id }}.log || true
+          echo "==== END SPRING-SECURITY LOG ===="
+          echo "==== START OAUTH2-AUTHORIZATION-SERVER LOG ===="
+          cat oauth2-authorization-server-${{ github.run_id }}.log || true
+          echo "==== END OAUTH2-AUTHORIZATION-SERVER LOG ===="
   spring-security-opaque-integration-test:
     runs-on: ubuntu-latest
     permissions:
@@ -360,22 +534,55 @@ jobs:
 
       - name: Run oauth2-authorization-server-opaque in the background
         run: |
-          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl oauth2-authorization-server-opaque -am &
+          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl oauth2-authorization-server-opaque -am > oauth2-authorization-server-opaque-${{ github.run_id }}.log 2>&1 &
           echo $! > oauth2-authorization-server-opaque.pid
+
+      - name: Wait for oauth2-authorization-server-opaque readiness
+        run: |
+          echo "Waiting for oauth2-authorization-server-opaque..."
+          for i in {1..60}; do
+            if curl -sf http://localhost:9563/actuator/health | grep -q '"status":"UP"'; then
+              echo "oauth2-authorization-server-opaque is up!"
+              exit 0
+            fi
+            PID=$(cat oauth2-authorization-server-opaque.pid)
+            if ! kill -0 $PID 2>/dev/null; then
+              echo "oauth2-authorization-server-opaque process died"
+              exit 1
+            fi
+            sleep 2
+          done
+          echo "oauth2-authorization-server-opaque failed to start"
+          exit 1
 
       - name: Run spring-security-opaque in the background
         run: |
-          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl spring-security-opaque -am &
+          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl spring-security-opaque -am > spring-security-opaque-${{ github.run_id }}.log 2>&1 &
           echo $! > spring-security-opaque.pid
 
-      - name: Wait for services to start
-        run: sleep 120
-        shell: bash
+      - name: Wait for spring-security-opaque readiness
+        run: |
+          echo "Waiting for spring-security-opaque..."
+          for i in {1..60}; do
+            if curl -sf http://localhost:9055/actuator/health | grep -q '"status":"UP"'; then
+              echo "spring-security-opaque is up!"
+              exit 0
+            fi
+            PID=$(cat spring-security-opaque.pid)
+            if ! kill -0 $PID 2>/dev/null; then
+              echo "spring-security-opaque process died"
+              exit 1
+            fi
+            sleep 2
+          done
+          echo "spring-security-opaque failed to start"
+          exit 1
 
       - name: Run newman
         run: newman run ./newman/spring-security-opaque.postman_collection.json -e ./newman/spring-security-opaque-local.postman_environment.json
 
       - name: Shut down services
+        if: always()
         run: |
           if [ -f spring-security-opaque.pid ]; then
             kill $(cat spring-security-opaque.pid) || echo "Process already terminated"
@@ -385,6 +592,16 @@ jobs:
             kill $(cat oauth2-authorization-server-opaque.pid) || echo "Process already terminated"
             rm oauth2-authorization-server-opaque.pid
           fi
+
+      - name: Dump logs on failure
+        if: failure()
+        run: |
+          echo "==== START SPRING-SECURITY-OPAQUE LOG ===="
+          cat spring-security-opaque-${{ github.run_id }}.log || true
+          echo "==== END SPRING-SECURITY-OPAQUE LOG ===="
+          echo "==== START OAUTH2-AUTHORIZATION-SERVER-OPAQUE LOG ===="
+          cat oauth2-authorization-server-opaque-${{ github.run_id }}.log || true
+          echo "==== END OAUTH2-AUTHORIZATION-SERVER-OPAQUE LOG ===="
   spring-security-reactive-integration-test:
     runs-on: ubuntu-latest
     permissions:
@@ -411,22 +628,55 @@ jobs:
 
       - name: Run oauth2-authorization-server in the background
         run: |
-          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl oauth2-authorization-server -am &
+          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl oauth2-authorization-server -am > oauth2-authorization-server-${{ github.run_id }}.log 2>&1 &
           echo $! > oauth2-authorization-server.pid
+
+      - name: Wait for oauth2-authorization-server readiness
+        run: |
+          echo "Waiting for oauth2-authorization-server..."
+          for i in {1..60}; do
+            if curl -sf http://localhost:9562/actuator/health | grep -q '"status":"UP"'; then
+              echo "oauth2-authorization-server is up!"
+              exit 0
+            fi
+            PID=$(cat oauth2-authorization-server.pid)
+            if ! kill -0 $PID 2>/dev/null; then
+              echo "oauth2-authorization-server process died"
+              exit 1
+            fi
+            sleep 2
+          done
+          echo "oauth2-authorization-server failed to start"
+          exit 1
 
       - name: Run spring-security-reactive in the background
         run: |
-          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl spring-security-reactive -am &
+          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl spring-security-reactive -am > spring-security-reactive-${{ github.run_id }}.log 2>&1 &
           echo $! > spring-security-reactive.pid
 
-      - name: Wait for services to start
-        run: sleep 120
-        shell: bash
+      - name: Wait for spring-security-reactive readiness
+        run: |
+          echo "Waiting for spring-security-reactive..."
+          for i in {1..60}; do
+            if curl -sf http://localhost:9373/actuator/health | grep -q '"status":"UP"'; then
+              echo "spring-security-reactive is up!"
+              exit 0
+            fi
+            PID=$(cat spring-security-reactive.pid)
+            if ! kill -0 $PID 2>/dev/null; then
+              echo "spring-security-reactive process died"
+              exit 1
+            fi
+            sleep 2
+          done
+          echo "spring-security-reactive failed to start"
+          exit 1
 
       - name: Run newman
         run: newman run ./newman/spring-security-reactive.postman_collection.json -e ./newman/spring-security-reactive-local.postman_environment.json
 
       - name: Shut down services
+        if: always()
         run: |
           if [ -f spring-security-reactive.pid ]; then
             kill $(cat spring-security-reactive.pid) || echo "Process already terminated"
@@ -436,6 +686,16 @@ jobs:
             kill $(cat oauth2-authorization-server.pid) || echo "Process already terminated"
             rm oauth2-authorization-server.pid
           fi
+
+      - name: Dump logs on failure
+        if: failure()
+        run: |
+          echo "==== START SPRING-SECURITY-REACTIVE LOG ===="
+          cat spring-security-reactive-${{ github.run_id }}.log || true
+          echo "==== END SPRING-SECURITY-REACTIVE LOG ===="
+          echo "==== START OAUTH2-AUTHORIZATION-SERVER LOG ===="
+          cat oauth2-authorization-server-${{ github.run_id }}.log || true
+          echo "==== END OAUTH2-AUTHORIZATION-SERVER LOG ===="
   todo-app-integration-test:
     runs-on: ubuntu-latest
     permissions:
@@ -461,19 +721,41 @@ jobs:
 
       - name: Run todo-app in the background
         run: |
-          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl todo-app -am &
+          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl todo-app -am > todo-app-${{ github.run_id }}.log 2>&1 &
           echo $! > todo-app.pid
 
-      - name: Wait for services to start
-        run: sleep 120
-        shell: bash
+      - name: Wait for todo-app readiness
+        run: |
+          echo "Waiting for todo-app..."
+          for i in {1..60}; do
+            if curl -sf http://localhost:6958/actuator/health | grep -q '"status":"UP"'; then
+              echo "todo-app is up!"
+              exit 0
+            fi
+            PID=$(cat todo-app.pid)
+            if ! kill -0 $PID 2>/dev/null; then
+              echo "todo-app process died"
+              exit 1
+            fi
+            sleep 2
+          done
+          echo "todo-app failed to start"
+          exit 1
 
       - name: Run todo-app integration tests with newman
         run: newman run ./newman/todo-app.postman_collection.json -e ./newman/todo-app-local.postman_environment.json
 
       - name: Shut down todo-app
+        if: always()
         run: |
           if [ -f todo-app.pid ]; then
               kill $(cat todo-app.pid) || echo "Process already terminated"
               rm todo-app.pid
           fi
+
+      - name: Dump logs on failure
+        if: failure()
+        run: |
+          echo "==== START TODO-APP LOG ===="
+          cat todo-app-${{ github.run_id }}.log || true
+          echo "==== END TODO-APP LOG ===="
