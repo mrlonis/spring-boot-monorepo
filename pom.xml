@@ -40,7 +40,7 @@
     <flowable.version>7.2.0</flowable.version>
     <git-build-hook-maven-plugin.version>3.6.0</git-build-hook-maven-plugin.version>
     <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
-    <java.version>21</java.version>
+    <java.version>25</java.version>
     <maven-compiler-plugin.version>3.15.0</maven-compiler-plugin.version>
     <maven-enforcer-plugin.version>3.6.2</maven-enforcer-plugin.version>
     <maven-failsafe-plugin.version>3.5.5</maven-failsafe-plugin.version>
