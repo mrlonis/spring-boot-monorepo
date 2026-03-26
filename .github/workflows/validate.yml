@@ -28,20 +28,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Setup node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-
-      - name: Install newman
-        run: npm install -g newman
-
-      - name: Setup java
-        uses: actions/setup-java@v5
-        with:
-          java-version-file: ".java-version"
-          distribution: "temurin"
-          cache: maven
+      - name: Setup node and java
+        uses: ./.github/actions/setup-node-java
 
       - name: Maven verify
         run: ./mvnw -B clean verify -fae -T 1C
@@ -76,20 +64,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Setup node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-
-      - name: Install newman
-        run: npm install -g newman
-
-      - name: Setup java
-        uses: actions/setup-java@v5
-        with:
-          java-version-file: ".java-version"
-          distribution: "temurin"
-          cache: maven
+      - name: Setup node, java, and newman
+        uses: ./.github/actions/setup-node-java-newman
 
       - name: Start flowable-engine
         id: flowable-engine
@@ -103,10 +79,9 @@ jobs:
 
       - name: Shut down flowable-engine
         if: always()
-        run: |
-          kill ${{ steps.flowable-engine.outputs.pid }} || true
-          sleep 2
-          kill -9 ${{ steps.flowable-engine.outputs.pid }} 2>/dev/null || true
+        uses: ./.github/actions/stop-spring-service
+        with:
+          pid: ${{ steps.flowable-engine.outputs.pid }}
 
       - name: Dump logs on failure
         if: failure()
@@ -123,20 +98,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Setup node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-
-      - name: Install newman
-        run: npm install -g newman
-
-      - name: Setup java
-        uses: actions/setup-java@v5
-        with:
-          java-version-file: ".java-version"
-          distribution: "temurin"
-          cache: maven
+      - name: Setup node, java, and newman
+        uses: ./.github/actions/setup-node-java-newman
 
       - name: Start oauth2-authorization-server
         id: oauth2-authorization-server
@@ -155,16 +118,17 @@ jobs:
       - name: Run newman
         run: newman run ./newman/gateway.postman_collection.json -e ./newman/gateway-local.postman_environment.json
 
-      - name: Shut down services
+      - name: Shut down gateway
         if: always()
-        run: |
-          kill ${{ steps.gateway.outputs.pid }} || true
-          sleep 2
-          kill -9 ${{ steps.gateway.outputs.pid }} 2>/dev/null || true
+        uses: ./.github/actions/stop-spring-service
+        with:
+          pid: ${{ steps.gateway.outputs.pid }}
 
-          kill ${{ steps.oauth2-authorization-server.outputs.pid }} || true
-          sleep 2
-          kill -9 ${{ steps.oauth2-authorization-server.outputs.pid }} 2>/dev/null || true
+      - name: Shut down oauth2-authorization-server
+        if: always()
+        uses: ./.github/actions/stop-spring-service
+        with:
+          pid: ${{ steps.oauth2-authorization-server.outputs.pid }}
 
       - name: Dump logs on failure
         if: failure()
@@ -183,20 +147,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Setup node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-
-      - name: Install newman
-        run: npm install -g newman
-
-      - name: Setup java
-        uses: actions/setup-java@v5
-        with:
-          java-version-file: ".java-version"
-          distribution: "temurin"
-          cache: maven
+      - name: Setup node, java, and newman
+        uses: ./.github/actions/setup-node-java-newman
 
       - name: Start mysql-migrations
         id: mysql-migrations
@@ -210,10 +162,9 @@ jobs:
 
       - name: Shut down mysql-migrations
         if: always()
-        run: |
-          kill ${{ steps.mysql-migrations.outputs.pid }} || true
-          sleep 2
-          kill -9 ${{ steps.mysql-migrations.outputs.pid }} 2>/dev/null || true
+        uses: ./.github/actions/stop-spring-service
+        with:
+          pid: ${{ steps.mysql-migrations.outputs.pid }}
 
       - name: Dump logs on failure
         if: failure()
@@ -229,20 +180,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Setup node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-
-      - name: Install newman
-        run: npm install -g newman
-
-      - name: Setup java
-        uses: actions/setup-java@v5
-        with:
-          java-version-file: ".java-version"
-          distribution: "temurin"
-          cache: maven
+      - name: Setup node, java, and newman
+        uses: ./.github/actions/setup-node-java-newman
 
       - name: Start oauth2-authorization-server
         id: oauth2-authorization-server
@@ -254,12 +193,11 @@ jobs:
       - name: Run newman
         run: newman run ./newman/oauth2-authorization-server.postman_collection.json -e ./newman/oauth2-authorization-server-local.postman_environment.json --env-var "CI=true"
 
-      - name: Shut down services
+      - name: Shut down oauth2-authorization-server
         if: always()
-        run: |
-          kill ${{ steps.oauth2-authorization-server.outputs.pid }} || true
-          sleep 2
-          kill -9 ${{ steps.oauth2-authorization-server.outputs.pid }} 2>/dev/null || true
+        uses: ./.github/actions/stop-spring-service
+        with:
+          pid: ${{ steps.oauth2-authorization-server.outputs.pid }}
 
       - name: Dump logs on failure
         if: failure()
@@ -275,20 +213,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Setup node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-
-      - name: Install newman
-        run: npm install -g newman
-
-      - name: Setup java
-        uses: actions/setup-java@v5
-        with:
-          java-version-file: ".java-version"
-          distribution: "temurin"
-          cache: maven
+      - name: Setup node, java, and newman
+        uses: ./.github/actions/setup-node-java-newman
 
       - name: Start oauth2-authorization-server-opaque
         id: oauth2-authorization-server-opaque
@@ -300,12 +226,11 @@ jobs:
       - name: Run newman
         run: newman run ./newman/oauth2-authorization-server-opaque.postman_collection.json -e ./newman/oauth2-authorization-server-opaque-local.postman_environment.json
 
-      - name: Shut down services
+      - name: Shut down oauth2-authorization-server-opaque
         if: always()
-        run: |
-          kill ${{ steps.oauth2-authorization-server-opaque.outputs.pid }} || true
-          sleep 2
-          kill -9 ${{ steps.oauth2-authorization-server-opaque.outputs.pid }} 2>/dev/null || true
+        uses: ./.github/actions/stop-spring-service
+        with:
+          pid: ${{ steps.oauth2-authorization-server-opaque.outputs.pid }}
 
       - name: Dump logs on failure
         if: failure()
@@ -322,20 +247,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Setup node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-
-      - name: Install newman
-        run: npm install -g newman
-
-      - name: Setup java
-        uses: actions/setup-java@v5
-        with:
-          java-version-file: ".java-version"
-          distribution: "temurin"
-          cache: maven
+      - name: Setup node, java, and newman
+        uses: ./.github/actions/setup-node-java-newman
 
       - name: Start oauth2-authorization-server
         id: oauth2-authorization-server
@@ -354,16 +267,17 @@ jobs:
       - name: Run newman
         run: newman run ./newman/spring-security.postman_collection.json -e ./newman/spring-security-local.postman_environment.json
 
-      - name: Shut down services
+      - name: Shut down spring-security
         if: always()
-        run: |
-          kill ${{ steps.spring-security.outputs.pid }} || true
-          sleep 2
-          kill -9 ${{ steps.spring-security.outputs.pid }} 2>/dev/null || true
+        uses: ./.github/actions/stop-spring-service
+        with:
+          pid: ${{ steps.spring-security.outputs.pid }}
 
-          kill ${{ steps.oauth2-authorization-server.outputs.pid }} || true
-          sleep 2
-          kill -9 ${{ steps.oauth2-authorization-server.outputs.pid }} 2>/dev/null || true
+      - name: Shut down oauth2-authorization-server
+        if: always()
+        uses: ./.github/actions/stop-spring-service
+        with:
+          pid: ${{ steps.oauth2-authorization-server.outputs.pid }}
 
       - name: Dump logs on failure
         if: failure()
@@ -383,20 +297,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Setup node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-
-      - name: Install newman
-        run: npm install -g newman
-
-      - name: Setup java
-        uses: actions/setup-java@v5
-        with:
-          java-version-file: ".java-version"
-          distribution: "temurin"
-          cache: maven
+      - name: Setup node, java, and newman
+        uses: ./.github/actions/setup-node-java-newman
 
       - name: Start oauth2-authorization-server-opaque
         id: oauth2-authorization-server-opaque
@@ -415,16 +317,17 @@ jobs:
       - name: Run newman
         run: newman run ./newman/spring-security-opaque.postman_collection.json -e ./newman/spring-security-opaque-local.postman_environment.json
 
-      - name: Shut down services
+      - name: Shut down spring-security-opaque
         if: always()
-        run: |
-          kill ${{ steps.spring-security-opaque.outputs.pid }} || true
-          sleep 2
-          kill -9 ${{ steps.spring-security-opaque.outputs.pid }} 2>/dev/null || true
+        uses: ./.github/actions/stop-spring-service
+        with:
+          pid: ${{ steps.spring-security-opaque.outputs.pid }}
 
-          kill ${{ steps.oauth2-authorization-server-opaque.outputs.pid }} || true
-          sleep 2
-          kill -9 ${{ steps.oauth2-authorization-server-opaque.outputs.pid }} 2>/dev/null || true
+      - name: Shut down oauth2-authorization-server-opaque
+        if: always()
+        uses: ./.github/actions/stop-spring-service
+        with:
+          pid: ${{ steps.oauth2-authorization-server-opaque.outputs.pid }}
 
       - name: Dump logs on failure
         if: failure()
@@ -444,20 +347,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Setup node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-
-      - name: Install newman
-        run: npm install -g newman
-
-      - name: Setup java
-        uses: actions/setup-java@v5
-        with:
-          java-version-file: ".java-version"
-          distribution: "temurin"
-          cache: maven
+      - name: Setup node, java, and newman
+        uses: ./.github/actions/setup-node-java-newman
 
       - name: Start oauth2-authorization-server
         id: oauth2-authorization-server
@@ -476,16 +367,17 @@ jobs:
       - name: Run newman
         run: newman run ./newman/spring-security-reactive.postman_collection.json -e ./newman/spring-security-reactive-local.postman_environment.json
 
-      - name: Shut down services
+      - name: Shut down spring-security-reactive
         if: always()
-        run: |
-          kill ${{ steps.spring-security-reactive.outputs.pid }} || true
-          sleep 2
-          kill -9 ${{ steps.spring-security-reactive.outputs.pid }} 2>/dev/null || true
+        uses: ./.github/actions/stop-spring-service
+        with:
+          pid: ${{ steps.spring-security-reactive.outputs.pid }}
 
-          kill ${{ steps.oauth2-authorization-server.outputs.pid }} || true
-          sleep 2
-          kill -9 ${{ steps.oauth2-authorization-server.outputs.pid }} 2>/dev/null || true
+      - name: Shut down oauth2-authorization-server
+        if: always()
+        uses: ./.github/actions/stop-spring-service
+        with:
+          pid: ${{ steps.oauth2-authorization-server.outputs.pid }}
 
       - name: Dump logs on failure
         if: failure()
@@ -504,20 +396,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Setup node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-
-      - name: Install newman
-        run: npm install -g newman
-
-      - name: Setup java
-        uses: actions/setup-java@v5
-        with:
-          java-version-file: ".java-version"
-          distribution: "temurin"
-          cache: maven
+      - name: Setup node, java, and newman
+        uses: ./.github/actions/setup-node-java-newman
 
       - name: Start todo-app
         id: todo-app
@@ -531,10 +411,9 @@ jobs:
 
       - name: Shut down todo-app
         if: always()
-        run: |
-          kill ${{ steps.todo-app.outputs.pid }} || true
-          sleep 2
-          kill -9 ${{ steps.todo-app.outputs.pid }} 2>/dev/null || true
+        uses: ./.github/actions/stop-spring-service
+        with:
+          pid: ${{ steps.todo-app.outputs.pid }}
 
       - name: Dump logs on failure
         if: failure()
