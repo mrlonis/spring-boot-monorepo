@@ -22,6 +22,22 @@ public class OAuth2PropertiesEnvironmentPostProcessor
         implements EnvironmentPostProcessor, ApplicationListener<ApplicationContextInitializedEvent> {
     private static final DeferredLog DEFERRED_LOG = new DeferredLog();
 
+    /**
+     * This method configures the Spring Boot environment with key properties needed for the remaining autoconfiguration
+     * classes within this library to function properly. It sets default values for properties such as
+     * `oauth2.security.default-any-request-access` and conditionally configures properties related to federated
+     * authentication based on the active profiles and specific property settings. The method also registers this class
+     * as an application listener to ensure that deferred logs are replayed once the application context is initialized.
+     *
+     * <p>TODO: Don't overwrite properties if they are already set.
+     *
+     * <p>Currently this process will overwrite the properties set by the user. We should only set the properties if
+     * they are not already set by the user. This will allow users to override the defaults set by this class if they
+     * want to. We can check if a property is already set by using `environment.containsProperty(propertyName)`.
+     *
+     * @param environment the environment to post-process
+     * @param application the application to which the environment belongs
+     */
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
         DEFERRED_LOG.info("Setting oauth2.security.default-any-request-access to AUTHENTICATED");
