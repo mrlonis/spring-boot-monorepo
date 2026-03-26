@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector;
 import org.springframework.security.oauth2.server.resource.introspection.SpringOpaqueTokenIntrospector;
@@ -33,14 +34,14 @@ public class ServletOpaqueTokenIntrospectorAutoConfiguration {
                 "Configuring OpaqueTokenIntrospector with Introspection URI: {}",
                 properties.getFederate().getIntrospectionUri());
 
-        var delegate = SpringOpaqueTokenIntrospector.withIntrospectionUri(
+        SpringOpaqueTokenIntrospector delegate = SpringOpaqueTokenIntrospector.withIntrospectionUri(
                         properties.getFederate().getIntrospectionUri())
                 .clientId(properties.getFederate().getClientId())
                 .clientSecret(properties.getFederate().getClientSecret())
                 .build();
 
         return token -> {
-            var principal = delegate.introspect(token);
+            OAuth2AuthenticatedPrincipal principal = delegate.introspect(token);
             Object audClaim = principal.getAttribute("aud");
             Set<String> allowedAudiences = properties.getFederate().getAudiences();
 

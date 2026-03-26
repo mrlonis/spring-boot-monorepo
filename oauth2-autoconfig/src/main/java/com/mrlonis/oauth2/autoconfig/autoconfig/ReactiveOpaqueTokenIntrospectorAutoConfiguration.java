@@ -33,7 +33,7 @@ public class ReactiveOpaqueTokenIntrospectorAutoConfiguration {
                 "Configuring ReactiveOpaqueTokenIntrospector with Introspection URI: {}",
                 properties.getFederate().getIntrospectionUri());
 
-        var delegate = SpringReactiveOpaqueTokenIntrospector.withIntrospectionUri(
+        SpringReactiveOpaqueTokenIntrospector delegate = SpringReactiveOpaqueTokenIntrospector.withIntrospectionUri(
                         properties.getFederate().getIntrospectionUri())
                 .clientId(properties.getFederate().getClientId())
                 .clientSecret(properties.getFederate().getClientSecret())
