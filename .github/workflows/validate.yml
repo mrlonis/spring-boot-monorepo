@@ -115,55 +115,15 @@ jobs:
       collection: ./newman/spring-security-opaque.postman_collection.json
       environment: ./newman/spring-security-opaque-local.postman_environment.json
   spring-security-reactive-integration-test:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
     needs: oauth2-authorization-server-integration-test
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup node, java, and newman
-        uses: ./.github/actions/setup-node-java-newman
-
-      - name: Start oauth2-authorization-server
-        id: oauth2-authorization-server
-        uses: ./.github/actions/run-spring-service
-        with:
-          module: oauth2-authorization-server
-          port: 9562
-
-      - name: Start spring-security-reactive
-        id: spring-security-reactive
-        uses: ./.github/actions/run-spring-service
-        with:
-          module: spring-security-reactive
-          port: 9373
-
-      - name: Run newman
-        run: newman run ./newman/spring-security-reactive.postman_collection.json -e ./newman/spring-security-reactive-local.postman_environment.json
-
-      - name: Shut down spring-security-reactive
-        if: always()
-        uses: ./.github/actions/stop-spring-service
-        with:
-          pid: ${{ steps.spring-security-reactive.outputs.pid }}
-
-      - name: Shut down oauth2-authorization-server
-        if: always()
-        uses: ./.github/actions/stop-spring-service
-        with:
-          pid: ${{ steps.oauth2-authorization-server.outputs.pid }}
-
-      - name: Dump logs on failure
-        if: failure()
-        run: |
-          echo "==== START SPRING-SECURITY-REACTIVE LOG ===="
-          cat ${{ steps.spring-security-reactive.outputs.log_file }} || true
-          echo "==== END SPRING-SECURITY-REACTIVE LOG ===="
-          echo "==== START OAUTH2-AUTHORIZATION-SERVER LOG ===="
-          cat ${{ steps.oauth2-authorization-server.outputs.log_file }} || true
-          echo "==== END OAUTH2-AUTHORIZATION-SERVER LOG ===="
+    uses: ./.github/workflows/reusable-two-service-newman.yml
+    with:
+      module_a: oauth2-authorization-server
+      port_a: 9562
+      module_b: spring-security-reactive
+      port_b: 9373
+      collection: ./newman/spring-security-reactive.postman_collection.json
+      environment: ./newman/spring-security-reactive-local.postman_environment.json
   todo-app-integration-test:
     uses: ./.github/workflows/reusable-single-service-newman.yml
     with:
