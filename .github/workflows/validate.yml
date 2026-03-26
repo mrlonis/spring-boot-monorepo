@@ -91,28 +91,12 @@ jobs:
           distribution: "temurin"
           cache: maven
 
-      - name: Run flowable-engine in the background
-        run: |
-          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl flowable-engine -am > flowable-engine-${{ github.run_id }}.log 2>&1 &
-          echo $! > flowable-engine.pid
-
-      - name: Wait for flowable-engine readiness
-        run: |
-          echo "Waiting for flowable-engine..."
-          for i in {1..60}; do
-            if curl -sf http://localhost:5367/actuator/health | grep -q '"status":"UP"'; then
-              echo "flowable-engine is up!"
-              exit 0
-            fi
-            PID=$(cat flowable-engine.pid)
-            if ! kill -0 $PID 2>/dev/null; then
-              echo "flowable-engine process died"
-              exit 1
-            fi
-            sleep 2
-          done
-          echo "flowable-engine failed to start"
-          exit 1
+      - name: Start flowable-engine
+        id: flowable-engine
+        uses: ./.github/actions/run-spring-service
+        with:
+          module: flowable-engine
+          port: 5367
 
       - name: Run flowable-engine integration tests with newman
         run: newman run ./newman/flowable-engine.postman_collection.json -e ./newman/flowable-engine-local.postman_environment.json
@@ -120,16 +104,15 @@ jobs:
       - name: Shut down flowable-engine
         if: always()
         run: |
-          if [ -f flowable-engine.pid ]; then
-              kill $(cat flowable-engine.pid) || echo "Process already terminated"
-              rm flowable-engine.pid
-          fi
+          kill ${{ steps.flowable-engine.outputs.pid }} || true
+          sleep 2
+          kill -9 ${{ steps.flowable-engine.outputs.pid }} 2>/dev/null || true
 
       - name: Dump logs on failure
         if: failure()
         run: |
           echo "==== START FLOWABLE-ENGINE LOG ===="
-          cat flowable-engine-${{ github.run_id }}.log || true
+          cat ${{ steps.flowable-engine.outputs.log_file }} || true
           echo "==== END FLOWABLE-ENGINE LOG ===="
   gateway-integration-test:
     runs-on: ubuntu-latest
@@ -155,28 +138,12 @@ jobs:
           distribution: "temurin"
           cache: maven
 
-      - name: Run oauth2-authorization-server in the background
-        run: |
-          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl oauth2-authorization-server -am > oauth2-authorization-server-${{ github.run_id }}.log 2>&1 &
-          echo $! > oauth2-authorization-server.pid
-
-      - name: Wait for oauth2-authorization-server readiness
-        run: |
-          echo "Waiting for oauth2-authorization-server..."
-          for i in {1..60}; do
-            if curl -sf http://localhost:9562/actuator/health | grep -q '"status":"UP"'; then
-              echo "oauth2-authorization-server is up!"
-              exit 0
-            fi
-            PID=$(cat oauth2-authorization-server.pid)
-            if ! kill -0 $PID 2>/dev/null; then
-              echo "oauth2-authorization-server process died"
-              exit 1
-            fi
-            sleep 2
-          done
-          echo "oauth2-authorization-server failed to start"
-          exit 1
+      - name: Start oauth2-authorization-server
+        id: oauth2-authorization-server
+        uses: ./.github/actions/run-spring-service
+        with:
+          module: oauth2-authorization-server
+          port: 9562
 
       - name: Start gateway
         id: gateway
@@ -195,19 +162,18 @@ jobs:
           sleep 2
           kill -9 ${{ steps.gateway.outputs.pid }} 2>/dev/null || true
 
-          if [ -f oauth2-authorization-server.pid ]; then
-            kill $(cat oauth2-authorization-server.pid) || echo "Process already terminated"
-            rm oauth2-authorization-server.pid
-          fi
+          kill ${{ steps.oauth2-authorization-server.outputs.pid }} || true
+          sleep 2
+          kill -9 ${{ steps.oauth2-authorization-server.outputs.pid }} 2>/dev/null || true
 
       - name: Dump logs on failure
         if: failure()
         run: |
           echo "==== START GATEWAY LOG ===="
-          cat gateway-${{ github.run_id }}.log || true
+          cat ${{ steps.gateway.outputs.log_file }} || true
           echo "==== END GATEWAY LOG ===="
           echo "==== START AUTH SERVER LOG ===="
-          cat oauth2-authorization-server-${{ github.run_id }}.log || true
+          cat ${{ steps.oauth2-authorization-server.outputs.log_file }} || true
           echo "==== END AUTH SERVER LOG ===="
   mysql-migrations-integration-test:
     runs-on: ubuntu-latest
