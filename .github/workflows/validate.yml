@@ -105,55 +105,15 @@ jobs:
       collection: ./newman/spring-security.postman_collection.json
       environment: ./newman/spring-security-local.postman_environment.json
   spring-security-opaque-integration-test:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
     needs: oauth2-authorization-server-opaque-integration-test
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup node, java, and newman
-        uses: ./.github/actions/setup-node-java-newman
-
-      - name: Start oauth2-authorization-server-opaque
-        id: oauth2-authorization-server-opaque
-        uses: ./.github/actions/run-spring-service
-        with:
-          module: oauth2-authorization-server-opaque
-          port: 9563
-
-      - name: Start spring-security-opaque
-        id: spring-security-opaque
-        uses: ./.github/actions/run-spring-service
-        with:
-          module: spring-security-opaque
-          port: 9055
-
-      - name: Run newman
-        run: newman run ./newman/spring-security-opaque.postman_collection.json -e ./newman/spring-security-opaque-local.postman_environment.json
-
-      - name: Shut down spring-security-opaque
-        if: always()
-        uses: ./.github/actions/stop-spring-service
-        with:
-          pid: ${{ steps.spring-security-opaque.outputs.pid }}
-
-      - name: Shut down oauth2-authorization-server-opaque
-        if: always()
-        uses: ./.github/actions/stop-spring-service
-        with:
-          pid: ${{ steps.oauth2-authorization-server-opaque.outputs.pid }}
-
-      - name: Dump logs on failure
-        if: failure()
-        run: |
-          echo "==== START SPRING-SECURITY-OPAQUE LOG ===="
-          cat ${{ steps.spring-security-opaque.outputs.log_file }} || true
-          echo "==== END SPRING-SECURITY-OPAQUE LOG ===="
-          echo "==== START OAUTH2-AUTHORIZATION-SERVER-OPAQUE LOG ===="
-          cat ${{ steps.oauth2-authorization-server-opaque.outputs.log_file }} || true
-          echo "==== END OAUTH2-AUTHORIZATION-SERVER-OPAQUE LOG ===="
+    uses: ./.github/workflows/reusable-two-service-newman.yml
+    with:
+      module_a: oauth2-authorization-server-opaque
+      port_a: 9563
+      module_b: spring-security-opaque
+      port_b: 9055
+      collection: ./newman/spring-security-opaque.postman_collection.json
+      environment: ./newman/spring-security-opaque-local.postman_environment.json
   spring-security-reactive-integration-test:
     runs-on: ubuntu-latest
     permissions:
