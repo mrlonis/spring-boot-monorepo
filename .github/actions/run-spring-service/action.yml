@@ -47,6 +47,8 @@ runs:
 
         PID="${{ steps.start.outputs.pid }}"
 
+        PID="${{ steps.start.outputs.pid }}"
+
         for i in {1..60}; do
           RESPONSE=$(curl -sf http://localhost:${{ inputs.port }}/actuator/health || true)
 
