@@ -178,28 +178,12 @@ jobs:
           echo "oauth2-authorization-server failed to start"
           exit 1
 
-      - name: Run gateway in the background
-        run: |
-          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl gateway -am > gateway-${{ github.run_id }}.log 2>&1 &
-          echo $! > gateway.pid
-
-      - name: Wait for gateway readiness
-        run: |
-          echo "Waiting for gateway..."
-          for i in {1..60}; do
-            if curl -sf http://localhost:9203/actuator/health | grep -q '"status":"UP"'; then
-              echo "Gateway is up!"
-              exit 0
-            fi
-            PID=$(cat gateway.pid)
-            if ! kill -0 $PID 2>/dev/null; then
-              echo "Gateway process died"
-              exit 1
-            fi
-            sleep 2
-          done
-          echo "Gateway failed to start"
-          exit 1
+      - name: Start gateway
+        id: gateway
+        uses: ./.github/actions/run-spring-service
+        with:
+          module: gateway
+          port: 9203
 
       - name: Run newman
         run: newman run ./newman/gateway.postman_collection.json -e ./newman/gateway-local.postman_environment.json
@@ -207,10 +191,10 @@ jobs:
       - name: Shut down services
         if: always()
         run: |
-          if [ -f gateway.pid ]; then
-            kill $(cat gateway.pid) || echo "Process already terminated"
-            rm gateway.pid
-          fi
+          kill ${{ steps.gateway.outputs.pid }} || true
+          sleep 2
+          kill -9 ${{ steps.gateway.outputs.pid }} 2>/dev/null || true
+
           if [ -f oauth2-authorization-server.pid ]; then
             kill $(cat oauth2-authorization-server.pid) || echo "Process already terminated"
             rm oauth2-authorization-server.pid
