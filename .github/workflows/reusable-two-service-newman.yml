@@ -27,7 +27,7 @@ on:
         default: ""
 
 jobs:
-  test:
+  integration-test:
     runs-on: ubuntu-latest
     permissions:
       contents: read

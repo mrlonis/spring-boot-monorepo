@@ -74,104 +74,26 @@ jobs:
       collection: ./newman/gateway.postman_collection.json
       environment: ./newman/gateway-local.postman_environment.json
   mysql-migrations-integration-test:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup node, java, and newman
-        uses: ./.github/actions/setup-node-java-newman
-
-      - name: Start mysql-migrations
-        id: mysql-migrations
-        uses: ./.github/actions/run-spring-service
-        with:
-          module: mysql-migrations
-          port: 5368
-
-      - name: Run mysql-migrations integration tests with newman
-        run: newman run ./newman/mysql-migrations.postman_collection.json -e ./newman/mysql-migrations-local.postman_environment.json
-
-      - name: Shut down mysql-migrations
-        if: always()
-        uses: ./.github/actions/stop-spring-service
-        with:
-          pid: ${{ steps.mysql-migrations.outputs.pid }}
-
-      - name: Dump logs on failure
-        if: failure()
-        run: |
-          echo "==== START MYSQL-MIGRATIONS LOG ===="
-          cat ${{ steps.mysql-migrations.outputs.log_file }} || true
-          echo "==== END MYSQL-MIGRATIONS LOG ===="
+    uses: ./.github/workflows/reusable-single-service-newman.yml
+    with:
+      module: mysql-migrations
+      port: 5368
+      collection: ./newman/mysql-migrations.postman_collection.json
+      environment: ./newman/mysql-migrations-local.postman_environment.json
   oauth2-authorization-server-integration-test:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup node, java, and newman
-        uses: ./.github/actions/setup-node-java-newman
-
-      - name: Start oauth2-authorization-server
-        id: oauth2-authorization-server
-        uses: ./.github/actions/run-spring-service
-        with:
-          module: oauth2-authorization-server
-          port: 9562
-
-      - name: Run newman
-        run: newman run ./newman/oauth2-authorization-server.postman_collection.json -e ./newman/oauth2-authorization-server-local.postman_environment.json --env-var "CI=true"
-
-      - name: Shut down oauth2-authorization-server
-        if: always()
-        uses: ./.github/actions/stop-spring-service
-        with:
-          pid: ${{ steps.oauth2-authorization-server.outputs.pid }}
-
-      - name: Dump logs on failure
-        if: failure()
-        run: |
-          echo "==== START OAUTH2-AUTHORIZATION-SERVER LOG ===="
-          cat ${{ steps.oauth2-authorization-server.outputs.log_file }} || true
-          echo "==== END OAUTH2-AUTHORIZATION-SERVER LOG ===="
+    uses: ./.github/workflows/reusable-single-service-newman.yml
+    with:
+      module: oauth2-authorization-server
+      port: 9562
+      collection: ./newman/oauth2-authorization-server.postman_collection.json
+      environment: ./newman/oauth2-authorization-server-local.postman_environment.json
   oauth2-authorization-server-opaque-integration-test:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup node, java, and newman
-        uses: ./.github/actions/setup-node-java-newman
-
-      - name: Start oauth2-authorization-server-opaque
-        id: oauth2-authorization-server-opaque
-        uses: ./.github/actions/run-spring-service
-        with:
-          module: oauth2-authorization-server-opaque
-          port: 9563
-
-      - name: Run newman
-        run: newman run ./newman/oauth2-authorization-server-opaque.postman_collection.json -e ./newman/oauth2-authorization-server-opaque-local.postman_environment.json
-
-      - name: Shut down oauth2-authorization-server-opaque
-        if: always()
-        uses: ./.github/actions/stop-spring-service
-        with:
-          pid: ${{ steps.oauth2-authorization-server-opaque.outputs.pid }}
-
-      - name: Dump logs on failure
-        if: failure()
-        run: |
-          echo "==== START OAUTH2-AUTHORIZATION-SERVER-OPAQUE LOG ===="
-          cat ${{ steps.oauth2-authorization-server-opaque.outputs.log_file }} || true
-          echo "==== END OAUTH2-AUTHORIZATION-SERVER-OPAQUE LOG ===="
+    uses: ./.github/workflows/reusable-single-service-newman.yml
+    with:
+      module: oauth2-authorization-server-opaque
+      port: 9563
+      collection: ./newman/oauth2-authorization-server-opaque.postman_collection.json
+      environment: ./newman/oauth2-authorization-server-opaque-local.postman_environment.json
   spring-security-integration-test:
     runs-on: ubuntu-latest
     permissions:
@@ -323,35 +245,9 @@ jobs:
           cat ${{ steps.oauth2-authorization-server.outputs.log_file }} || true
           echo "==== END OAUTH2-AUTHORIZATION-SERVER LOG ===="
   todo-app-integration-test:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup node, java, and newman
-        uses: ./.github/actions/setup-node-java-newman
-
-      - name: Start todo-app
-        id: todo-app
-        uses: ./.github/actions/run-spring-service
-        with:
-          module: todo-app
-          port: 6958
-
-      - name: Run todo-app integration tests with newman
-        run: newman run ./newman/todo-app.postman_collection.json -e ./newman/todo-app-local.postman_environment.json
-
-      - name: Shut down todo-app
-        if: always()
-        uses: ./.github/actions/stop-spring-service
-        with:
-          pid: ${{ steps.todo-app.outputs.pid }}
-
-      - name: Dump logs on failure
-        if: failure()
-        run: |
-          echo "==== START TODO-APP LOG ===="
-          cat ${{ steps.todo-app.outputs.log_file }} || true
-          echo "==== END TODO-APP LOG ===="
+    uses: ./.github/workflows/reusable-single-service-newman.yml
+    with:
+      module: todo-app
+      port: 6958
+      collection: ./newman/todo-app.postman_collection.json
+      environment: ./newman/todo-app-local.postman_environment.json
