@@ -1,0 +1,12 @@
+name: "Setup Java"
+description: "Installs Java"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup java
+      uses: actions/setup-java@v5
+      with:
+        java-version-file: ".java-version"
+        distribution: "temurin"
+        cache: maven

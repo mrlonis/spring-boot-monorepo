@@ -48,376 +48,83 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Setup java
-        uses: actions/setup-java@v5
-        with:
-          java-version-file: ".java-version"
-          distribution: "temurin"
-          cache: maven
+        uses: ./.github/actions/setup-java
 
       - name: Update dependency graph
         uses: advanced-security/maven-dependency-submission-action@v5.0.0
   flowable-engine-integration-test:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup node, java, and newman
-        uses: ./.github/actions/setup-node-java-newman
-
-      - name: Start flowable-engine
-        id: flowable-engine
-        uses: ./.github/actions/run-spring-service
-        with:
-          module: flowable-engine
-          port: 5367
-
-      - name: Run flowable-engine integration tests with newman
-        run: newman run ./newman/flowable-engine.postman_collection.json -e ./newman/flowable-engine-local.postman_environment.json
-
-      - name: Shut down flowable-engine
-        if: always()
-        uses: ./.github/actions/stop-spring-service
-        with:
-          pid: ${{ steps.flowable-engine.outputs.pid }}
-
-      - name: Dump logs on failure
-        if: failure()
-        run: |
-          echo "==== START FLOWABLE-ENGINE LOG ===="
-          cat ${{ steps.flowable-engine.outputs.log_file }} || true
-          echo "==== END FLOWABLE-ENGINE LOG ===="
+    uses: ./.github/workflows/reusable-single-service-newman.yml
+    with:
+      module: flowable-engine
+      port: 5367
+      collection: ./newman/flowable-engine.postman_collection.json
+      environment: ./newman/flowable-engine-local.postman_environment.json
   gateway-integration-test:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
     needs: oauth2-authorization-server-integration-test
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup node, java, and newman
-        uses: ./.github/actions/setup-node-java-newman
-
-      - name: Start oauth2-authorization-server
-        id: oauth2-authorization-server
-        uses: ./.github/actions/run-spring-service
-        with:
-          module: oauth2-authorization-server
-          port: 9562
-
-      - name: Start gateway
-        id: gateway
-        uses: ./.github/actions/run-spring-service
-        with:
-          module: gateway
-          port: 9203
-
-      - name: Run newman
-        run: newman run ./newman/gateway.postman_collection.json -e ./newman/gateway-local.postman_environment.json
-
-      - name: Shut down gateway
-        if: always()
-        uses: ./.github/actions/stop-spring-service
-        with:
-          pid: ${{ steps.gateway.outputs.pid }}
-
-      - name: Shut down oauth2-authorization-server
-        if: always()
-        uses: ./.github/actions/stop-spring-service
-        with:
-          pid: ${{ steps.oauth2-authorization-server.outputs.pid }}
-
-      - name: Dump logs on failure
-        if: failure()
-        run: |
-          echo "==== START GATEWAY LOG ===="
-          cat ${{ steps.gateway.outputs.log_file }} || true
-          echo "==== END GATEWAY LOG ===="
-          echo "==== START AUTH SERVER LOG ===="
-          cat ${{ steps.oauth2-authorization-server.outputs.log_file }} || true
-          echo "==== END AUTH SERVER LOG ===="
+    uses: ./.github/workflows/reusable-two-service-newman.yml
+    with:
+      module_a: oauth2-authorization-server
+      port_a: 9562
+      module_b: gateway
+      port_b: 9203
+      collection: ./newman/gateway.postman_collection.json
+      environment: ./newman/gateway-local.postman_environment.json
   mysql-migrations-integration-test:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup node, java, and newman
-        uses: ./.github/actions/setup-node-java-newman
-
-      - name: Start mysql-migrations
-        id: mysql-migrations
-        uses: ./.github/actions/run-spring-service
-        with:
-          module: mysql-migrations
-          port: 5368
-
-      - name: Run mysql-migrations integration tests with newman
-        run: newman run ./newman/mysql-migrations.postman_collection.json -e ./newman/mysql-migrations-local.postman_environment.json
-
-      - name: Shut down mysql-migrations
-        if: always()
-        uses: ./.github/actions/stop-spring-service
-        with:
-          pid: ${{ steps.mysql-migrations.outputs.pid }}
-
-      - name: Dump logs on failure
-        if: failure()
-        run: |
-          echo "==== START MYSQL-MIGRATIONS LOG ===="
-          cat ${{ steps.mysql-migrations.outputs.log_file }} || true
-          echo "==== END MYSQL-MIGRATIONS LOG ===="
+    uses: ./.github/workflows/reusable-single-service-newman.yml
+    with:
+      module: mysql-migrations
+      port: 5368
+      collection: ./newman/mysql-migrations.postman_collection.json
+      environment: ./newman/mysql-migrations-local.postman_environment.json
   oauth2-authorization-server-integration-test:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup node, java, and newman
-        uses: ./.github/actions/setup-node-java-newman
-
-      - name: Start oauth2-authorization-server
-        id: oauth2-authorization-server
-        uses: ./.github/actions/run-spring-service
-        with:
-          module: oauth2-authorization-server
-          port: 9562
-
-      - name: Run newman
-        run: newman run ./newman/oauth2-authorization-server.postman_collection.json -e ./newman/oauth2-authorization-server-local.postman_environment.json --env-var "CI=true"
-
-      - name: Shut down oauth2-authorization-server
-        if: always()
-        uses: ./.github/actions/stop-spring-service
-        with:
-          pid: ${{ steps.oauth2-authorization-server.outputs.pid }}
-
-      - name: Dump logs on failure
-        if: failure()
-        run: |
-          echo "==== START OAUTH2-AUTHORIZATION-SERVER LOG ===="
-          cat ${{ steps.oauth2-authorization-server.outputs.log_file }} || true
-          echo "==== END OAUTH2-AUTHORIZATION-SERVER LOG ===="
+    uses: ./.github/workflows/reusable-single-service-newman.yml
+    with:
+      module: oauth2-authorization-server
+      port: 9562
+      collection: ./newman/oauth2-authorization-server.postman_collection.json
+      environment: ./newman/oauth2-authorization-server-local.postman_environment.json
+      newman_args: '--env-var "CI=true"'
   oauth2-authorization-server-opaque-integration-test:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup node, java, and newman
-        uses: ./.github/actions/setup-node-java-newman
-
-      - name: Start oauth2-authorization-server-opaque
-        id: oauth2-authorization-server-opaque
-        uses: ./.github/actions/run-spring-service
-        with:
-          module: oauth2-authorization-server-opaque
-          port: 9563
-
-      - name: Run newman
-        run: newman run ./newman/oauth2-authorization-server-opaque.postman_collection.json -e ./newman/oauth2-authorization-server-opaque-local.postman_environment.json
-
-      - name: Shut down oauth2-authorization-server-opaque
-        if: always()
-        uses: ./.github/actions/stop-spring-service
-        with:
-          pid: ${{ steps.oauth2-authorization-server-opaque.outputs.pid }}
-
-      - name: Dump logs on failure
-        if: failure()
-        run: |
-          echo "==== START OAUTH2-AUTHORIZATION-SERVER-OPAQUE LOG ===="
-          cat ${{ steps.oauth2-authorization-server-opaque.outputs.log_file }} || true
-          echo "==== END OAUTH2-AUTHORIZATION-SERVER-OPAQUE LOG ===="
+    uses: ./.github/workflows/reusable-single-service-newman.yml
+    with:
+      module: oauth2-authorization-server-opaque
+      port: 9563
+      collection: ./newman/oauth2-authorization-server-opaque.postman_collection.json
+      environment: ./newman/oauth2-authorization-server-opaque-local.postman_environment.json
   spring-security-integration-test:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
     needs: oauth2-authorization-server-integration-test
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup node, java, and newman
-        uses: ./.github/actions/setup-node-java-newman
-
-      - name: Start oauth2-authorization-server
-        id: oauth2-authorization-server
-        uses: ./.github/actions/run-spring-service
-        with:
-          module: oauth2-authorization-server
-          port: 9562
-
-      - name: Start spring-security
-        id: spring-security
-        uses: ./.github/actions/run-spring-service
-        with:
-          module: spring-security
-          port: 9054
-
-      - name: Run newman
-        run: newman run ./newman/spring-security.postman_collection.json -e ./newman/spring-security-local.postman_environment.json
-
-      - name: Shut down spring-security
-        if: always()
-        uses: ./.github/actions/stop-spring-service
-        with:
-          pid: ${{ steps.spring-security.outputs.pid }}
-
-      - name: Shut down oauth2-authorization-server
-        if: always()
-        uses: ./.github/actions/stop-spring-service
-        with:
-          pid: ${{ steps.oauth2-authorization-server.outputs.pid }}
-
-      - name: Dump logs on failure
-        if: failure()
-        run: |
-          echo "==== START SPRING-SECURITY LOG ===="
-          cat ${{ steps.spring-security.outputs.log_file }} || true
-          echo "==== END SPRING-SECURITY LOG ===="
-          echo "==== START OAUTH2-AUTHORIZATION-SERVER LOG ===="
-          cat ${{ steps.oauth2-authorization-server.outputs.log_file }} || true
-          echo "==== END OAUTH2-AUTHORIZATION-SERVER LOG ===="
+    uses: ./.github/workflows/reusable-two-service-newman.yml
+    with:
+      module_a: oauth2-authorization-server
+      port_a: 9562
+      module_b: spring-security
+      port_b: 9054
+      collection: ./newman/spring-security.postman_collection.json
+      environment: ./newman/spring-security-local.postman_environment.json
   spring-security-opaque-integration-test:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
     needs: oauth2-authorization-server-opaque-integration-test
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup node, java, and newman
-        uses: ./.github/actions/setup-node-java-newman
-
-      - name: Start oauth2-authorization-server-opaque
-        id: oauth2-authorization-server-opaque
-        uses: ./.github/actions/run-spring-service
-        with:
-          module: oauth2-authorization-server-opaque
-          port: 9563
-
-      - name: Start spring-security-opaque
-        id: spring-security-opaque
-        uses: ./.github/actions/run-spring-service
-        with:
-          module: spring-security-opaque
-          port: 9055
-
-      - name: Run newman
-        run: newman run ./newman/spring-security-opaque.postman_collection.json -e ./newman/spring-security-opaque-local.postman_environment.json
-
-      - name: Shut down spring-security-opaque
-        if: always()
-        uses: ./.github/actions/stop-spring-service
-        with:
-          pid: ${{ steps.spring-security-opaque.outputs.pid }}
-
-      - name: Shut down oauth2-authorization-server-opaque
-        if: always()
-        uses: ./.github/actions/stop-spring-service
-        with:
-          pid: ${{ steps.oauth2-authorization-server-opaque.outputs.pid }}
-
-      - name: Dump logs on failure
-        if: failure()
-        run: |
-          echo "==== START SPRING-SECURITY-OPAQUE LOG ===="
-          cat ${{ steps.spring-security-opaque.outputs.log_file }} || true
-          echo "==== END SPRING-SECURITY-OPAQUE LOG ===="
-          echo "==== START OAUTH2-AUTHORIZATION-SERVER-OPAQUE LOG ===="
-          cat ${{ steps.oauth2-authorization-server-opaque.outputs.log_file }} || true
-          echo "==== END OAUTH2-AUTHORIZATION-SERVER-OPAQUE LOG ===="
+    uses: ./.github/workflows/reusable-two-service-newman.yml
+    with:
+      module_a: oauth2-authorization-server-opaque
+      port_a: 9563
+      module_b: spring-security-opaque
+      port_b: 9055
+      collection: ./newman/spring-security-opaque.postman_collection.json
+      environment: ./newman/spring-security-opaque-local.postman_environment.json
   spring-security-reactive-integration-test:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
     needs: oauth2-authorization-server-integration-test
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup node, java, and newman
-        uses: ./.github/actions/setup-node-java-newman
-
-      - name: Start oauth2-authorization-server
-        id: oauth2-authorization-server
-        uses: ./.github/actions/run-spring-service
-        with:
-          module: oauth2-authorization-server
-          port: 9562
-
-      - name: Start spring-security-reactive
-        id: spring-security-reactive
-        uses: ./.github/actions/run-spring-service
-        with:
-          module: spring-security-reactive
-          port: 9373
-
-      - name: Run newman
-        run: newman run ./newman/spring-security-reactive.postman_collection.json -e ./newman/spring-security-reactive-local.postman_environment.json
-
-      - name: Shut down spring-security-reactive
-        if: always()
-        uses: ./.github/actions/stop-spring-service
-        with:
-          pid: ${{ steps.spring-security-reactive.outputs.pid }}
-
-      - name: Shut down oauth2-authorization-server
-        if: always()
-        uses: ./.github/actions/stop-spring-service
-        with:
-          pid: ${{ steps.oauth2-authorization-server.outputs.pid }}
-
-      - name: Dump logs on failure
-        if: failure()
-        run: |
-          echo "==== START SPRING-SECURITY-REACTIVE LOG ===="
-          cat ${{ steps.spring-security-reactive.outputs.log_file }} || true
-          echo "==== END SPRING-SECURITY-REACTIVE LOG ===="
-          echo "==== START OAUTH2-AUTHORIZATION-SERVER LOG ===="
-          cat ${{ steps.oauth2-authorization-server.outputs.log_file }} || true
-          echo "==== END OAUTH2-AUTHORIZATION-SERVER LOG ===="
+    uses: ./.github/workflows/reusable-two-service-newman.yml
+    with:
+      module_a: oauth2-authorization-server
+      port_a: 9562
+      module_b: spring-security-reactive
+      port_b: 9373
+      collection: ./newman/spring-security-reactive.postman_collection.json
+      environment: ./newman/spring-security-reactive-local.postman_environment.json
   todo-app-integration-test:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup node, java, and newman
-        uses: ./.github/actions/setup-node-java-newman
-
-      - name: Start todo-app
-        id: todo-app
-        uses: ./.github/actions/run-spring-service
-        with:
-          module: todo-app
-          port: 6958
-
-      - name: Run todo-app integration tests with newman
-        run: newman run ./newman/todo-app.postman_collection.json -e ./newman/todo-app-local.postman_environment.json
-
-      - name: Shut down todo-app
-        if: always()
-        uses: ./.github/actions/stop-spring-service
-        with:
-          pid: ${{ steps.todo-app.outputs.pid }}
-
-      - name: Dump logs on failure
-        if: failure()
-        run: |
-          echo "==== START TODO-APP LOG ===="
-          cat ${{ steps.todo-app.outputs.log_file }} || true
-          echo "==== END TODO-APP LOG ===="
+    uses: ./.github/workflows/reusable-single-service-newman.yml
+    with:
+      module: todo-app
+      port: 6958
+      collection: ./newman/todo-app.postman_collection.json
+      environment: ./newman/todo-app-local.postman_environment.json
