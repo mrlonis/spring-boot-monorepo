@@ -1,0 +1,12 @@
+name: "Setup Node, Newman, and Java"
+description: "Checks out the repo and installs Node, Newman, and Java"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout repository and setup node
+      uses: ./.github/actions/setup-node-java
+
+    - name: Install newman
+      shell: bash
+      run: npm install -g newman

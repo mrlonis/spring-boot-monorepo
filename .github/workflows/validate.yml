@@ -25,23 +25,8 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-
-      - name: Install newman
-        run: npm install -g newman
-
-      - name: Setup java
-        uses: actions/setup-java@v5
-        with:
-          java-version-file: ".java-version"
-          distribution: "temurin"
-          cache: maven
+      - name: Checkout repository and setup node and java
+        uses: ./.github/actions/setup-node-java
 
       - name: Maven verify
         run: ./mvnw -B clean verify -fae -T 1C
@@ -73,23 +58,8 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-
-      - name: Install newman
-        run: npm install -g newman
-
-      - name: Setup java
-        uses: actions/setup-java@v5
-        with:
-          java-version-file: ".java-version"
-          distribution: "temurin"
-          cache: maven
+      - name: Checkout repository and setup node, newman, and java
+        uses: ./.github/actions/setup-node-java-newman
 
       - name: Start flowable-engine
         id: flowable-engine
@@ -120,23 +90,8 @@ jobs:
       contents: write
     needs: oauth2-authorization-server-integration-test
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-
-      - name: Install newman
-        run: npm install -g newman
-
-      - name: Setup java
-        uses: actions/setup-java@v5
-        with:
-          java-version-file: ".java-version"
-          distribution: "temurin"
-          cache: maven
+      - name: Checkout repository and setup node, newman, and java
+        uses: ./.github/actions/setup-node-java-newman
 
       - name: Start oauth2-authorization-server
         id: oauth2-authorization-server
@@ -180,23 +135,8 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-
-      - name: Install newman
-        run: npm install -g newman
-
-      - name: Setup java
-        uses: actions/setup-java@v5
-        with:
-          java-version-file: ".java-version"
-          distribution: "temurin"
-          cache: maven
+      - name: Checkout repository and setup node, newman, and java
+        uses: ./.github/actions/setup-node-java-newman
 
       - name: Start mysql-migrations
         id: mysql-migrations
@@ -226,23 +166,8 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-
-      - name: Install newman
-        run: npm install -g newman
-
-      - name: Setup java
-        uses: actions/setup-java@v5
-        with:
-          java-version-file: ".java-version"
-          distribution: "temurin"
-          cache: maven
+      - name: Checkout repository and setup node, newman, and java
+        uses: ./.github/actions/setup-node-java-newman
 
       - name: Start oauth2-authorization-server
         id: oauth2-authorization-server
@@ -272,23 +197,8 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-
-      - name: Install newman
-        run: npm install -g newman
-
-      - name: Setup java
-        uses: actions/setup-java@v5
-        with:
-          java-version-file: ".java-version"
-          distribution: "temurin"
-          cache: maven
+      - name: Checkout repository and setup node, newman, and java
+        uses: ./.github/actions/setup-node-java-newman
 
       - name: Start oauth2-authorization-server-opaque
         id: oauth2-authorization-server-opaque
@@ -319,23 +229,8 @@ jobs:
       contents: write
     needs: oauth2-authorization-server-integration-test
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-
-      - name: Install newman
-        run: npm install -g newman
-
-      - name: Setup java
-        uses: actions/setup-java@v5
-        with:
-          java-version-file: ".java-version"
-          distribution: "temurin"
-          cache: maven
+      - name: Checkout repository and setup node, newman, and java
+        uses: ./.github/actions/setup-node-java-newman
 
       - name: Start oauth2-authorization-server
         id: oauth2-authorization-server
@@ -380,23 +275,8 @@ jobs:
       contents: write
     needs: oauth2-authorization-server-opaque-integration-test
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-
-      - name: Install newman
-        run: npm install -g newman
-
-      - name: Setup java
-        uses: actions/setup-java@v5
-        with:
-          java-version-file: ".java-version"
-          distribution: "temurin"
-          cache: maven
+      - name: Checkout repository and setup node, newman, and java
+        uses: ./.github/actions/setup-node-java-newman
 
       - name: Start oauth2-authorization-server-opaque
         id: oauth2-authorization-server-opaque
@@ -441,23 +321,8 @@ jobs:
       contents: write
     needs: oauth2-authorization-server-integration-test
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-
-      - name: Install newman
-        run: npm install -g newman
-
-      - name: Setup java
-        uses: actions/setup-java@v5
-        with:
-          java-version-file: ".java-version"
-          distribution: "temurin"
-          cache: maven
+      - name: Checkout repository and setup node, newman, and java
+        uses: ./.github/actions/setup-node-java-newman
 
       - name: Start oauth2-authorization-server
         id: oauth2-authorization-server
@@ -501,23 +366,8 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-
-      - name: Install newman
-        run: npm install -g newman
-
-      - name: Setup java
-        uses: actions/setup-java@v5
-        with:
-          java-version-file: ".java-version"
-          distribution: "temurin"
-          cache: maven
+      - name: Checkout repository and setup node, newman, and java
+        uses: ./.github/actions/setup-node-java-newman
 
       - name: Start todo-app
         id: todo-app
