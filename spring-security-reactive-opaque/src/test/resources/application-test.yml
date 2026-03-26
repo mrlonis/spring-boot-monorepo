@@ -1,11 +1,3 @@
-spring:
-  security:
-    oauth2:
-      resourceserver:
-        opaquetoken:
-          introspection-uri: http://localhost:${MOCK_WEB_SERVER_PORT}/oauth2/introspect
-          client-id: spring-security-reactive-opaque-client
-          client-secret: spring-security-reactive-opaque-secret
 oauth2:
   federate:
     client-id: spring-security-reactive-opaque-client

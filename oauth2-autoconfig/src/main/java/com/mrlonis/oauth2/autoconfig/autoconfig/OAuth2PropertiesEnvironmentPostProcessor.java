@@ -61,34 +61,10 @@ public class OAuth2PropertiesEnvironmentPostProcessor
 
             if (!isFederateOpaque) {
                 DEFERRED_LOG.debug("Federate is not opaque");
-
-                // TODO: Is this needed since we build our own jwt decoder?
-                putIfMissing(
-                        environment,
-                        defaults,
-                        "spring.security.oauth2.resourceserver.jwt.issuer-uri",
-                        "http://localhost:9562");
-
                 putIfMissing(environment, defaults, "oauth2.federate.issuer-uri", "http://localhost:9562");
-
                 putIfMissing(environment, defaults, "oauth2.federate.jwk-set-uri", "http://localhost:9562/oauth2/jwks");
             } else {
                 DEFERRED_LOG.debug("Federate is opaque");
-
-                // TODO: Is this needed since this is opaque?
-                putIfMissing(
-                        environment,
-                        defaults,
-                        "spring.security.oauth2.resourceserver.jwt.issuer-uri",
-                        "http://localhost:9563");
-
-                // TODO: Is this needed since we build our own OpaqueTokenIntrospector?
-                putIfMissing(
-                        environment,
-                        defaults,
-                        "spring.security.oauth2.resourceserver.opaquetoken.introspection-uri",
-                        "http://localhost:9563/oauth2/introspect");
-
                 putIfMissing(
                         environment,
                         defaults,
