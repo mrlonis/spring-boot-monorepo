@@ -121,6 +121,16 @@ jobs:
       port_b: 9373
       collection: ./newman/spring-security-reactive.postman_collection.json
       environment: ./newman/spring-security-reactive-local.postman_environment.json
+  spring-security-reactive-opaque-integration-test:
+    needs: oauth2-authorization-server-opaque-integration-test
+    uses: ./.github/workflows/reusable-two-service-newman.yml
+    with:
+      module_a: oauth2-authorization-server-opaque
+      port_a: 9563
+      module_b: spring-security-reactive-opaque
+      port_b: 9378
+      collection: ./newman/spring-security-reactive-opaque.postman_collection.json
+      environment: ./newman/spring-security-reactive-opaque-local.postman_environment.json
   todo-app-integration-test:
     uses: ./.github/workflows/reusable-single-service-newman.yml
     with:
