@@ -1,0 +1,69 @@
+name: "Run Spring Service"
+description: "Starts a Spring Boot service and waits for readiness"
+
+inputs:
+  module:
+    description: "Maven module to run"
+    required: true
+  port:
+    description: "Port to check health on"
+    required: true
+  profile:
+    description: "Spring profile"
+    required: false
+    default: "local"
+
+outputs:
+  pid:
+    description: "Process ID"
+    value: ${{ steps.start.outputs.pid }}
+  log_file:
+    description: "Log file path"
+    value: ${{ steps.start.outputs.log_file }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Start service
+      id: start
+      shell: bash
+      run: |
+        LOG_FILE="${{ inputs.module }}-${{ github.run_id }}.log"
+
+        mvn -B spring-boot:run \
+          -Dspring-boot.run.profiles=${{ inputs.profile }} \
+          -pl ${{ inputs.module }} -am \
+          > "$LOG_FILE" 2>&1 &
+
+        PID=$!
+
+        echo "pid=$PID" >> $GITHUB_OUTPUT
+        echo "log_file=$LOG_FILE" >> $GITHUB_OUTPUT
+
+    - name: Wait for readiness
+      shell: bash
+      run: |
+        echo "Waiting for ${{ inputs.module }}..."
+
+        PID="${{ steps.start.outputs.pid }}"
+
+        PID="${{ steps.start.outputs.pid }}"
+
+        for i in {1..60}; do
+          RESPONSE=$(curl -sf http://localhost:${{ inputs.port }}/actuator/health || true)
+
+          if echo "$RESPONSE" | grep -q '"status":"UP"'; then
+            echo "${{ inputs.module }} is up!"
+            exit 0
+          fi
+
+          if ! kill -0 $PID 2>/dev/null; then
+            echo "${{ inputs.module }} process died"
+            exit 1
+          fi
+
+          sleep 2
+        done
+
+        echo "${{ inputs.module }} failed to start"
+        exit 1
