@@ -74,6 +74,11 @@
       <artifactId>todo-app</artifactId>
       <version>${revision}</version>
     </dependency>
+    <dependency>
+      <groupId>com.mrlonis.xml.shared</groupId>
+      <artifactId>shared-jackson</artifactId>
+      <version>${revision}</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
