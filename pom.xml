@@ -24,6 +24,7 @@
     <module>oauth2-gateway-mvc</module>
     <module>pre-commit</module>
     <module>shared-jackson</module>
+    <module>shared-jackson-test</module>
     <module>spring-security</module>
     <module>spring-security-opaque</module>
     <module>spring-security-reactive</module>
