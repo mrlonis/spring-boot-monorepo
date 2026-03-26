@@ -721,19 +721,41 @@ jobs:
 
       - name: Run todo-app in the background
         run: |
-          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl todo-app -am &
+          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl todo-app -am > todo-app-${{ github.run_id }}.log 2>&1 &
           echo $! > todo-app.pid
 
-      - name: Wait for services to start
-        run: sleep 120
-        shell: bash
+      - name: Wait for todo-app readiness
+        run: |
+          echo "Waiting for todo-app..."
+          for i in {1..60}; do
+            if curl -sf http://localhost:6958/actuator/health | grep -q '"status":"UP"'; then
+              echo "todo-app is up!"
+              exit 0
+            fi
+            PID=$(cat todo-app.pid)
+            if ! kill -0 $PID 2>/dev/null; then
+              echo "todo-app process died"
+              exit 1
+            fi
+            sleep 2
+          done
+          echo "todo-app failed to start"
+          exit 1
 
       - name: Run todo-app integration tests with newman
         run: newman run ./newman/todo-app.postman_collection.json -e ./newman/todo-app-local.postman_environment.json
 
       - name: Shut down todo-app
+        if: always()
         run: |
           if [ -f todo-app.pid ]; then
               kill $(cat todo-app.pid) || echo "Process already terminated"
               rm todo-app.pid
           fi
+
+      - name: Dump logs on failure
+        if: failure()
+        run: |
+          echo "==== START TODO-APP LOG ===="
+          cat todo-app-${{ github.run_id }}.log || true
+          echo "==== END TODO-APP LOG ===="
