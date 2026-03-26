@@ -1,5 +1,5 @@
 name: "Setup Node and Java"
-description: "Checks out the repo and installs Node and Java"
+description: "Installs Node and Java"
 
 runs:
   using: "composite"

@@ -1,5 +1,5 @@
 name: "Setup Node, Newman, and Java"
-description: "Checks out the repo and installs Node, Newman, and Java"
+description: "Installs Node, Newman, and Java"
 
 runs:
   using: "composite"
