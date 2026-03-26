@@ -250,22 +250,44 @@ jobs:
 
       - name: Run mysql-migrations in the background
         run: |
-          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl mysql-migrations -am &
+          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl mysql-migrations -am > mysql-migrations-${{ github.run_id }}.log 2>&1 &
           echo $! > mysql-migrations.pid
 
-      - name: Wait for services to start
-        run: sleep 120
-        shell: bash
+      - name: Wait for mysql-migrations readiness
+        run: |
+          echo "Waiting for mysql-migrations..."
+          for i in {1..60}; do
+            if curl -sf http://localhost:5368/actuator/health | grep -q '"status":"UP"'; then
+              echo "mysql-migrations is up!"
+              exit 0
+            fi
+            PID=$(cat mysql-migrations.pid)
+            if ! kill -0 $PID 2>/dev/null; then
+              echo "mysql-migrations process died"
+              exit 1
+            fi
+            sleep 2
+          done
+          echo "mysql-migrations failed to start"
+          exit 1
 
       - name: Run mysql-migrations integration tests with newman
         run: newman run ./newman/mysql-migrations.postman_collection.json -e ./newman/mysql-migrations-local.postman_environment.json
 
       - name: Shut down mysql-migrations
+        if: always()
         run: |
           if [ -f mysql-migrations.pid ]; then
               kill $(cat mysql-migrations.pid) || echo "Process already terminated"
               rm mysql-migrations.pid
           fi
+
+      - name: Dump logs on failure
+        if: failure()
+        run: |
+          echo "==== START MYSQL-MIGRATIONS LOG ===="
+          cat mysql-migrations-${{ github.run_id }}.log || true
+          echo "==== END MYSQL-MIGRATIONS LOG ===="
   oauth2-authorization-server-integration-test:
     runs-on: ubuntu-latest
     permissions:
