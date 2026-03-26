@@ -1,7 +1,8 @@
 package com.mrlonis.oauth2.autoconfig.autoconfig;
 
+import static com.mrlonis.oauth2.autoconfig.util.AudienceValidator.isValidAudience;
+
 import com.mrlonis.oauth2.autoconfig.properties.OAuth2AutoConfigurationProperties;
-import java.util.Collection;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -10,8 +11,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplicat
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
-import org.springframework.security.oauth2.server.resource.introspection.NimbusOpaqueTokenIntrospector;
+import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector;
+import org.springframework.security.oauth2.server.resource.introspection.SpringOpaqueTokenIntrospector;
 
 @EnableConfigurationProperties(OAuth2AutoConfigurationProperties.class)
 @AllArgsConstructor
@@ -20,6 +22,8 @@ import org.springframework.security.oauth2.server.resource.introspection.OpaqueT
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @Slf4j
 public class ServletOpaqueTokenIntrospectorAutoConfiguration {
+    private static final OAuth2Error INVALID_TOKEN_ERROR = new OAuth2Error("invalid_token", "Invalid audience", null);
+
     private final OAuth2AutoConfigurationProperties properties;
 
     @Bean
@@ -29,14 +33,15 @@ public class ServletOpaqueTokenIntrospectorAutoConfiguration {
         log.debug(
                 "Configuring OpaqueTokenIntrospector with Introspection URI: {}",
                 properties.getFederate().getIntrospectionUri());
-        var delegate = new NimbusOpaqueTokenIntrospector(
-                properties.getFederate().getIntrospectionUri(),
-                properties.getFederate().getClientId(),
-                properties.getFederate().getClientSecret());
+
+        var delegate = SpringOpaqueTokenIntrospector.withIntrospectionUri(
+                        properties.getFederate().getIntrospectionUri())
+                .clientId(properties.getFederate().getClientId())
+                .clientSecret(properties.getFederate().getClientSecret())
+                .build();
 
         return token -> {
             var principal = delegate.introspect(token);
-
             Object audClaim = principal.getAttribute("aud");
 
             log.debug(
@@ -44,17 +49,8 @@ public class ServletOpaqueTokenIntrospectorAutoConfiguration {
                     audClaim,
                     properties.getFederate().getAudiences());
 
-            boolean valid = false;
-
-            if (audClaim instanceof String aud) {
-                valid = properties.getFederate().getAudiences().contains(aud);
-            } else if (audClaim instanceof Collection<?> auds) {
-                valid = auds.stream()
-                        .anyMatch(a -> properties.getFederate().getAudiences().contains(a));
-            }
-
-            if (!valid) {
-                throw new OAuth2AuthenticationException("Invalid audience");
+            if (!isValidAudience(audClaim, properties.getFederate().getAudiences())) {
+                throw new OAuth2AuthenticationException(INVALID_TOKEN_ERROR);
             }
 
             return principal;
