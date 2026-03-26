@@ -376,22 +376,44 @@ jobs:
 
       - name: Run oauth2-authorization-server-opaque in the background
         run: |
-          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl oauth2-authorization-server-opaque -am &
+          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl oauth2-authorization-server-opaque -am oauth2-authorization-server-opaque-${{ github.run_id }}.log 2>&1 &
           echo $! > oauth2-authorization-server-opaque.pid
 
-      - name: Wait for services to start
-        run: sleep 120
-        shell: bash
+      - name: Wait for oauth2-authorization-server-opaque readiness
+        run: |
+          echo "Waiting for oauth2-authorization-server-opaque..."
+          for i in {1..60}; do
+            if curl -sf http://localhost:9563/actuator/health | grep -q '"status":"UP"'; then
+              echo "oauth2-authorization-server-opaque is up!"
+              exit 0
+            fi
+            PID=$(cat oauth2-authorization-server-opaque.pid)
+            if ! kill -0 $PID 2>/dev/null; then
+              echo "oauth2-authorization-server-opaque process died"
+              exit 1
+            fi
+            sleep 2
+          done
+          echo "oauth2-authorization-server-opaque failed to start"
+          exit 1
 
       - name: Run newman
         run: newman run ./newman/oauth2-authorization-server-opaque.postman_collection.json -e ./newman/oauth2-authorization-server-opaque-local.postman_environment.json
 
       - name: Shut down services
+        if: always()
         run: |
           if [ -f oauth2-authorization-server-opaque.pid ]; then
             kill $(cat oauth2-authorization-server-opaque.pid) || echo "Process already terminated"
             rm oauth2-authorization-server-opaque.pid
           fi
+
+      - name: Dump logs on failure
+        if: failure()
+        run: |
+          echo "==== START OAUTH2-AUTHORIZATION-SERVER-OPAQUE LOG ===="
+          cat oauth2-authorization-server-opaque-${{ github.run_id }}.log || true
+          echo "==== END OAUTH2-AUTHORIZATION-SERVER-OPAQUE LOG ===="
   spring-security-integration-test:
     runs-on: ubuntu-latest
     permissions:
