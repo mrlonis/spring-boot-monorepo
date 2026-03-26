@@ -83,6 +83,7 @@ jobs:
       port: 9562
       collection: ./newman/oauth2-authorization-server.postman_collection.json
       environment: ./newman/oauth2-authorization-server-local.postman_environment.json
+      newman_args: '--env-var "CI=true"'
   oauth2-authorization-server-opaque-integration-test:
     uses: ./.github/workflows/reusable-single-service-newman.yml
     with:
