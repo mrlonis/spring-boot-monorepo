@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: spring-security-reactive-opaque
+  threads:
+    virtual:
+      enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+          - metrics
+          - mappings
+oauth2:
+  enabled: true
+  security:
+    enabled: true
+    matchers:
+      - paths:
+          - /actuator/**
+        access: permit_all
+  federate:
+    enabled: true
+    audiences: spring-security-reactive-opaque-client
+    opaque: true
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  security:
+    oauth2:
+      resourceserver:
+        opaquetoken:
+          client-id: spring-security-reactive-opaque-client
+          client-secret: spring-security-reactive-opaque-secret
+oauth2:
+  federate:
+    client-id: spring-security-reactive-opaque-client
+    client-secret: spring-security-reactive-opaque-secret
+server:
+  port: 9378
+logging:
+  level:
+    com.mrlonis: debug

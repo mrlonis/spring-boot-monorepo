@@ -26,6 +26,7 @@
     <module>spring-security</module>
     <module>spring-security-opaque</module>
     <module>spring-security-reactive</module>
+    <module>spring-security-reactive-opaque</module>
     <module>test-controller-autoconfig</module>
     <module>todo-app</module>
   </modules>
