@@ -1,0 +1,86 @@
+name: Reusable Two Service Newman Test
+
+on:
+  workflow_call:
+    inputs:
+      module_a:
+        required: true
+        type: string
+      port_a:
+        required: true
+        type: number
+      module_b:
+        required: true
+        type: string
+      port_b:
+        required: true
+        type: number
+      collection:
+        required: true
+        type: string
+      environment:
+        required: true
+        type: string
+      newman_args:
+        required: false
+        type: string
+        default: ""
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup node, java, and newman
+        uses: ./.github/actions/setup-node-java-newman
+
+      - name: Start service A
+        id: service_a
+        uses: ./.github/actions/run-spring-service
+        with:
+          module: ${{ inputs.module_a }}
+          port: ${{ inputs.port_a }}
+
+      - name: Start service B
+        id: service_b
+        uses: ./.github/actions/run-spring-service
+        with:
+          module: ${{ inputs.module_b }}
+          port: ${{ inputs.port_b }}
+
+      - name: Run newman
+        shell: bash
+        run: |
+          newman run "${{ inputs.collection }}" -e "${{ inputs.environment }}" ${{ inputs.newman_args }}
+
+      - name: Shut down service B
+        if: always()
+        uses: ./.github/actions/stop-spring-service
+        with:
+          pid: ${{ steps.service_b.outputs.pid }}
+
+      - name: Shut down service A
+        if: always()
+        uses: ./.github/actions/stop-spring-service
+        with:
+          pid: ${{ steps.service_a.outputs.pid }}
+
+      - name: Dump service B logs on failure
+        if: failure()
+        shell: bash
+        run: |
+          echo "==== START ${{ inputs.module_b }} LOG ===="
+          cat "${{ steps.service_b.outputs.log_file }}" || true
+          echo "==== END ${{ inputs.module_b }} LOG ===="
+
+      - name: Dump service A logs on failure
+        if: failure()
+        shell: bash
+        run: |
+          echo "==== START ${{ inputs.module_a }} LOG ===="
+          cat "${{ steps.service_a.outputs.log_file }}" || true
+          echo "==== END ${{ inputs.module_a }} LOG ===="

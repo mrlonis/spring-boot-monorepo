@@ -1,0 +1,59 @@
+name: Reusable Single Service Newman Test
+
+on:
+  workflow_call:
+    inputs:
+      module:
+        required: true
+        type: string
+      port:
+        required: true
+        type: number
+      collection:
+        required: true
+        type: string
+      environment:
+        required: true
+        type: string
+      newman_args:
+        required: false
+        type: string
+        default: ""
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup node, java, and newman
+        uses: ./.github/actions/setup-node-java-newman
+
+      - name: Start service
+        id: service
+        uses: ./.github/actions/run-spring-service
+        with:
+          module: ${{ inputs.module }}
+          port: ${{ inputs.port }}
+
+      - name: Run newman
+        shell: bash
+        run: |
+          newman run "${{ inputs.collection }}" -e "${{ inputs.environment }}" ${{ inputs.newman_args }}
+
+      - name: Shut down service
+        if: always()
+        uses: ./.github/actions/stop-spring-service
+        with:
+          pid: ${{ steps.service.outputs.pid }}
+
+      - name: Dump logs on failure
+        if: failure()
+        shell: bash
+        run: |
+          echo "==== START ${{ inputs.module }} LOG ===="
+          cat "${{ steps.service.outputs.log_file }}" || true
+          echo "==== END ${{ inputs.module }} LOG ===="
