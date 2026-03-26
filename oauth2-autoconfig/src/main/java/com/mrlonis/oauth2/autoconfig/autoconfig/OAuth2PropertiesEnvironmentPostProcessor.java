@@ -4,7 +4,6 @@ import com.mrlonis.oauth2.autoconfig.security.RequestAccess;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.commons.lang3.Strings;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.context.event.ApplicationContextInitializedEvent;
@@ -40,14 +39,15 @@ public class OAuth2PropertiesEnvironmentPostProcessor
                 RequestAccess.AUTHENTICATED.name());
 
         boolean isFederateEnabled = environment.getProperty("oauth2.federate.enabled", Boolean.class, false);
-        DEFERRED_LOG.debug(String.format("oauth2.federate.enabled: %s", isFederateEnabled));
+        DEFERRED_LOG.debug("oauth2.federate.enabled: " + isFederateEnabled);
 
-        if (Arrays.stream(environment.getActiveProfiles()).anyMatch(profile -> Strings.CS.equals("local", profile))
-                && isFederateEnabled) {
+        boolean isLocal = Arrays.asList(environment.getActiveProfiles()).contains("local");
+
+        if (isLocal && isFederateEnabled) {
             DEFERRED_LOG.debug("Federate is enabled and local profile is active");
 
             boolean isFederateOpaque = environment.getProperty("oauth2.federate.opaque", Boolean.class, false);
-            DEFERRED_LOG.debug(String.format("oauth2.federate.opaque: %s", isFederateOpaque));
+            DEFERRED_LOG.debug("oauth2.federate.opaque: " + isFederateOpaque);
 
             if (!isFederateOpaque) {
                 DEFERRED_LOG.debug("Federate is not opaque");
