@@ -93,22 +93,44 @@ jobs:
 
       - name: Run flowable-engine in the background
         run: |
-          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl flowable-engine -am &
+          mvn -B spring-boot:run -Dspring-boot.run.profiles=local -pl flowable-engine -am > flowable-engine-${{ github.run_id }}.log 2>&1 &
           echo $! > flowable-engine.pid
 
-      - name: Wait for services to start
-        run: sleep 120
-        shell: bash
+      - name: Wait for flowable-engine readiness
+        run: |
+          echo "Waiting for flowable-engine..."
+          for i in {1..60}; do
+            if curl -sf http://localhost:5367/actuator/health | grep -q '"status":"UP"'; then
+              echo "flowable-engine is up!"
+              exit 0
+            fi
+            PID=$(cat flowable-engine.pid)
+            if ! kill -0 $PID 2>/dev/null; then
+              echo "flowable-engine process died"
+              exit 1
+            fi
+            sleep 2
+          done
+          echo "flowable-engine failed to start"
+          exit 1
 
       - name: Run flowable-engine integration tests with newman
         run: newman run ./newman/flowable-engine.postman_collection.json -e ./newman/flowable-engine-local.postman_environment.json
 
       - name: Shut down flowable-engine
+        if: always()
         run: |
           if [ -f flowable-engine.pid ]; then
               kill $(cat flowable-engine.pid) || echo "Process already terminated"
               rm flowable-engine.pid
           fi
+
+      - name: Dump logs on failure
+        if: failure()
+        run: |
+          echo "==== START FLOWABLE-ENGINE LOG ===="
+          cat flowable-engine-${{ github.run_id }}.log || true
+          echo "==== END FLOWABLE-ENGINE LOG ===="
   gateway-integration-test:
     runs-on: ubuntu-latest
     permissions:
