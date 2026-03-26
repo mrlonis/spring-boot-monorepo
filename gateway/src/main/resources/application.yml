@@ -95,4 +95,3 @@ logging:
   level:
     com.mrlonis: debug
     org.springframework.security: debug
-    root: debug
