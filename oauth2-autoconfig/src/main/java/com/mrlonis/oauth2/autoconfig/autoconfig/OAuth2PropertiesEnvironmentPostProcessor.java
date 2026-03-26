@@ -30,12 +30,6 @@ public class OAuth2PropertiesEnvironmentPostProcessor
      * authentication based on the active profiles and specific property settings. The method also registers this class
      * as an application listener to ensure that deferred logs are replayed once the application context is initialized.
      *
-     * <p>TODO: Don't overwrite properties if they are already set.
-     *
-     * <p>Currently this process will overwrite the properties set by the user. We should only set the properties if
-     * they are not already set by the user. This will allow users to override the defaults set by this class if they
-     * want to. We can check if a property is already set by using `environment.containsProperty(propertyName)`.
-     *
      * @param environment the environment to post-process
      * @param application the application to which the environment belongs
      */
