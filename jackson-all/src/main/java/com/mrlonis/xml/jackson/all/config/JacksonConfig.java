@@ -1,10 +1,10 @@
 package com.mrlonis.xml.jackson.all.config;
 
-import com.fasterxml.jackson.databind.Module;
-import com.fasterxml.jackson.module.jakarta.xmlbind.JakartaXmlBindAnnotationModule;
-import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import tools.jackson.databind.JacksonModule;
+import tools.jackson.module.jakarta.xmlbind.JakartaXmlBindAnnotationModule;
+import tools.jackson.module.jaxb.JaxbAnnotationModule;
 
 /**
  * This is a Jackson configuration class that registers additional Jackson modules not included in the default Spring
@@ -19,7 +19,7 @@ public class JacksonConfig {
      * @return {@link JaxbAnnotationModule}
      */
     @Bean
-    public Module jaxbAnnotationModule() {
+    public JacksonModule jaxbAnnotationModule() {
         return new JaxbAnnotationModule();
     }
 
@@ -30,7 +30,7 @@ public class JacksonConfig {
      * @return {@link JakartaXmlBindAnnotationModule}
      */
     @Bean
-    public Module jakartaXmlBindAnnotationModule() {
+    public JacksonModule jakartaXmlBindAnnotationModule() {
         return new JakartaXmlBindAnnotationModule();
     }
 }

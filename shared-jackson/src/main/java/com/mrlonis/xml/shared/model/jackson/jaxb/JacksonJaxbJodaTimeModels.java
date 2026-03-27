@@ -1,8 +1,6 @@
 package com.mrlonis.xml.shared.model.jackson.jaxb;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.mrlonis.xml.shared.adapter.JaxbJodaTimeAdapters;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -16,6 +14,8 @@ import lombok.experimental.UtilityClass;
 import lombok.extern.jackson.Jacksonized;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
+import tools.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import tools.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 @UtilityClass
 public class JacksonJaxbJodaTimeModels {

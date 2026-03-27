@@ -1,14 +1,18 @@
 package com.mrlonis.xml.shared.adapter;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import com.mrlonis.xml.shared.time.TimeAdapterUtil;
 import java.io.IOException;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.databind.SerializationContext;
+import tools.jackson.databind.ValueSerializer;
 
-public class JacksonSerializer<T> extends JsonSerializer<T> {
+public class JacksonSerializer<T> extends ValueSerializer<T> {
     @Override
-    public void serialize(T value, JsonGenerator gen, SerializerProvider arg2) throws IOException {
-        TimeAdapterUtil.serialize(value, gen, arg2);
+    public void serialize(T value, JsonGenerator gen, SerializationContext arg2) {
+        try {
+            TimeAdapterUtil.serialize(value, gen, arg2);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

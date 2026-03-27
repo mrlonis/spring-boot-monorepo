@@ -1,9 +1,6 @@
 package com.mrlonis.xml.shared.model.jackson.jackson;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.mrlonis.xml.shared.adapter.JacksonJavaTimeDeserializers;
 import com.mrlonis.xml.shared.adapter.JacksonSerializer;
 import java.time.LocalDateTime;
@@ -13,6 +10,9 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
 import lombok.experimental.UtilityClass;
 import lombok.extern.jackson.Jacksonized;
+import tools.jackson.databind.annotation.JsonDeserialize;
+import tools.jackson.databind.annotation.JsonSerialize;
+import tools.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 @UtilityClass
 public class JacksonJavaTimeModels {

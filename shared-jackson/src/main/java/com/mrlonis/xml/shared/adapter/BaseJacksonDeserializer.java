@@ -1,14 +1,14 @@
 package com.mrlonis.xml.shared.adapter;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.mrlonis.xml.shared.time.TimeAdapterUtil;
 import java.io.IOException;
 import lombok.Getter;
+import tools.jackson.core.JsonParser;
+import tools.jackson.databind.DeserializationContext;
+import tools.jackson.databind.ValueDeserializer;
 
 @Getter
-public abstract class BaseJacksonDeserializer<T> extends JsonDeserializer<T> {
+public abstract class BaseJacksonDeserializer<T> extends ValueDeserializer<T> {
     private final Class<T> type;
 
     protected BaseJacksonDeserializer(Class<T> type) {
@@ -16,7 +16,11 @@ public abstract class BaseJacksonDeserializer<T> extends JsonDeserializer<T> {
     }
 
     @Override
-    public T deserialize(JsonParser jsonparser, DeserializationContext context) throws IOException {
-        return TimeAdapterUtil.deserialize(jsonparser, context, this.getType());
+    public T deserialize(JsonParser jsonparser, DeserializationContext context) {
+        try {
+            return TimeAdapterUtil.deserialize(jsonparser, context, this.getType());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

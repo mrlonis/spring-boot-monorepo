@@ -1,15 +1,15 @@
 package com.mrlonis.xml.shared.time;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.checkerframework.checker.nullness.qual.Nullable;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.core.JsonParser;
+import tools.jackson.databind.DeserializationContext;
+import tools.jackson.databind.SerializationContext;
 
 @UtilityClass
 @Slf4j
@@ -44,7 +44,7 @@ public class TimeAdapterUtil {
         throw new UnsupportedOperationException(generateErrorMessageAndLogIt(v));
     }
 
-    public static <T> void serialize(T v, JsonGenerator gen, SerializerProvider arg2) throws IOException {
+    public static <T> void serialize(T v, JsonGenerator gen, SerializationContext arg2) throws IOException {
         if (v instanceof LocalDateTime localDateTime) {
             JavaTimeUtil.serializeLocalDateTime(localDateTime, gen, arg2);
             return;
