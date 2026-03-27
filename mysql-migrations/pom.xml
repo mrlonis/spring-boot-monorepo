@@ -8,7 +8,7 @@
   </parent>
   <groupId>com.mrlonis.time</groupId>
   <artifactId>mysql-migrations</artifactId>
-  <name>mysql-timestamp-to-datetime</name>
+  <name>mysql-migrations</name>
   <description>This is a simple Spring Boot application that demonstrates how to convert a MySQL TIMESTAMP column to a
     MySQL DATETIME column.</description>
   <dependencies>

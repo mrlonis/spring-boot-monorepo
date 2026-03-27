@@ -1,7 +1,7 @@
 package com.mrlonis.example.oauth2.opaque.controller;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.opaqueToken;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -19,7 +19,7 @@ class TestControllerIT extends AbstractMockWebServerIT {
     @Test
     @WithMockUser
     void testController_authenticated() throws Exception {
-        mockMvc.perform(get("/v1/test").with(jwt()))
+        mockMvc.perform(get("/v1/test").with(opaqueToken()))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Hello World!"));
     }
