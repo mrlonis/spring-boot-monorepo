@@ -75,6 +75,11 @@
       <version>${revision}</version>
     </dependency>
     <dependency>
+      <groupId>com.mrlonis.xml.jackson.jakarta</groupId>
+      <artifactId>jackson-jakarta</artifactId>
+      <version>${revision}</version>
+    </dependency>
+    <dependency>
       <groupId>com.mrlonis.xml.jackson.jaxb</groupId>
       <artifactId>jackson-jaxb</artifactId>
       <version>${revision}</version>
