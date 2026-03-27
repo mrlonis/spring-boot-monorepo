@@ -10,7 +10,7 @@ import org.springframework.boot.SpringApplication;
  * run in IntelliJ by clicking the green arrow next to the main method and selecting Run 'TestApplication.main()'.
  */
 public class TestApplication {
-    public static void main(String[] args) {
+    static void main(String[] args) {
         SpringApplication.from(MySqlTimestampToDatetimeApplication::main)
                 .with(TestcontainersConfiguration.class)
                 .run(args);

@@ -7,8 +7,10 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.mrlonis.xml.shared.model.BaseModel;
 import java.util.List;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+@NoArgsConstructor
 @Data
 @SuperBuilder
 public abstract class BaseJacksonModel<T> implements BaseModel<T> {

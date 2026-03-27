@@ -85,7 +85,7 @@ public class OAuth2AutoConfiguration {
                     }
                 }
                 if (properties.getOidc().isEnabled()) {
-                    log.debug("Configuring OIDC login");
+                    log.debug("Configuring OIDC login for servlet");
                     http.oauth2Login(Customizer.withDefaults());
                 }
             }
@@ -147,7 +147,7 @@ public class OAuth2AutoConfiguration {
                     }
                 }
                 if (properties.getOidc().isEnabled()) {
-                    log.debug("Configuring OIDC login");
+                    log.debug("Configuring OIDC login for reactive");
                     http.oauth2Login(Customizer.withDefaults());
                 }
             }

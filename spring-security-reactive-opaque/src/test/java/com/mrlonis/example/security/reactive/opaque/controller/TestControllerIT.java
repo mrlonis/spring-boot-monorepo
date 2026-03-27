@@ -14,7 +14,7 @@ class TestControllerIT extends AbstractMockWebServerIT {
 
     @Test
     @WithMockUser
-    void testController_authenticated() throws Exception {
+    void testController_authenticated() {
         webTestClient
                 .get()
                 .uri("/v1/test")
@@ -26,7 +26,7 @@ class TestControllerIT extends AbstractMockWebServerIT {
     }
 
     @Test
-    void testController_unauthenticated() throws Exception {
+    void testController_unauthenticated() {
         webTestClient.get().uri("/v1/test").exchange().expectStatus().isUnauthorized();
     }
 }
