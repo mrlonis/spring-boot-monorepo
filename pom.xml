@@ -16,13 +16,23 @@
   <modules>
     <module>flowable-engine</module>
     <module>gateway</module>
+    <module>jackson-all</module>
+    <module>jackson-jackson</module>
+    <module>jackson-jakarta</module>
+    <module>jackson-jaxb</module>
     <module>jacoco-report-aggregate</module>
+    <module>jakarta</module>
+    <module>jaxb</module>
     <module>mysql-migrations</module>
     <module>oauth2-authorization-server</module>
     <module>oauth2-authorization-server-opaque</module>
     <module>oauth2-autoconfig</module>
     <module>oauth2-gateway-mvc</module>
     <module>pre-commit</module>
+    <module>pure-jakarta</module>
+    <module>pure-jaxb</module>
+    <module>shared-jackson</module>
+    <module>shared-jackson-test</module>
     <module>spring-security</module>
     <module>spring-security-opaque</module>
     <module>spring-security-reactive</module>
@@ -41,7 +51,10 @@
     <flowable.version>7.2.0</flowable.version>
     <git-build-hook-maven-plugin.version>3.6.0</git-build-hook-maven-plugin.version>
     <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
+    <jakarta.annotation-api.version>3.0.0</jakarta.annotation-api.version>
+    <jakarta.xml.bind-api.version>4.0.4</jakarta.xml.bind-api.version>
     <java.version>25</java.version>
+    <jaxb-api.version>2.3.1</jaxb-api.version>
     <maven-compiler-plugin.version>3.15.0</maven-compiler-plugin.version>
     <maven-enforcer-plugin.version>3.6.2</maven-enforcer-plugin.version>
     <maven-failsafe-plugin.version>3.5.5</maven-failsafe-plugin.version>
@@ -116,6 +129,21 @@
         <groupId>io.github.solven-eu.cleanthat</groupId>
         <artifactId>spotless</artifactId>
         <version>${cleanthat.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.annotation</groupId>
+        <artifactId>jakarta.annotation-api</artifactId>
+        <version>${jakarta.annotation-api.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.xml.bind</groupId>
+        <artifactId>jakarta.xml.bind-api</artifactId>
+        <version>${jakarta.xml.bind-api.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>javax.xml.bind</groupId>
+        <artifactId>jaxb-api</artifactId>
+        <version>${jaxb-api.version}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.commons</groupId>
