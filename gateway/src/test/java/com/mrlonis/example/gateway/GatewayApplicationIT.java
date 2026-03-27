@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.mrlonis.example.gateway.test.AbstractMockWebServerIT;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.health.contributor.Status;
 
 class GatewayApplicationIT extends AbstractMockWebServerIT {
     @Test
