@@ -8,7 +8,6 @@
   </parent>
   <groupId>com.mrlonis.xml.shared.test</groupId>
   <artifactId>shared-jackson-test</artifactId>
-  <version>${revision}</version>
   <name>shared-jackson-test</name>
   <description>shared-jackson-test</description>
   <dependencies>

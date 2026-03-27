@@ -8,7 +8,6 @@
   </parent>
   <groupId>com.mrlonis.xml.jaxb</groupId>
   <artifactId>jaxb</artifactId>
-  <version>${revision}</version>
   <name>jaxb</name>
   <description>jaxb</description>
   <dependencies>

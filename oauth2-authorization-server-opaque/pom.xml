@@ -8,7 +8,6 @@
   </parent>
   <groupId>com.mrlonis.example.oauth2.opaque</groupId>
   <artifactId>oauth2-authorization-server-opaque</artifactId>
-  <version>${revision}</version>
   <dependencies>
     <dependency>
       <groupId>com.mrlonis.test.controller.autoconfigure</groupId>

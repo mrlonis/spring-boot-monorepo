@@ -8,7 +8,6 @@
   </parent>
   <groupId>com.mrlonis.xml.jackson.jackson</groupId>
   <artifactId>jackson-jackson</artifactId>
-  <version>${revision}</version>
   <name>jackson-jackson</name>
   <description>jackson-jackson</description>
   <dependencies>

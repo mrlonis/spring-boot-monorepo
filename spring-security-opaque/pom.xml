@@ -8,7 +8,6 @@
   </parent>
   <groupId>com.mrlonis.example.security.opaque</groupId>
   <artifactId>spring-security-opaque</artifactId>
-  <version>${revision}</version>
   <dependencies>
     <dependency>
       <groupId>com.mrlonis.oauth2.autoconfig</groupId>
