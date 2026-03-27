@@ -9,6 +9,7 @@ import com.mrlonis.example.gateway.test.AbstractMockWebServerIT;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.test.context.support.WithMockUser;
 
 @Slf4j
 class SessionControllerIT extends AbstractMockWebServerIT {
@@ -23,6 +24,7 @@ class SessionControllerIT extends AbstractMockWebServerIT {
     }
 
     @Test
+    @WithMockUser
     void getSessionId_whenAuthenticated_succeeds() {
         var response = webTestClient
                 .mutateWith(mockOidcLogin())
@@ -39,6 +41,7 @@ class SessionControllerIT extends AbstractMockWebServerIT {
     }
 
     @Test
+    @WithMockUser
     void getSessionId_whenAuthenticated_succeeds_andCanBeReUsed() {
         var result = webTestClient
                 .mutateWith(mockOidcLogin())
