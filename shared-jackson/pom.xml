@@ -8,7 +8,6 @@
   </parent>
   <groupId>com.mrlonis.xml.shared</groupId>
   <artifactId>shared-jackson</artifactId>
-  <version>${revision}</version>
   <name>shared-jackson</name>
   <description>shared-jackson</description>
   <dependencies>
@@ -38,10 +37,6 @@
       <groupId>javax.xml.bind</groupId>
       <artifactId>jaxb-api</artifactId>
       <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.checkerframework</groupId>
-      <artifactId>checker-qual</artifactId>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>

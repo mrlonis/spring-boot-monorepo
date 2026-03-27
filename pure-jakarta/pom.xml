@@ -8,7 +8,6 @@
   </parent>
   <groupId>com.mrlonis.xml.pure.jakarta</groupId>
   <artifactId>pure-jakarta</artifactId>
-  <version>${revision}</version>
   <name>pure-jakarta</name>
   <description>pure-jakarta</description>
   <dependencies>

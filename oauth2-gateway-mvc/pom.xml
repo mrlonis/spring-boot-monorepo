@@ -8,7 +8,6 @@
   </parent>
   <groupId>com.mrlonis.example.oauth2.gateway.mvc</groupId>
   <artifactId>oauth2-gateway-mvc</artifactId>
-  <version>${revision}</version>
   <dependencies>
     <dependency>
       <groupId>com.mrlonis.test.controller.autoconfigure</groupId>

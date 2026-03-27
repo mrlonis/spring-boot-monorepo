@@ -8,7 +8,6 @@
   </parent>
   <groupId>com.mrlonis.xml.jackson.jakarta</groupId>
   <artifactId>jackson-jakarta</artifactId>
-  <version>${revision}</version>
   <name>jackson-jakarta</name>
   <description>jackson-jakarta</description>
   <dependencies>

@@ -8,7 +8,6 @@
   </parent>
   <groupId>com.mrlonis.example.security.reactive</groupId>
   <artifactId>spring-security-reactive</artifactId>
-  <version>${revision}</version>
   <name>spring-security-reactive</name>
   <description>Demo project for Spring Boot Security. This module is intended to use the oauth2-authorization-server
     module for authentication.</description>
