@@ -9,7 +9,7 @@ import com.mrlonis.example.oauth2.gateway.mvc.test.AbstractMockWebServerIT;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.health.Status;
 
-public class OAuth2GatewayMvcApplicationIT extends AbstractMockWebServerIT {
+class OAuth2GatewayMvcApplicationIT extends AbstractMockWebServerIT {
     @Test
     void contextLoads() {
         assertTrue(true);
