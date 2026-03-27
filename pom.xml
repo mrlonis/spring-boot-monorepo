@@ -17,6 +17,7 @@
     <module>flowable-engine</module>
     <module>gateway</module>
     <module>jacoco-report-aggregate</module>
+    <module>jakarta</module>
     <module>jaxb</module>
     <module>mysql-migrations</module>
     <module>oauth2-authorization-server</module>

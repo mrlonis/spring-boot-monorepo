@@ -75,6 +75,11 @@
       <version>${revision}</version>
     </dependency>
     <dependency>
+      <groupId>com.mrlonis.xml.jakarta</groupId>
+      <artifactId>jakarta</artifactId>
+      <version>${revision}</version>
+    </dependency>
+    <dependency>
       <groupId>com.mrlonis.xml.jaxb</groupId>
       <artifactId>jaxb</artifactId>
       <version>${revision}</version>
