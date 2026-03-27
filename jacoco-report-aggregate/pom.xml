@@ -75,6 +75,11 @@
       <version>${revision}</version>
     </dependency>
     <dependency>
+      <groupId>com.mrlonis.xml.jackson.all</groupId>
+      <artifactId>jackson-all</artifactId>
+      <version>${revision}</version>
+    </dependency>
+    <dependency>
       <groupId>com.mrlonis.xml.jackson.jackson</groupId>
       <artifactId>jackson-jackson</artifactId>
       <version>${revision}</version>
