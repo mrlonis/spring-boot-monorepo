@@ -4,7 +4,7 @@ import com.mrlonis.example.security.reactive.opaque.SpringSecurityReactiveOpaque
 import org.springframework.boot.SpringApplication;
 
 public class TestApplication {
-    public static void main(String[] args) {
+    static void main(String[] args) {
         SpringApplication.from(SpringSecurityReactiveOpaqueApplication::main).run(args);
     }
 }

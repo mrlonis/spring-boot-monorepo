@@ -9,8 +9,10 @@ import jakarta.xml.bind.annotation.XmlTransient;
 import java.util.List;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+@NoArgsConstructor
 @Data
 @SuperBuilder
 public abstract class BaseJacksonJakartaModel<T> implements BaseModel<T> {
