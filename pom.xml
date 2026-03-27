@@ -23,6 +23,7 @@
     <module>oauth2-autoconfig</module>
     <module>oauth2-gateway-mvc</module>
     <module>pre-commit</module>
+    <module>pure-jakarta</module>
     <module>pure-jaxb</module>
     <module>shared-jackson</module>
     <module>shared-jackson-test</module>

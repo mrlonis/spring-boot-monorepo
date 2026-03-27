@@ -75,6 +75,11 @@
       <version>${revision}</version>
     </dependency>
     <dependency>
+      <groupId>com.mrlonis.xml.pure.jakarta</groupId>
+      <artifactId>pure-jakarta</artifactId>
+      <version>${revision}</version>
+    </dependency>
+    <dependency>
       <groupId>com.mrlonis.xml.pure.jaxb</groupId>
       <artifactId>pure-jaxb</artifactId>
       <version>${revision}</version>
