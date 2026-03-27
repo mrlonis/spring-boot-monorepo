@@ -7,7 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.mrlonis.example.oauth2.gateway.mvc.test.AbstractMockWebServerIT;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.health.contributor.Status;
 
 class OAuth2GatewayMvcApplicationIT extends AbstractMockWebServerIT {
     @Test

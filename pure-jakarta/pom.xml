@@ -12,10 +12,6 @@
   <description>pure-jakarta</description>
   <dependencies>
     <dependency>
-      <groupId>com.fasterxml.jackson.module</groupId>
-      <artifactId>jackson-module-jakarta-xmlbind-annotations</artifactId>
-    </dependency>
-    <dependency>
       <groupId>com.mrlonis.xml.shared</groupId>
       <artifactId>shared-jackson</artifactId>
       <version>${project.version}</version>
@@ -29,6 +25,10 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-configuration-processor</artifactId>
       <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>tools.jackson.module</groupId>
+      <artifactId>jackson-module-jakarta-xmlbind-annotations</artifactId>
     </dependency>
     <dependency>
       <groupId>com.mrlonis.xml.shared.test</groupId>

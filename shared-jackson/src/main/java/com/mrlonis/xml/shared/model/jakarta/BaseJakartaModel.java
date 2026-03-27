@@ -1,5 +1,6 @@
 package com.mrlonis.xml.shared.model.jakarta;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mrlonis.xml.shared.model.BaseModel;
 import jakarta.xml.bind.annotation.XmlAttribute;
@@ -10,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import tools.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import tools.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 @NoArgsConstructor
 @Data
@@ -25,6 +27,8 @@ public abstract class BaseJakartaModel<T> implements BaseModel<T> {
     private String author;
 
     @JacksonXmlElementWrapper(localName = "tags")
+    @JacksonXmlProperty(localName = "tag")
     @XmlElement(name = "tag")
+    @JsonAlias("tags")
     private List<String> tag;
 }

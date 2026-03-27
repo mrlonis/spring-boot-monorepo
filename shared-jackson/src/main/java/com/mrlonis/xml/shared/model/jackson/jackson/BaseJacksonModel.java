@@ -1,5 +1,6 @@
 package com.mrlonis.xml.shared.model.jackson.jackson;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mrlonis.xml.shared.model.BaseModel;
@@ -24,6 +25,8 @@ public abstract class BaseJacksonModel<T> implements BaseModel<T> {
     private String author;
 
     @JacksonXmlElementWrapper(localName = "tags")
+    @JacksonXmlProperty(localName = "tag")
     @JsonProperty("tag")
+    @JsonAlias("tags")
     private List<String> tag;
 }
