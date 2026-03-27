@@ -22,7 +22,7 @@ class RouteIT extends AbstractMockWebServerIT {
         var result = webTestClient
                 .mutateWith(mockOidcLogin())
                 .get()
-                .uri("/google")
+                .uri("/google/robots.txt")
                 .header(HttpHeaders.ACCEPT, "text/html;charset=ISO-8859-1")
                 .exchange()
                 .expectStatus()
@@ -38,7 +38,7 @@ class RouteIT extends AbstractMockWebServerIT {
         for (var header : rawSetCookieHeaders) {
             log.info("Raw Set-Cookie: {}", header);
         }
-        assertEquals(5, rawSetCookieHeaders.size());
+        assertEquals(1, rawSetCookieHeaders.size());
 
         assertTrue(rawSetCookieHeaders.stream().anyMatch(header -> header.startsWith("CUSTOM-SESSION-NAME=")));
 
@@ -54,7 +54,7 @@ class RouteIT extends AbstractMockWebServerIT {
         webTestClient
                 .mutateWith(mockOidcLogin())
                 .get()
-                .uri("/google")
+                .uri("/google/robots.txt")
                 .header(HttpHeaders.ACCEPT, "text/html;charset=ISO-8859-1")
                 .cookie("CUSTOM-SESSION-NAME", sessionValue)
                 .exchange()

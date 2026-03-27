@@ -25,3 +25,7 @@ logging:
     org.springframework.data.redis: debug
     org.springframework.security: debug
     org.springframework.session: debug
+    org.springframework.cloud.gateway: trace
+    reactor.netty.http.client: debug
+    reactor.netty.transport: debug
+    org.springframework.web.reactive.function.client: debug

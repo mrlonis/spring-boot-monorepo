@@ -27,6 +27,6 @@ class GatewayApplicationIT extends AbstractMockWebServerIT {
 
     @Test
     void testGatewayRoute() {
-        webTestClient.get().uri("/google").exchange().expectStatus().isOk();
+        webTestClient.get().uri("/google/robots.txt").exchange().expectStatus().isOk();
     }
 }
