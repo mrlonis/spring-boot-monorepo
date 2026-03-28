@@ -400,10 +400,17 @@ function buildRootReadmeSection() {
 }
 
 function buildRootReadmeTable() {
-  const lines = ["| Module | Local port | Local dependency |", "| --- | --- | --- |"];
+  const header = ["Module", "Local port", "Local dependency"];
+  const rows = APPLICATION_ORDER.map((module) => [
+    `\`${module}\``,
+    `\`${applicationPort(module)}\``,
+    ROOT_README_DEPENDENCIES[module](),
+  ]);
+  const widths = header.map((cell, index) => Math.max(cell.length, ...rows.map((row) => row[index].length)));
+  const lines = [formatMarkdownRow(header, widths, "center"), formatMarkdownDivider(widths)];
 
-  for (const module of APPLICATION_ORDER) {
-    lines.push(`| \`${module}\` | \`${applicationPort(module)}\` | ${ROOT_README_DEPENDENCIES[module]()} |`);
+  for (const row of rows) {
+    lines.push(formatMarkdownRow(row, widths, "left"));
   }
 
   lines.push("");
@@ -417,6 +424,34 @@ function buildRootReadmeTable() {
   );
 
   return lines.join("\n");
+}
+
+function formatMarkdownDivider(widths) {
+  return `|${widths.map((width) => "-".repeat(width + 2)).join("|")}|`;
+}
+
+function formatMarkdownRow(values, widths, alignment) {
+  const padded = values.map((value, index) => {
+    if (alignment === "center") {
+      return centerPad(value, widths[index]);
+    }
+
+    return value.padEnd(widths[index], " ");
+  });
+
+  return `| ${padded.join(" | ")} |`;
+}
+
+function centerPad(value, width) {
+  if (value.length >= width) {
+    return value;
+  }
+
+  const totalPadding = width - value.length;
+  const leftPadding = Math.floor(totalPadding / 2);
+  const rightPadding = totalPadding - leftPadding;
+
+  return `${" ".repeat(leftPadding)}${value}${" ".repeat(rightPadding)}`;
 }
 
 function updateTextFile(relativePath, transform) {
