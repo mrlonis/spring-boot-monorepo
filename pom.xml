@@ -316,7 +316,6 @@
               <excludes>
                 <exclude>.hooks/**/*</exclude>
                 <exclude>.idea/**/*</exclude>
-                <exclude>newman/**/*</exclude>
                 <exclude>**/target/**/*</exclude>
                 <exclude>**/pom.xml</exclude>
               </excludes>
