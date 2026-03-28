@@ -15,7 +15,7 @@ This module is a Spring Boot sample that wires Flowable Engine into a typical ap
 ./mvnw -pl flowable-engine spring-boot:run -Dspring-boot.run.profiles=local
 ```
 
-The `local` profile starts the app on `http://localhost:5367` and enables Docker Compose support for MySQL on `localhost:3307`.
+The current local port defaults for this module and its supporting services are tracked in the [root port catalog](../README.md#local-profiles-and-ports).
 
 ## Related Modules
 

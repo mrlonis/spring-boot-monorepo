@@ -14,7 +14,7 @@ This module is a reactive Spring Security resource server sample configured for 
 ./mvnw -pl spring-security-reactive-opaque spring-boot:run -Dspring-boot.run.profiles=local
 ```
 
-The `local` profile runs on `http://localhost:9378` and supplies the client credentials needed to introspect tokens through [oauth2-authorization-server-opaque](../oauth2-authorization-server-opaque).
+The current local port defaults for this module and its supporting services are tracked in the [root port catalog](../README.md#local-profiles-and-ports).
 
 ## Related Modules
 

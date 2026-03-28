@@ -17,7 +17,7 @@ The configured local clients include `spring-security-opaque-client`, `spring-se
 ./mvnw -pl oauth2-authorization-server-opaque spring-boot:run -Dspring-boot.run.profiles=local
 ```
 
-The `local` profile runs on `http://localhost:9563`. The resource server configuration points introspection back at `http://localhost:9563/oauth2/introspect`.
+The current local port defaults for this module are tracked in the [root port catalog](../README.md#local-profiles-and-ports).
 
 ## Related Modules
 

@@ -17,7 +17,7 @@ The migration scripts live under `src/main/resources/db/migration`.
 ./mvnw -pl mysql-migrations spring-boot:run -Dspring-boot.run.profiles=local
 ```
 
-The `local` profile starts the app on `http://localhost:5368` and enables Docker Compose support for MySQL on `localhost:3308`.
+The current local port defaults for this module and its supporting services are tracked in the [root port catalog](../README.md#local-profiles-and-ports).
 
 ## Related Modules
 

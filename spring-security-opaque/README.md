@@ -14,7 +14,7 @@ This module is a servlet-based Spring Security resource server sample configured
 ./mvnw -pl spring-security-opaque spring-boot:run -Dspring-boot.run.profiles=local
 ```
 
-The `local` profile runs on `http://localhost:9055` and supplies the client credentials needed to introspect tokens through [oauth2-authorization-server-opaque](../oauth2-authorization-server-opaque).
+The current local port defaults for this module and its supporting services are tracked in the [root port catalog](../README.md#local-profiles-and-ports).
 
 ## Related Modules
 

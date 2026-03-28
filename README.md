@@ -105,6 +105,22 @@ Notes:
 - `gateway` and `oauth2-gateway-mvc` both default to port `9203` when the `local` profile is active, so run one at a time or override `server.port`.
 - The XML sample apps do not define dedicated local ports; they use the default Spring Boot port unless you override it.
 
+## Port Management
+
+Edit `ports/local-ports.json`, then refresh the port-managed files with:
+
+```bash
+node scripts/sync-ports.mjs
+```
+
+Check for drift without writing changes:
+
+```bash
+node scripts/sync-ports.mjs --check
+```
+
+The sync refreshes Spring local config, supporting-service host ports, Newman environments, the validation workflow, and the generated port table above.
+
 ## Module Conventions
 
 - Shared infrastructure lives in dedicated modules such as [oauth2-autoconfig](oauth2-autoconfig), [shared-jackson](shared-jackson), and [test-controller-autoconfig](test-controller-autoconfig).

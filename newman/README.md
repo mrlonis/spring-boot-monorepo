@@ -8,6 +8,8 @@ This folder contains the Postman collections and local environments for the runn
 - Matching `*-local.postman_environment.json` files for local development
 - A quick way to smoke-test modules without writing new scripts
 
+The local environment files are synced from `ports/local-ports.json` by `node scripts/sync-ports.mjs`.
+
 ## How To Use It
 
 You can import the collections into Postman, or run them with Newman. For example:
