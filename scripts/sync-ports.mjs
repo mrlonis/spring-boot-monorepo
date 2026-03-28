@@ -2,12 +2,12 @@
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import process from "node:process";
+import process, { argv } from "node:process";
 import { fileURLToPath } from "node:url";
 
 const repoRoot = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const manifest = JSON.parse(readFileSync(resolve(repoRoot, "ports/local-ports.json"), "utf8"));
-const checkOnly = process.argv.includes("--check");
+const checkOnly = argv.includes("--check");
 const changedFiles = [];
 
 const APPLICATION_ORDER = [
@@ -364,8 +364,39 @@ function syncNewmanEnvironments() {
 
 function syncRootReadme() {
   updateTextFile("README.md", (content) =>
-    replaceBetweenMarkers(content, "<!-- PORTS_TABLE:START -->", "<!-- PORTS_TABLE:END -->", buildRootReadmeTable()),
+    replaceOne(
+      content,
+      /## Local Profiles and Ports[\s\S]*?## Module Conventions/,
+      `${buildRootReadmeSection()}\n\n## Module Conventions`,
+      "README Local Profiles and Ports section",
+    ),
   );
+}
+
+function buildRootReadmeSection() {
+  return [
+    "## Local Profiles and Ports",
+    "",
+    "Several runnable modules expose a `local` profile that turns on local ports and, in some cases, Docker Compose integration.",
+    "",
+    buildRootReadmeTable(),
+    "",
+    "## Port Management",
+    "",
+    "Edit `ports/local-ports.json`, then refresh the port-managed files with:",
+    "",
+    "```bash",
+    "node scripts/sync-ports.mjs",
+    "```",
+    "",
+    "Check for drift without writing changes:",
+    "",
+    "```bash",
+    "node scripts/sync-ports.mjs --check",
+    "```",
+    "",
+    "The sync refreshes Spring local config, supporting-service host ports, Newman environments, the validation workflow, and the generated port table above.",
+  ].join("\n");
 }
 
 function buildRootReadmeTable() {
@@ -391,7 +422,7 @@ function buildRootReadmeTable() {
 function updateTextFile(relativePath, transform) {
   const absolutePath = resolve(repoRoot, relativePath);
   const currentContent = readFileSync(absolutePath, "utf8");
-  const nextContent = transform(currentContent);
+  const nextContent = normalizeLineEndingsAndTrailingNewline(transform(currentContent), currentContent);
   writeIfChanged(relativePath, currentContent, nextContent);
 }
 
@@ -400,7 +431,10 @@ function updateJsonFile(relativePath, transform) {
   const currentContent = readFileSync(absolutePath, "utf8");
   const currentDocument = JSON.parse(currentContent);
   const nextDocument = transform(currentDocument);
-  const nextContent = `${JSON.stringify(nextDocument, null, "\t")}\n`;
+  const nextContent = normalizeLineEndingsAndTrailingNewline(
+    `${JSON.stringify(nextDocument, null, "\t")}\n`,
+    currentContent,
+  );
   writeIfChanged(relativePath, currentContent, nextContent);
 }
 
@@ -421,17 +455,24 @@ function replaceWorkflowPort(content, moduleKey, moduleName, portKey, portValue)
   return replaceOne(content, pattern, `$1${portValue}`, `${moduleKey} ${moduleName}`);
 }
 
-function replaceBetweenMarkers(content, startMarker, endMarker, replacement) {
-  const pattern = new RegExp(`${escapeRegex(startMarker)}[\\s\\S]*?${escapeRegex(endMarker)}`);
-  return replaceOne(content, pattern, `${startMarker}\n${replacement}\n${endMarker}`, `${startMarker} block`);
-}
-
 function replaceOne(content, pattern, replacement, description) {
   if (!pattern.test(content)) {
     throw new Error(`Could not update ${description}`);
   }
 
   return content.replace(pattern, replacement);
+}
+
+function normalizeLineEndingsAndTrailingNewline(nextContent, currentContent) {
+  const eol = currentContent.includes("\r\n") ? "\r\n" : "\n";
+  const normalized = nextContent.replace(/\r?\n/g, eol);
+  const hasTrailingNewline = /\r?\n$/.test(currentContent);
+
+  if (hasTrailingNewline) {
+    return normalized;
+  }
+
+  return normalized.replace(new RegExp(`${escapeRegex(eol)}$`), "");
 }
 
 function applicationPort(module) {
