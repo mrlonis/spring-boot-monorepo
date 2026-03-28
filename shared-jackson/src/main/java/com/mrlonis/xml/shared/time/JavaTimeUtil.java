@@ -1,15 +1,14 @@
 package com.mrlonis.xml.shared.time;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import lombok.experimental.UtilityClass;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.core.JsonParser;
+import tools.jackson.databind.DeserializationContext;
+import tools.jackson.databind.SerializationContext;
 
 @UtilityClass
 public class JavaTimeUtil {
@@ -41,8 +40,7 @@ public class JavaTimeUtil {
         return v.format(ZONED_OUTPUT_FORMAT);
     }
 
-    public static LocalDateTime deserializeLocalDateTime(JsonParser jsonparser, DeserializationContext context)
-            throws IOException {
+    public static LocalDateTime deserializeLocalDateTime(JsonParser jsonparser, DeserializationContext context) {
         String v = jsonparser.getText();
         try {
             return LocalDateTime.parse(v);
@@ -51,8 +49,7 @@ public class JavaTimeUtil {
         }
     }
 
-    public static void serializeLocalDateTime(LocalDateTime v, JsonGenerator gen, SerializerProvider arg2)
-            throws IOException {
+    public static void serializeLocalDateTime(LocalDateTime v, JsonGenerator gen, SerializationContext arg2) {
         if (v == null) {
             gen.writeNull();
         } else {
@@ -61,8 +58,7 @@ public class JavaTimeUtil {
         }
     }
 
-    public static ZonedDateTime deserializeZonedDateTime(JsonParser jsonparser, DeserializationContext context)
-            throws IOException {
+    public static ZonedDateTime deserializeZonedDateTime(JsonParser jsonparser, DeserializationContext context) {
         String v = jsonparser.getText();
         try {
             return ZonedDateTime.parse(v);
@@ -71,8 +67,7 @@ public class JavaTimeUtil {
         }
     }
 
-    public static void serializeZonedDateTime(ZonedDateTime v, JsonGenerator gen, SerializerProvider arg2)
-            throws IOException {
+    public static void serializeZonedDateTime(ZonedDateTime v, JsonGenerator gen, SerializationContext arg2) {
         if (v == null) {
             gen.writeNull();
         } else {

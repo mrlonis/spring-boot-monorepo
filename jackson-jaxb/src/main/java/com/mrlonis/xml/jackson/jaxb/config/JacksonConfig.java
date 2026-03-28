@@ -1,9 +1,9 @@
 package com.mrlonis.xml.jackson.jaxb.config;
 
-import com.fasterxml.jackson.databind.Module;
-import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import tools.jackson.databind.JacksonModule;
+import tools.jackson.module.jaxb.JaxbAnnotationModule;
 
 /**
  * This is a Jackson configuration class that registers additional Jackson modules not included in the default Spring
@@ -18,7 +18,7 @@ public class JacksonConfig {
      * @return {@link JaxbAnnotationModule}
      */
     @Bean
-    public Module jaxbAnnotationModule() {
+    public JacksonModule jaxbAnnotationModule() {
         return new JaxbAnnotationModule();
     }
 }

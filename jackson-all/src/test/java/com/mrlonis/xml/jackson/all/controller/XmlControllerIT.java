@@ -1,0 +1,31 @@
+package com.mrlonis.xml.jackson.all.controller;
+
+import static com.mrlonis.xml.shared.test.TestUtils.generateTestArguments;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import com.mrlonis.xml.shared.test.BaseXmlControllerTests;
+import com.mrlonis.xml.shared.util.FetchModelUtil;
+import java.util.stream.Stream;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.provider.Arguments;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.test.web.servlet.MockMvc;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+class XmlControllerIT extends BaseXmlControllerTests {
+    XmlControllerIT(@Autowired MockMvc mockMvc, @Autowired FetchModelUtil fetchModelUtil) {
+        super(mockMvc, fetchModelUtil);
+    }
+
+    public Stream<Arguments> testArguments() {
+        return generateTestArguments(true, true, true, true, true, true, true);
+    }
+
+    @Test
+    void contextLoads() {
+        assertTrue(true);
+    }
+}

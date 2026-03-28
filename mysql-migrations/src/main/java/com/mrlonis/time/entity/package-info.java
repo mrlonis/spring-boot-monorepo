@@ -4,16 +4,16 @@
  * <p>There are 5 entities:
  *
  * <ol>
- *   <li>{@link com.mrlonis.time.entity.TestEntityCalendar} - A test entity where the date-time fields are represented
- *       by {@link java.util.Calendar} objects.
- *   <li>{@link com.mrlonis.time.entity.TestEntityDate} - A test entity where the date-time fields are represented by
+ *   <li>{@link com.mrlonis.time.entity.CalendarEntity} - A test entity where the date-time fields are represented by
+ *       {@link java.util.Calendar} objects.
+ *   <li>{@link com.mrlonis.time.entity.DateEntity} - A test entity where the date-time fields are represented by
  *       {@link java.util.Date} objects.
- *   <li>{@link com.mrlonis.time.entity.TestEntityOffsetDateTime} - A test entity where the date-time fields are
- *       represented by {@link java.time.OffsetDateTime} objects.
- *   <li>{@link com.mrlonis.time.entity.TestEntityTimestamp} - A test entity where the date-time fields are represented
- *       by {@link java.sql.Timestamp} objects.
- *   <li>{@link com.mrlonis.time.entity.TestEntityZonedDateTime} - A test entity where the date-time fields are
- *       represented by {@link java.time.ZonedDateTime} objects.
+ *   <li>{@link com.mrlonis.time.entity.OffsetDateTimeEntity} - A test entity where the date-time fields are represented
+ *       by {@link java.time.OffsetDateTime} objects.
+ *   <li>{@link com.mrlonis.time.entity.TimestampEntity} - A test entity where the date-time fields are represented by
+ *       {@link java.sql.Timestamp} objects.
+ *   <li>{@link com.mrlonis.time.entity.ZonedDateTimeEntity} - A test entity where the date-time fields are represented
+ *       by {@link java.time.ZonedDateTime} objects.
  * </ol>
  *
  * These all correspond to MySQL's Supported “instant” date-time classes: <a

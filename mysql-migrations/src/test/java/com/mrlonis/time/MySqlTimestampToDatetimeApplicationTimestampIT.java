@@ -1,20 +1,20 @@
 package com.mrlonis.time;
 
-import static com.mrlonis.time.util.TestData.getTestEntityCalendar;
-import static com.mrlonis.time.util.TestData.getTestEntityDate;
-import static com.mrlonis.time.util.TestData.getTestEntityOffsetDateTime;
-import static com.mrlonis.time.util.TestData.getTestEntityTimestamp;
-import static com.mrlonis.time.util.TestData.getTestEntityZonedDateTime;
-import static com.mrlonis.time.util.TestUtils.assertEntityCreation;
-import static com.mrlonis.time.util.TestUtils.assertInitialRepositoryConditions;
+import static com.mrlonis.time.test.TestData.getTestEntityCalendar;
+import static com.mrlonis.time.test.TestData.getTestEntityDate;
+import static com.mrlonis.time.test.TestData.getTestEntityOffsetDateTime;
+import static com.mrlonis.time.test.TestData.getTestEntityTimestamp;
+import static com.mrlonis.time.test.TestData.getTestEntityZonedDateTime;
+import static com.mrlonis.time.test.TestUtils.assertEntityCreation;
+import static com.mrlonis.time.test.TestUtils.assertInitialRepositoryConditions;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.mrlonis.time.repository.TestEntityCalendarRepository;
-import com.mrlonis.time.repository.TestEntityDateRepository;
-import com.mrlonis.time.repository.TestEntityOffsetDateTimeRepository;
-import com.mrlonis.time.repository.TestEntityTimestampRepository;
-import com.mrlonis.time.repository.TestEntityZonedDateTimeRepository;
-import com.mrlonis.time.util.TestcontainersConfiguration;
+import com.mrlonis.time.repository.CalendarEntityRepository;
+import com.mrlonis.time.repository.DateEntityRepository;
+import com.mrlonis.time.repository.OffsetDateTimeEntityRepository;
+import com.mrlonis.time.repository.TimestampEntityRepository;
+import com.mrlonis.time.repository.ZonedDateTimeEntityRepository;
+import com.mrlonis.time.test.TestcontainersConfiguration;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,19 +33,19 @@ import org.springframework.test.context.ActiveProfiles;
 @ActiveProfiles("test-timestamp")
 class MySqlTimestampToDatetimeApplicationTimestampIT {
     @Autowired
-    private TestEntityCalendarRepository testEntityCalendarRepository;
+    private CalendarEntityRepository calendarEntityRepository;
 
     @Autowired
-    private TestEntityDateRepository testEntityDateRepository;
+    private DateEntityRepository dateEntityRepository;
 
     @Autowired
-    private TestEntityOffsetDateTimeRepository testEntityOffsetDateTimeRepository;
+    private OffsetDateTimeEntityRepository offsetDateTimeEntityRepository;
 
     @Autowired
-    private TestEntityTimestampRepository testEntityTimestampRepository;
+    private TimestampEntityRepository timestampEntityRepository;
 
     @Autowired
-    private TestEntityZonedDateTimeRepository testEntityZonedDateTimeRepository;
+    private ZonedDateTimeEntityRepository zonedDateTimeEntityRepository;
 
     @Test
     void contextLoads() {
@@ -54,31 +54,31 @@ class MySqlTimestampToDatetimeApplicationTimestampIT {
 
     @Test
     void testEntityCalendar() {
-        assertInitialRepositoryConditions(testEntityCalendarRepository);
-        assertEntityCreation(getTestEntityCalendar(), testEntityCalendarRepository);
+        assertInitialRepositoryConditions(calendarEntityRepository);
+        assertEntityCreation(getTestEntityCalendar(), calendarEntityRepository);
     }
 
     @Test
     void testEntityDate() {
-        assertInitialRepositoryConditions(testEntityDateRepository);
-        assertEntityCreation(getTestEntityDate(), testEntityDateRepository);
+        assertInitialRepositoryConditions(dateEntityRepository);
+        assertEntityCreation(getTestEntityDate(), dateEntityRepository);
     }
 
     @Test
     void testEntityOffsetDateTime() {
-        assertInitialRepositoryConditions(testEntityOffsetDateTimeRepository);
-        assertEntityCreation(getTestEntityOffsetDateTime(), testEntityOffsetDateTimeRepository);
+        assertInitialRepositoryConditions(offsetDateTimeEntityRepository);
+        assertEntityCreation(getTestEntityOffsetDateTime(), offsetDateTimeEntityRepository);
     }
 
     @Test
     void testEntityTimestamp() {
-        assertInitialRepositoryConditions(testEntityTimestampRepository);
-        assertEntityCreation(getTestEntityTimestamp(), testEntityTimestampRepository);
+        assertInitialRepositoryConditions(timestampEntityRepository);
+        assertEntityCreation(getTestEntityTimestamp(), timestampEntityRepository);
     }
 
     @Test
     void testEntityZonedDateTime() {
-        assertInitialRepositoryConditions(testEntityZonedDateTimeRepository);
-        assertEntityCreation(getTestEntityZonedDateTime(), testEntityZonedDateTimeRepository);
+        assertInitialRepositoryConditions(zonedDateTimeEntityRepository);
+        assertEntityCreation(getTestEntityZonedDateTime(), zonedDateTimeEntityRepository);
     }
 }

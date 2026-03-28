@@ -5,11 +5,13 @@ import static com.mrlonis.example.oauth2.test.TestUtils.generateCodeVerifier;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrlPattern;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -41,7 +43,7 @@ class OAuth2LoginIT extends AbstractMockWebServerIT {
                         .queryParam("code_challenge_method", "S256"))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrlPattern("**/login")));
+                .andExpect(redirectedUrl("/login")));
     }
 
     @Test
@@ -55,6 +57,7 @@ class OAuth2LoginIT extends AbstractMockWebServerIT {
         String codeChallenge = generateCodeChallenge(codeVerifier);
 
         assertDoesNotThrow(() -> mockMvc.perform(get("/oauth2/authorize")
+                        .with(jwt())
                         .queryParam("response_type", "code")
                         .queryParam("client_id", clientId)
                         .queryParam("redirect_uri", redirectUri)
@@ -78,6 +81,7 @@ class OAuth2LoginIT extends AbstractMockWebServerIT {
         String codeChallenge = generateCodeChallenge(codeVerifier);
 
         MvcResult result = assertDoesNotThrow(() -> mockMvc.perform(get("/oauth2/authorize")
+                                .with(jwt())
                                 .queryParam("response_type", "code")
                                 .queryParam("client_id", clientId)
                                 .queryParam("redirect_uri", redirectUri)
@@ -120,6 +124,7 @@ class OAuth2LoginIT extends AbstractMockWebServerIT {
         String codeChallenge = generateCodeChallenge(codeVerifier);
 
         MvcResult result = mockMvc.perform(get("/oauth2/authorize")
+                        .with(jwt())
                         .queryParam("response_type", "code")
                         .queryParam("client_id", clientId)
                         .queryParam("redirect_uri", redirectUri)

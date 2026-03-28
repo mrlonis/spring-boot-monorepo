@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.mrlonis.todo.todo_service.entities.PrUrl;
-import com.mrlonis.todo.todo_service.entities.TestingUrl;
 import com.mrlonis.todo.todo_service.entities.TodoItem;
+import com.mrlonis.todo.todo_service.entities.ValidationUrl;
 import com.mrlonis.todo.todo_service.enums.TodoItemType;
 import java.time.ZonedDateTime;
 import lombok.experimental.UtilityClass;
@@ -76,7 +76,7 @@ public class TestUtilities {
         assertEquals(expected.getTodoItem().getId(), actual.getTodoItem().getId());
     }
 
-    public static void assertTestingUrls(TestingUrl expected, TestingUrl actual) {
+    public static void assertTestingUrls(ValidationUrl expected, ValidationUrl actual) {
         assertEquals(expected.getUrl(), actual.getUrl());
         assertEquals(expected.getTodoItem().getId(), actual.getTodoItem().getId());
     }

@@ -49,7 +49,7 @@ public class TodoItem {
 
     @OneToMany(mappedBy = "todoItem", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
-    private List<TestingUrl> urlsUsedForTesting = new LinkedList<>();
+    private List<ValidationUrl> urlsUsedForTesting = new LinkedList<>();
 
     @Column
     private boolean completed;

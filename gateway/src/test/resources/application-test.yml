@@ -16,6 +16,9 @@ spring:
         provider:
           oidc:
             issuer-uri: http://localhost:${MOCK_WEB_SERVER_PORT}
+application:
+  routes:
+    google-uri: http://localhost:${MOCK_WEB_SERVER_PORT}
 oauth2:
   federate:
     issuer-uri: http://localhost:${MOCK_WEB_SERVER_PORT}
@@ -25,3 +28,7 @@ logging:
     org.springframework.data.redis: debug
     org.springframework.security: debug
     org.springframework.session: debug
+    org.springframework.cloud.gateway: trace
+    reactor.netty.http.client: debug
+    reactor.netty.transport: debug
+    org.springframework.web.reactive.function.client: debug

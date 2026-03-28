@@ -1,6 +1,6 @@
 spring:
   application:
-    name: mysql-timestamp-to-datetime
+    name: mysql-migrations
   docker:
     compose:
       enabled: false

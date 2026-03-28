@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.mrlonis.todo.todo_service.entities.PrUrl;
-import com.mrlonis.todo.todo_service.entities.TestingUrl;
 import com.mrlonis.todo.todo_service.entities.TodoItem;
+import com.mrlonis.todo.todo_service.entities.ValidationUrl;
 import com.mrlonis.todo.todo_service.test.TestcontainersConfiguration;
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +31,7 @@ class TodoItemRepositoryIT {
     private PrUrlRepository prUrlRepository;
 
     @Autowired
-    private TestingUrlRepository testingUrlRepository;
+    private ValidationUrlRepository validationUrlRepository;
 
     @AfterEach
     void tearDown() {
@@ -41,8 +41,8 @@ class TodoItemRepositoryIT {
         prUrlRepository.deleteAll();
         prUrlRepository.flush();
 
-        testingUrlRepository.deleteAll();
-        testingUrlRepository.flush();
+        validationUrlRepository.deleteAll();
+        validationUrlRepository.flush();
     }
 
     @Test
@@ -59,9 +59,9 @@ class TodoItemRepositoryIT {
         assertNotNull(prUrls);
         assertTrue(prUrls.isEmpty());
 
-        List<TestingUrl> testingUrls = testingUrlRepository.findAll();
-        assertNotNull(testingUrls);
-        assertTrue(testingUrls.isEmpty());
+        List<ValidationUrl> validationUrls = validationUrlRepository.findAll();
+        assertNotNull(validationUrls);
+        assertTrue(validationUrls.isEmpty());
     }
 
     @Test
@@ -135,18 +135,18 @@ class TodoItemRepositoryIT {
         assertTodoItems(expected, actual);
 
         // Add a TestingUrl to the TodoItem
-        TestingUrl testingUrl =
-                TestingUrl.builder().url("testingUrl").todoItem(actual).build();
-        assertNull(testingUrl.getId());
+        ValidationUrl validationUrl =
+                ValidationUrl.builder().url("testingUrl").todoItem(actual).build();
+        assertNull(validationUrl.getId());
 
-        actual.getUrlsUsedForTesting().add(testingUrl);
+        actual.getUrlsUsedForTesting().add(validationUrl);
         actual = todoItemRepository.saveAndFlush(actual);
 
         // Verify the TestingUrl was saved
         assertEquals(1, actual.getUrlsUsedForTesting().size());
 
         // Verify the TestingUrl is present in the database
-        Optional<TestingUrl> actualTestingUrl = testingUrlRepository.findById(
+        Optional<ValidationUrl> actualTestingUrl = validationUrlRepository.findById(
                 actual.getUrlsUsedForTesting().getFirst().getId());
         assertNotNull(actualTestingUrl);
         assertTrue(actualTestingUrl.isPresent());

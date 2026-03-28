@@ -10,15 +10,15 @@ import com.mrlonis.todo.todo_service.dtos.TodoItemDto;
 import com.mrlonis.todo.todo_service.entities.TodoItem;
 import com.mrlonis.todo.todo_service.mappers.TodoItemMapper;
 import com.mrlonis.todo.todo_service.repositories.PrUrlRepository;
-import com.mrlonis.todo.todo_service.repositories.TestingUrlRepository;
 import com.mrlonis.todo.todo_service.repositories.TodoItemRepository;
+import com.mrlonis.todo.todo_service.repositories.ValidationUrlRepository;
 import com.mrlonis.todo.todo_service.test.TestcontainersConfiguration;
 import java.util.Map;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.webtestclient.autoconfigure.AutoConfigureWebTestClient;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -38,7 +38,7 @@ class TodoItemsControllerIT {
     private PrUrlRepository prUrlRepository;
 
     @Autowired
-    private TestingUrlRepository testingUrlRepository;
+    private ValidationUrlRepository validationUrlRepository;
 
     @Autowired
     private TodoItemMapper todoItemMapper;
@@ -51,8 +51,8 @@ class TodoItemsControllerIT {
         prUrlRepository.deleteAll();
         prUrlRepository.flush();
 
-        testingUrlRepository.deleteAll();
-        testingUrlRepository.flush();
+        validationUrlRepository.deleteAll();
+        validationUrlRepository.flush();
     }
 
     @Test

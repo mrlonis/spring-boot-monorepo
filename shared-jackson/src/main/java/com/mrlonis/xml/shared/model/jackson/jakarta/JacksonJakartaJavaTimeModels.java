@@ -1,7 +1,6 @@
 package com.mrlonis.xml.shared.model.jackson.jakarta;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.mrlonis.xml.shared.adapter.JakartaJavaTimeAdapters;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -14,6 +13,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
 import lombok.experimental.UtilityClass;
 import lombok.extern.jackson.Jacksonized;
+import tools.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 @UtilityClass
 public class JacksonJakartaJavaTimeModels {

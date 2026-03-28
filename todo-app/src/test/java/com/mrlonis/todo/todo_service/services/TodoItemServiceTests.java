@@ -11,14 +11,14 @@ import static org.mockito.Mockito.when;
 
 import com.mrlonis.todo.todo_service.dtos.TodoItemDto;
 import com.mrlonis.todo.todo_service.entities.PrUrl;
-import com.mrlonis.todo.todo_service.entities.TestingUrl;
 import com.mrlonis.todo.todo_service.entities.TodoItem;
+import com.mrlonis.todo.todo_service.entities.ValidationUrl;
 import com.mrlonis.todo.todo_service.enums.TodoItemType;
 import com.mrlonis.todo.todo_service.exceptions.TodoItemNotFoundException;
 import com.mrlonis.todo.todo_service.mappers.TodoItemMapper;
 import com.mrlonis.todo.todo_service.repositories.PrUrlRepository;
-import com.mrlonis.todo.todo_service.repositories.TestingUrlRepository;
 import com.mrlonis.todo.todo_service.repositories.TodoItemRepository;
+import com.mrlonis.todo.todo_service.repositories.ValidationUrlRepository;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +41,7 @@ class TodoItemServiceTests {
     private PrUrlRepository prUrlRepository;
 
     @Mock
-    private TestingUrlRepository testingUrlRepository;
+    private ValidationUrlRepository validationUrlRepository;
 
     @Mock
     private MetadataService metadataService;
@@ -114,10 +114,10 @@ class TodoItemServiceTests {
         when(prUrlRepository.findByUrlAndTodoItemId("prUrl", 1L)).thenReturn(Optional.empty());
         when(prUrlRepository.saveAndFlush(any()))
                 .thenReturn(PrUrl.builder().url("prUrl").todoItem(todoItem).build());
-        when(testingUrlRepository.findByUrlAndTodoItemId("urlsUsedForTesting", 1L))
+        when(validationUrlRepository.findByUrlAndTodoItemId("urlsUsedForTesting", 1L))
                 .thenReturn(Optional.empty());
-        when(testingUrlRepository.saveAndFlush(any()))
-                .thenReturn(TestingUrl.builder()
+        when(validationUrlRepository.saveAndFlush(any()))
+                .thenReturn(ValidationUrl.builder()
                         .url("urlsUsedForTesting")
                         .todoItem(todoItem)
                         .build());
@@ -188,13 +188,13 @@ class TodoItemServiceTests {
                         PrUrl.builder().url("prUrl").todoItem(todoItem).build()));
         when(prUrlRepository.saveAndFlush(any()))
                 .thenReturn(PrUrl.builder().url("prUrl").todoItem(todoItem).build());
-        when(testingUrlRepository.findByUrlAndTodoItemId("urlsUsedForTesting", 1L))
-                .thenReturn(Optional.of(TestingUrl.builder()
+        when(validationUrlRepository.findByUrlAndTodoItemId("urlsUsedForTesting", 1L))
+                .thenReturn(Optional.of(ValidationUrl.builder()
                         .url("urlsUsedForTesting")
                         .todoItem(todoItem)
                         .build()));
-        when(testingUrlRepository.saveAndFlush(any()))
-                .thenReturn(TestingUrl.builder()
+        when(validationUrlRepository.saveAndFlush(any()))
+                .thenReturn(ValidationUrl.builder()
                         .url("urlsUsedForTesting")
                         .todoItem(todoItem)
                         .build());
