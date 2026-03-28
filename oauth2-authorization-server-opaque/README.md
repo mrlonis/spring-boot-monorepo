@@ -1,85 +1,25 @@
 # oauth2-authorization-server-opaque
 
-## Table of Contents
+This module is a Spring Authorization Server sample configured for opaque access tokens and token introspection.
 
-<!-- TOC -->
-* [oauth2-authorization-server-opaque](#oauth2-authorization-server-opaque)
-  * [Table of Contents](#table-of-contents)
-  * [Overview](#overview)
-  * [Demonstrated Security Patterns](#demonstrated-security-patterns)
-    * [Token-Based Authentication](#token-based-authentication)
-      * [Opaque Tokens](#opaque-tokens)
-    * [Session-Based Authentication](#session-based-authentication)
-    * [Basic Authentication](#basic-authentication)
-    * [Form-Based Authentication](#form-based-authentication)
-    * [OAuth2 and OpenID Connect (OIDC)](#oauth2-and-openid-connect-oidc)
+## What It Demonstrates
 
-<!-- TOC -->
+- Authorization Server endpoints backed by Spring Security
+- Opaque token issuance and introspection
+- Local clients for the opaque resource server samples in this repo
+- A focused place to compare opaque tokens with the JWT variant in [oauth2-authorization-server](../oauth2-authorization-server)
 
-## Overview
+The configured local clients include `spring-security-opaque-client`, `spring-security-reactive-opaque-client`, and a small `test-client` flow for test coverage.
 
-This project is a simple OAuth2 Authorization Server built with Spring Boot. It provides authorization capabilities to
-the other Spring Boot applications found in this monorepo
+## Run Locally
 
-## Demonstrated Security Patterns
+```bash
+./mvnw -pl oauth2-authorization-server-opaque spring-boot:run -Dspring-boot.run.profiles=local
+```
 
-### Token-Based Authentication
+The `local` profile runs on `http://localhost:9563`. The resource server configuration points introspection back at `http://localhost:9563/oauth2/introspect`.
 
-#### Opaque Tokens
+## Related Modules
 
-- Reference token, not self-contained.
-- Requires introspection endpoint to validate.
-- Often used in OAuth2 with introspection (especially with Spring Authorization Server).
-
-### Session-Based Authentication
-
-Handled in the [gateway](../gateway) module. The gateway uses Spring Security and Spring Session with Redis to manage
-user sessions.
-
-- Traditional approach for web apps.
-- After login, server creates a session (typically stored in memory or a session store).
-- A JSESSIONID cookie is sent to the client and used on future requests.
-
-Use Cases:
-
-- Monolithic MVC apps (e.g., with Thymeleaf).
-- Admin dashboards and internal tools.
-
-### Basic Authentication
-
-The client id and client secrets for the authentication flows are sent as basic headers, along with your usual
-scopes and grant types in the request body.
-
-- HTTP header-based: sends Authorization: Basic base64(username:password).
-- Extremely simple and insecure unless over HTTPS.
-- Not recommended for production but useful for quick internal APIs or dev tools.
-
-### Form-Based Authentication
-
-The authorization server provides a login page for the user to enter their credentials.
-
-- Standard username/password login via HTML form.
-- Spring Security handles form login, CSRF, redirection, etc.
-
-Variants:
-
-- Default Spring login page
-- Custom login pages with form-based POST
-
-### OAuth2 and OpenID Connect (OIDC)
-
-- Delegated authentication via third parties (Google, GitHub, Okta, etc.)
-- Spring Security has full support as both client and authorization server.
-
-Grant Types:
-
-- Authorization Code (with/without PKCE)
-- Client Credentials
-- Resource Owner Password Credentials (deprecated)
-- Refresh Token
-
-OIDC Layer adds:
-
-- ID Token (a JWT)
-- UserInfo endpoint
-- Login/logout flows
+- [spring-security-opaque](../spring-security-opaque) and [spring-security-reactive-opaque](../spring-security-reactive-opaque) use this module in their local profile.
+- [newman](../newman) includes a Postman collection for this app.
