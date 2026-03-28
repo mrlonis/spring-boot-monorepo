@@ -18,7 +18,7 @@ The current local route example forwards `/google/**` to the configured external
 ./mvnw -pl gateway spring-boot:run -Dspring-boot.run.profiles=local
 ```
 
-The `local` profile runs on `http://localhost:9203`, enables Docker Compose support for Redis, and expects the JWT/OIDC issuer from [oauth2-authorization-server](../oauth2-authorization-server) to be available at `http://localhost:9562`.
+The current local port defaults for this module and its supporting services are tracked in the [root port catalog](../README.md#local-profiles-and-ports).
 
 ## Related Modules
 

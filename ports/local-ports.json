@@ -1,0 +1,21 @@
+{
+  "applicationPorts": {
+    "flowable-engine": 5367,
+    "mysql-migrations": 5368,
+    "todo-app": 6958,
+    "spring-security": 9054,
+    "spring-security-opaque": 9055,
+    "gateway": 9203,
+    "oauth2-gateway-mvc": 9203,
+    "spring-security-reactive": 9373,
+    "spring-security-reactive-opaque": 9378,
+    "oauth2-authorization-server": 9562,
+    "oauth2-authorization-server-opaque": 9563
+  },
+  "supportingPorts": {
+    "flowable-engine-mysql": 3307,
+    "mysql-migrations-mysql": 3308,
+    "todo-app-postgres": 5433,
+    "todo-app-ui": 4200
+  }
+}

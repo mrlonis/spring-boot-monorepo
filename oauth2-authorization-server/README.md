@@ -17,7 +17,7 @@ The configured local clients include `oidc-client`, `gateway-client`, `postman-p
 ./mvnw -pl oauth2-authorization-server spring-boot:run -Dspring-boot.run.profiles=local
 ```
 
-The `local` profile runs on `http://localhost:9562`.
+The current local port defaults for this module are tracked in the [root port catalog](../README.md#local-profiles-and-ports).
 
 ## Related Modules
 

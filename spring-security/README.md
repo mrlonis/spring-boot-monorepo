@@ -14,7 +14,7 @@ This module is a servlet-based Spring Security resource server sample configured
 ./mvnw -pl spring-security spring-boot:run -Dspring-boot.run.profiles=local
 ```
 
-The `local` profile runs on `http://localhost:9054` and expects the JWT issuer from [oauth2-authorization-server](../oauth2-authorization-server) to be available on `http://localhost:9562`.
+The current local port defaults for this module and its supporting services are tracked in the [root port catalog](../README.md#local-profiles-and-ports).
 
 ## Related Modules
 

@@ -16,7 +16,7 @@ Unlike the reactive [gateway](../gateway) module, this sample does not ship cust
 ./mvnw -pl oauth2-gateway-mvc spring-boot:run -Dspring-boot.run.profiles=local
 ```
 
-The `local` profile runs on `http://localhost:9203`. If you are also running [gateway](../gateway), override `server.port` because both modules use the same default local port.
+The current local port defaults for this module are tracked in the [root port catalog](../README.md#local-profiles-and-ports), which also notes that this sample shares its default local port with [gateway](../gateway).
 
 ## Related Modules
 
