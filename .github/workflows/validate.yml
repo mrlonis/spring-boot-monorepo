@@ -31,9 +31,6 @@ jobs:
       - name: Setup node and java
         uses: ./.github/actions/setup-node-java
 
-      - name: Check generated port config
-        run: node scripts/sync-ports.mjs --check
-
       - name: Maven verify
         run: ./mvnw -B clean verify -fae -T 1C
 
@@ -42,6 +39,19 @@ jobs:
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           coverage-reports: target/site/jacoco-aggregate/jacoco.xml
+  validate-ports:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup node
+        uses: ./.github/actions/setup-node
+
+      - name: Check generated port config
+        run: node scripts/sync-ports.mjs --check
   update-dependency-graph:
     runs-on: ubuntu-latest
     permissions:
