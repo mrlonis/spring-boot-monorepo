@@ -33,9 +33,7 @@
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  ""
-                ],
+                "exec": [""],
                 "type": "text/javascript",
                 "packages": {},
                 "requests": {}
@@ -79,13 +77,8 @@
             },
             "url": {
               "raw": "{{oauth-base-uri}}/oauth2/token",
-              "host": [
-                "{{oauth-base-uri}}"
-              ],
-              "path": [
-                "oauth2",
-                "token"
-              ]
+              "host": ["{{oauth-base-uri}}"],
+              "path": ["oauth2", "token"]
             }
           },
           "response": []
@@ -118,12 +111,8 @@
             "header": [],
             "url": {
               "raw": "{{base-uri}}/actuator",
-              "host": [
-                "{{base-uri}}"
-              ],
-              "path": [
-                "actuator"
-              ]
+              "host": ["{{base-uri}}"],
+              "path": ["actuator"]
             }
           },
           "response": []
@@ -151,13 +140,8 @@
             "header": [],
             "url": {
               "raw": "{{base-uri}}/actuator/health",
-              "host": [
-                "{{base-uri}}"
-              ],
-              "path": [
-                "actuator",
-                "health"
-              ]
+              "host": ["{{base-uri}}"],
+              "path": ["actuator", "health"]
             }
           },
           "response": []
@@ -185,13 +169,8 @@
             "header": [],
             "url": {
               "raw": "{{base-uri}}/actuator/info",
-              "host": [
-                "{{base-uri}}"
-              ],
-              "path": [
-                "actuator",
-                "info"
-              ]
+              "host": ["{{base-uri}}"],
+              "path": ["actuator", "info"]
             }
           },
           "response": []
@@ -219,13 +198,8 @@
             "header": [],
             "url": {
               "raw": "{{base-uri}}/actuator/gateway",
-              "host": [
-                "{{base-uri}}"
-              ],
-              "path": [
-                "actuator",
-                "gateway"
-              ]
+              "host": ["{{base-uri}}"],
+              "path": ["actuator", "gateway"]
             }
           },
           "response": []
@@ -253,13 +227,8 @@
             "header": [],
             "url": {
               "raw": "{{base-uri}}/actuator/mappings",
-              "host": [
-                "{{base-uri}}"
-              ],
-              "path": [
-                "actuator",
-                "mappings"
-              ]
+              "host": ["{{base-uri}}"],
+              "path": ["actuator", "mappings"]
             }
           },
           "response": []
@@ -287,13 +256,8 @@
             "header": [],
             "url": {
               "raw": "{{base-uri}}/actuator/metrics",
-              "host": [
-                "{{base-uri}}"
-              ],
-              "path": [
-                "actuator",
-                "metrics"
-              ]
+              "host": ["{{base-uri}}"],
+              "path": ["actuator", "metrics"]
             }
           },
           "response": []
@@ -329,13 +293,8 @@
             "header": [],
             "url": {
               "raw": "{{base-uri}}/v1/test",
-              "host": [
-                "{{base-uri}}"
-              ],
-              "path": [
-                "v1",
-                "test"
-              ]
+              "host": ["{{base-uri}}"],
+              "path": ["v1", "test"]
             }
           },
           "response": []
@@ -373,13 +332,8 @@
             "header": [],
             "url": {
               "raw": "{{base-uri}}/v1/test",
-              "host": [
-                "{{base-uri}}"
-              ],
-              "path": [
-                "v1",
-                "test"
-              ]
+              "host": ["{{base-uri}}"],
+              "path": ["v1", "test"]
             }
           },
           "response": []
@@ -408,9 +362,7 @@
             {
               "listen": "prerequest",
               "script": {
-                "exec": [
-                  ""
-                ],
+                "exec": [""],
                 "type": "text/javascript",
                 "packages": {},
                 "requests": {}
@@ -454,13 +406,8 @@
             },
             "url": {
               "raw": "{{oauth-base-uri}}/oauth2/token",
-              "host": [
-                "{{oauth-base-uri}}"
-              ],
-              "path": [
-                "oauth2",
-                "token"
-              ]
+              "host": ["{{oauth-base-uri}}"],
+              "path": ["oauth2", "token"]
             }
           },
           "response": []
@@ -498,13 +445,8 @@
             "header": [],
             "url": {
               "raw": "{{base-uri}}/v1/test",
-              "host": [
-                "{{base-uri}}"
-              ],
-              "path": [
-                "v1",
-                "test"
-              ]
+              "host": ["{{base-uri}}"],
+              "path": ["v1", "test"]
             }
           },
           "response": []
@@ -517,9 +459,7 @@
             "type": "text/javascript",
             "packages": {},
             "requests": {},
-            "exec": [
-              ""
-            ]
+            "exec": [""]
           }
         },
         {
@@ -528,9 +468,7 @@
             "type": "text/javascript",
             "packages": {},
             "requests": {},
-            "exec": [
-              ""
-            ]
+            "exec": [""]
           }
         }
       ]

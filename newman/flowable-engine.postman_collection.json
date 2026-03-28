@@ -32,12 +32,8 @@
             "header": [],
             "url": {
               "raw": "{{base-uri}}/actuator",
-              "host": [
-                "{{base-uri}}"
-              ],
-              "path": [
-                "actuator"
-              ]
+              "host": ["{{base-uri}}"],
+              "path": ["actuator"]
             }
           },
           "response": []
@@ -65,13 +61,8 @@
             "header": [],
             "url": {
               "raw": "{{base-uri}}/actuator/health",
-              "host": [
-                "{{base-uri}}"
-              ],
-              "path": [
-                "actuator",
-                "health"
-              ]
+              "host": ["{{base-uri}}"],
+              "path": ["actuator", "health"]
             }
           },
           "response": []
