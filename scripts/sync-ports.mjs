@@ -466,10 +466,7 @@ function updateJsonFile(relativePath, transform) {
   const currentContent = readFileSync(absolutePath, "utf8");
   const currentDocument = JSON.parse(currentContent);
   const nextDocument = transform(currentDocument);
-  const nextContent = normalizeLineEndingsAndTrailingNewline(
-    `${JSON.stringify(nextDocument, null, "\t")}\n`,
-    currentContent,
-  );
+  const nextContent = normalizeLineEndings(`${JSON.stringify(nextDocument, null, "\t")}\n`, currentContent);
   writeIfChanged(relativePath, currentContent, nextContent);
 }
 
@@ -499,15 +496,22 @@ function replaceOne(content, pattern, replacement, description) {
 }
 
 function normalizeLineEndingsAndTrailingNewline(nextContent, currentContent) {
-  const eol = currentContent.includes("\r\n") ? "\r\n" : "\n";
-  const normalized = nextContent.replace(/\r?\n/g, eol);
+  const normalized = normalizeLineEndings(nextContent, currentContent);
   const hasTrailingNewline = /\r?\n$/.test(currentContent);
 
   if (hasTrailingNewline) {
     return normalized;
   }
 
-  return normalized.replace(new RegExp(`${escapeRegex(eol)}$`), "");
+  return normalized.replace(new RegExp(`${escapeRegex(getPreferredEol(currentContent))}$`), "");
+}
+
+function normalizeLineEndings(nextContent, currentContent) {
+  return nextContent.replace(/\r?\n/g, getPreferredEol(currentContent));
+}
+
+function getPreferredEol(currentContent) {
+  return currentContent.includes("\r\n") ? "\r\n" : "\n";
 }
 
 function applicationPort(module) {
