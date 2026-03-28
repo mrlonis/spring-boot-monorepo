@@ -1,85 +1,26 @@
 # oauth2-authorization-server
 
-## Table of Contents
+This module is a Spring Authorization Server sample configured for JWT access tokens and OIDC login flows.
 
-<!-- TOC -->
-* [oauth2-authorization-server](#oauth2-authorization-server)
-  * [Table of Contents](#table-of-contents)
-  * [Overview](#overview)
-  * [Demonstrated Security Patterns](#demonstrated-security-patterns)
-    * [Token-Based Authentication](#token-based-authentication)
-      * [JWT (JSON Web Token)](#jwt-json-web-token)
-    * [Session-Based Authentication](#session-based-authentication)
-    * [Basic Authentication](#basic-authentication)
-    * [Form-Based Authentication](#form-based-authentication)
-    * [OAuth2 and OpenID Connect (OIDC)](#oauth2-and-openid-connect-oidc)
+## What It Demonstrates
 
-<!-- TOC -->
+- Authorization Server endpoints backed by Spring Security
+- JWT issuance for the servlet and reactive resource server samples
+- OIDC login for the [gateway](../gateway) module
+- A small set of local clients for app-to-app and Postman testing
 
-## Overview
+The configured local clients include `oidc-client`, `gateway-client`, `postman-public-client`, `spring-security-client`, and `spring-security-reactive-client`.
 
-This project is a simple OAuth2 Authorization Server built with Spring Boot. It provides authorization capabilities to
-the other Spring Boot applications found in this monorepo
+## Run Locally
 
-## Demonstrated Security Patterns
+```bash
+./mvnw -pl oauth2-authorization-server spring-boot:run -Dspring-boot.run.profiles=local
+```
 
-### Token-Based Authentication
+The `local` profile runs on `http://localhost:9562`.
 
-#### JWT (JSON Web Token)
+## Related Modules
 
-- Self-contained token with claims (user info, roles, expiration).
-- Popular for stateless APIs.
-- Often used with OAuth2 and OIDC.
-
-### Session-Based Authentication
-
-Handled in the [gateway](../gateway) module. The gateway uses Spring Security and Spring Session with Redis to manage
-user sessions.
-
-- Traditional approach for web apps.
-- After login, server creates a session (typically stored in memory or a session store).
-- A JSESSIONID cookie is sent to the client and used on future requests.
-
-Use Cases:
-
-- Monolithic MVC apps (e.g., with Thymeleaf).
-- Admin dashboards and internal tools.
-
-### Basic Authentication
-
-The client id and client secrets for the authentication flows are sent as basic headers, along with your usual
-scopes and grant types in the request body.
-
-- HTTP header-based: sends Authorization: Basic base64(username:password).
-- Extremely simple and insecure unless over HTTPS.
-- Not recommended for production but useful for quick internal APIs or dev tools.
-
-### Form-Based Authentication
-
-The authorization server provides a login page for the user to enter their credentials.
-
-- Standard username/password login via HTML form.
-- Spring Security handles form login, CSRF, redirection, etc.
-
-Variants:
-
-- Default Spring login page
-- Custom login pages with form-based POST
-
-### OAuth2 and OpenID Connect (OIDC)
-
-- Delegated authentication via third parties (Google, GitHub, Okta, etc.)
-- Spring Security has full support as both client and authorization server.
-
-Grant Types:
-
-- Authorization Code (with/without PKCE)
-- Client Credentials
-- Resource Owner Password Credentials (deprecated)
-- Refresh Token
-
-OIDC Layer adds:
-
-- ID Token (a JWT)
-- UserInfo endpoint
-- Login/logout flows
+- [gateway](../gateway) uses this server for OIDC login.
+- [spring-security](../spring-security) and [spring-security-reactive](../spring-security-reactive) use it as their JWT issuer.
+- [newman](../newman) includes a Postman collection for this app.
