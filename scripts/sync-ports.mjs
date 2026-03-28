@@ -466,7 +466,10 @@ function updateJsonFile(relativePath, transform) {
   const currentContent = readFileSync(absolutePath, "utf8");
   const currentDocument = JSON.parse(currentContent);
   const nextDocument = transform(currentDocument);
-  const nextContent = normalizeLineEndings(`${JSON.stringify(nextDocument, null, "\t")}\n`, currentContent);
+  const nextContent = normalizeLineEndings(
+    `${JSON.stringify(nextDocument, null, getPreferredJsonIndent(currentContent))}\n`,
+    currentContent,
+  );
   writeIfChanged(relativePath, currentContent, nextContent);
 }
 
@@ -512,6 +515,11 @@ function normalizeLineEndings(nextContent, currentContent) {
 
 function getPreferredEol(currentContent) {
   return currentContent.includes("\r\n") ? "\r\n" : "\n";
+}
+
+function getPreferredJsonIndent(currentContent) {
+  const match = currentContent.match(/^( +|\t+)(?=")/m);
+  return match?.[1] ?? "  ";
 }
 
 function applicationPort(module) {
