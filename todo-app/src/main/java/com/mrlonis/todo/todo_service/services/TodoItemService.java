@@ -4,13 +4,13 @@ import static java.util.stream.Collectors.groupingBy;
 
 import com.mrlonis.todo.todo_service.dtos.TodoItemDto;
 import com.mrlonis.todo.todo_service.entities.PrUrl;
-import com.mrlonis.todo.todo_service.entities.TestingUrl;
 import com.mrlonis.todo.todo_service.entities.TodoItem;
+import com.mrlonis.todo.todo_service.entities.ValidationUrl;
 import com.mrlonis.todo.todo_service.exceptions.TodoItemNotFoundException;
 import com.mrlonis.todo.todo_service.mappers.TodoItemMapper;
 import com.mrlonis.todo.todo_service.repositories.PrUrlRepository;
-import com.mrlonis.todo.todo_service.repositories.TestingUrlRepository;
 import com.mrlonis.todo.todo_service.repositories.TodoItemRepository;
+import com.mrlonis.todo.todo_service.repositories.ValidationUrlRepository;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -26,7 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class TodoItemService {
     private TodoItemRepository todoItemRepository;
     private PrUrlRepository prUrlRepository;
-    private TestingUrlRepository testingUrlRepository;
+    private ValidationUrlRepository validationUrlRepository;
     private MetadataService metadataService;
     private TodoItemMapper todoItemMapper;
 
@@ -86,18 +86,18 @@ public class TodoItemService {
 
         if (CollectionUtils.isNotEmpty(todoItemDto.getUrlsUsedForTesting())) {
             for (String testingUrl : todoItemDto.getUrlsUsedForTesting()) {
-                Optional<TestingUrl> testingUrlToUpdate =
-                        testingUrlRepository.findByUrlAndTodoItemId(testingUrl, todoItem.getId());
+                Optional<ValidationUrl> testingUrlToUpdate =
+                        validationUrlRepository.findByUrlAndTodoItemId(testingUrl, todoItem.getId());
                 if (testingUrlToUpdate.isEmpty()) {
-                    TestingUrl newTestingUrl = TestingUrl.builder()
+                    ValidationUrl newValidationUrl = ValidationUrl.builder()
                             .url(testingUrl)
                             .todoItem(todoItem)
                             .build();
-                    testingUrlRepository.saveAndFlush(newTestingUrl);
+                    validationUrlRepository.saveAndFlush(newValidationUrl);
                 } else {
-                    TestingUrl testingUrlToUpdateValue = testingUrlToUpdate.get();
-                    testingUrlToUpdateValue.setUrl(testingUrl);
-                    testingUrlRepository.saveAndFlush(testingUrlToUpdateValue);
+                    ValidationUrl validationUrlToUpdateValue = testingUrlToUpdate.get();
+                    validationUrlToUpdateValue.setUrl(testingUrl);
+                    validationUrlRepository.saveAndFlush(validationUrlToUpdateValue);
                 }
             }
         }

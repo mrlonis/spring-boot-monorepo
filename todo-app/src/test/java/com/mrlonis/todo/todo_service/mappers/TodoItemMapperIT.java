@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.mrlonis.todo.todo_service.dtos.TodoItemDto;
 import com.mrlonis.todo.todo_service.entities.PrUrl;
-import com.mrlonis.todo.todo_service.entities.TestingUrl;
 import com.mrlonis.todo.todo_service.entities.TodoItem;
+import com.mrlonis.todo.todo_service.entities.ValidationUrl;
 import com.mrlonis.todo.todo_service.repositories.TodoItemRepository;
 import com.mrlonis.todo.todo_service.test.TestcontainersConfiguration;
 import org.junit.jupiter.api.Test;
@@ -70,12 +70,12 @@ class TodoItemMapperIT {
     void testMapTodoItemToTodoItemDto_withUrlsUsedForTesting() {
         TodoItem todoItem = buildDefaultTodoItem();
         todoItem.getUrlsUsedForTesting()
-                .add(TestingUrl.builder()
+                .add(ValidationUrl.builder()
                         .url("https://example.com/test1")
                         .todoItem(todoItem)
                         .build());
         todoItem.getUrlsUsedForTesting()
-                .add(TestingUrl.builder()
+                .add(ValidationUrl.builder()
                         .url("https://example.com/test2")
                         .todoItem(todoItem)
                         .build());

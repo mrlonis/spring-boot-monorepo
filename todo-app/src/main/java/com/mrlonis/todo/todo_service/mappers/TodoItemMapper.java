@@ -2,10 +2,10 @@ package com.mrlonis.todo.todo_service.mappers;
 
 import com.mrlonis.todo.todo_service.dtos.TodoItemDto;
 import com.mrlonis.todo.todo_service.entities.PrUrl;
-import com.mrlonis.todo.todo_service.entities.TestingUrl;
 import com.mrlonis.todo.todo_service.entities.TodoItem;
+import com.mrlonis.todo.todo_service.entities.ValidationUrl;
 import com.mrlonis.todo.todo_service.repositories.PrUrlRepository;
-import com.mrlonis.todo.todo_service.repositories.TestingUrlRepository;
+import com.mrlonis.todo.todo_service.repositories.ValidationUrlRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @AllArgsConstructor
 public class TodoItemMapper {
     private final PrUrlRepository prUrlRepository;
-    private final TestingUrlRepository testingUrlRepository;
+    private final ValidationUrlRepository validationUrlRepository;
 
     @Transactional
     public TodoItemDto mapTodoItemToTodoItemDto(TodoItem todoItem) {
@@ -45,8 +45,8 @@ public class TodoItemMapper {
         dto.setPrUrls(prUrls);
 
         List<String> testingUrls = new ArrayList<>();
-        for (TestingUrl testingUrl : todoItem.getUrlsUsedForTesting()) {
-            Optional<TestingUrl> savedTestingUrl = testingUrlRepository.findById(testingUrl.getId());
+        for (ValidationUrl validationUrl : todoItem.getUrlsUsedForTesting()) {
+            Optional<ValidationUrl> savedTestingUrl = validationUrlRepository.findById(validationUrl.getId());
             savedTestingUrl.ifPresent(url -> testingUrls.add(url.getUrl()));
         }
         dto.setUrlsUsedForTesting(testingUrls);

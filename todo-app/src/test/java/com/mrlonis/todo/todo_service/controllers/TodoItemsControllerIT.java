@@ -10,8 +10,8 @@ import com.mrlonis.todo.todo_service.dtos.TodoItemDto;
 import com.mrlonis.todo.todo_service.entities.TodoItem;
 import com.mrlonis.todo.todo_service.mappers.TodoItemMapper;
 import com.mrlonis.todo.todo_service.repositories.PrUrlRepository;
-import com.mrlonis.todo.todo_service.repositories.TestingUrlRepository;
 import com.mrlonis.todo.todo_service.repositories.TodoItemRepository;
+import com.mrlonis.todo.todo_service.repositories.ValidationUrlRepository;
 import com.mrlonis.todo.todo_service.test.TestcontainersConfiguration;
 import java.util.Map;
 import org.junit.jupiter.api.AfterEach;
@@ -38,7 +38,7 @@ class TodoItemsControllerIT {
     private PrUrlRepository prUrlRepository;
 
     @Autowired
-    private TestingUrlRepository testingUrlRepository;
+    private ValidationUrlRepository validationUrlRepository;
 
     @Autowired
     private TodoItemMapper todoItemMapper;
@@ -51,8 +51,8 @@ class TodoItemsControllerIT {
         prUrlRepository.deleteAll();
         prUrlRepository.flush();
 
-        testingUrlRepository.deleteAll();
-        testingUrlRepository.flush();
+        validationUrlRepository.deleteAll();
+        validationUrlRepository.flush();
     }
 
     @Test
