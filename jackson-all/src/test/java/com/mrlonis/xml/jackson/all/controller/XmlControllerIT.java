@@ -1,4 +1,4 @@
-package com.mrlonis.xml.jackson.jakarta.controller;
+package com.mrlonis.xml.jackson.all.controller;
 
 import static com.mrlonis.xml.shared.test.TestUtils.generateTestArguments;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -15,13 +15,13 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class XmlControllerTests extends BaseXmlControllerTests {
-    XmlControllerTests(@Autowired MockMvc mockMvc, @Autowired FetchModelUtil fetchModelUtil) {
+class XmlControllerIT extends BaseXmlControllerTests {
+    XmlControllerIT(@Autowired MockMvc mockMvc, @Autowired FetchModelUtil fetchModelUtil) {
         super(mockMvc, fetchModelUtil);
     }
 
     public Stream<Arguments> testArguments() {
-        return generateTestArguments(false, false, false, true, false, false, false);
+        return generateTestArguments(true, true, true, true, true, true, true);
     }
 
     @Test

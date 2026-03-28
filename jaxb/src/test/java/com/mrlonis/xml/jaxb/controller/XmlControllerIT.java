@@ -15,8 +15,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class XmlControllerTests extends BaseXmlControllerTests {
-    XmlControllerTests(@Autowired MockMvc mockMvc, @Autowired FetchModelUtil fetchModelUtil) {
+class XmlControllerIT extends BaseXmlControllerTests {
+    XmlControllerIT(@Autowired MockMvc mockMvc, @Autowired FetchModelUtil fetchModelUtil) {
         super(mockMvc, fetchModelUtil);
     }
 
