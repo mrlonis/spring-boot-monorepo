@@ -463,7 +463,15 @@ function centerPad(value, width) {
 function updateTextFile(relativePath, transform) {
   const absolutePath = resolve(repoRoot, relativePath);
   const currentContent = readFileSync(absolutePath, "utf8");
-  const nextContent = normalizeLineEndingsAndTrailingNewline(transform(currentContent), currentContent);
+  let nextContent;
+
+  try {
+    nextContent = normalizeLineEndingsAndTrailingNewline(transform(currentContent), currentContent);
+  } catch (error) {
+    handleCheckFailure(relativePath, error);
+    return;
+  }
+
   writeIfChanged(relativePath, currentContent, nextContent);
 }
 
@@ -471,7 +479,15 @@ function updateJsonFile(relativePath, transform) {
   const absolutePath = resolve(repoRoot, relativePath);
   const currentContent = readFileSync(absolutePath, "utf8");
   const currentDocument = JSON.parse(currentContent);
-  const nextDocument = transform(currentDocument);
+  let nextDocument;
+
+  try {
+    nextDocument = transform(currentDocument);
+  } catch (error) {
+    handleCheckFailure(relativePath, error);
+    return;
+  }
+
   const nextContent = normalizeLineEndings(
     `${JSON.stringify(nextDocument, null, getPreferredJsonIndent(currentContent))}\n`,
     currentContent,
@@ -489,6 +505,14 @@ function writeIfChanged(relativePath, currentContent, nextContent) {
   if (!checkOnly) {
     writeFileSync(resolve(repoRoot, relativePath), nextContent, "utf8");
   }
+}
+
+function handleCheckFailure(relativePath, error) {
+  if (!checkOnly) {
+    throw error;
+  }
+
+  changedFiles.push(`${relativePath} (${formatError(error)})`);
 }
 
 function replaceWorkflowPort(content, moduleKey, moduleName, portKey, portValue) {
@@ -555,4 +579,12 @@ function localhostUrl(port, path = "") {
 
 function escapeRegex(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function formatError(error) {
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return String(error);
 }
