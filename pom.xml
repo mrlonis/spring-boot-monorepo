@@ -34,11 +34,11 @@
     <module>experiments/pure-jakarta</module>
     <module>experiments/pure-jaxb</module>
     <module>jacoco-report-aggregate</module>
+    <module>libs/shared-jackson</module>
     <module>pre-commit</module>
-    <module>shared-jackson</module>
-    <module>shared-jackson-test</module>
     <module>starters/oauth2-autoconfig</module>
     <module>starters/test-controller-autoconfig</module>
+    <module>testing/shared-jackson-test</module>
   </modules>
   <properties>
     <cleanthat.version>2.25</cleanthat.version>
