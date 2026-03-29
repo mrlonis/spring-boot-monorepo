@@ -39,7 +39,7 @@ const ROOT_README_DEPENDENCIES = {
 };
 
 const APP_RESOURCE_FILES = {
-  "flowable-engine": "flowable-engine/src/main/resources/application.yml",
+  "flowable-engine": "apps/flowable-engine/src/main/resources/application.yml",
   "mysql-migrations": "mysql-migrations/src/main/resources/application.yml",
   "todo-app": "todo-app/src/main/resources/application.yml",
   "spring-security": "spring-security/src/main/resources/application.yml",
@@ -237,7 +237,7 @@ function syncApplicationPorts() {
 }
 
 function syncSupportingUrls() {
-  updateTextFile("flowable-engine/src/main/resources/application.yml", (content) =>
+  updateTextFile("apps/flowable-engine/src/main/resources/application.yml", (content) =>
     replaceOne(
       content,
       /jdbc:mysql:\/\/localhost:\d+\/mydatabase/,
@@ -312,7 +312,7 @@ function syncSupportingUrls() {
 }
 
 function syncComposePorts() {
-  updateTextFile("flowable-engine/compose.yaml", (content) =>
+  updateTextFile("apps/flowable-engine/compose.yaml", (content) =>
     replaceOne(
       content,
       /"\d+:3306"/,

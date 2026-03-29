@@ -5,6 +5,7 @@
     <groupId>com.mrlonis</groupId>
     <artifactId>spring-boot-monorepo</artifactId>
     <version>${revision}</version>
+    <relativePath>../../pom.xml</relativePath>
   </parent>
   <groupId>com.mrlonis.example.flowable</groupId>
   <artifactId>flowable-engine</artifactId>

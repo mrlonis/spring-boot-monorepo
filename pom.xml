@@ -14,7 +14,7 @@
   <name>spring-boot-monorepo</name>
   <description>Demo project for Spring Boot</description>
   <modules>
-    <module>flowable-engine</module>
+    <module>apps/flowable-engine</module>
     <module>gateway</module>
     <module>jackson-all</module>
     <module>jackson-jackson</module>
