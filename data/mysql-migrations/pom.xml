@@ -5,6 +5,7 @@
     <groupId>com.mrlonis</groupId>
     <artifactId>spring-boot-monorepo</artifactId>
     <version>${revision}</version>
+    <relativePath>../../pom.xml</relativePath>
   </parent>
   <groupId>com.mrlonis.time</groupId>
   <artifactId>mysql-migrations</artifactId>
