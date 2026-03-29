@@ -6,7 +6,7 @@
     "spring-security": 9054,
     "spring-security-opaque": 9055,
     "gateway": 9203,
-    "oauth2-gateway-mvc": 9203,
+    "oauth2-gateway-mvc": 9204,
     "spring-security-reactive": 9373,
     "spring-security-reactive-opaque": 9378,
     "oauth2-authorization-server": 9562,
