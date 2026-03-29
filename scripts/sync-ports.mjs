@@ -148,81 +148,56 @@ function syncValidateWorkflow() {
   updateTextFile(".github/workflows/validate.yml", (content) => {
     let next = content;
 
-    next = replaceWorkflowPort(next, "module", "apps/flowable-engine", "port", applicationPort("flowable-engine"));
-    next = replaceWorkflowPort(
-      next,
-      "module_a",
-      "apps/oauth2-authorization-server",
-      "port_a",
-      applicationPort("oauth2-authorization-server"),
-    );
-    next = replaceWorkflowPort(next, "module_b", "apps/gateway", "port_b", applicationPort("gateway"));
-    next = replaceWorkflowPort(next, "module", "data/mysql-migrations", "port", applicationPort("mysql-migrations"));
-    next = replaceWorkflowPort(
-      next,
-      "module",
-      "apps/oauth2-authorization-server",
-      "port",
-      applicationPort("oauth2-authorization-server"),
-    );
-    next = replaceWorkflowPort(
-      next,
-      "module",
-      "apps/oauth2-authorization-server-opaque",
-      "port",
-      applicationPort("oauth2-authorization-server-opaque"),
-    );
-    next = replaceWorkflowPort(
-      next,
-      "module_a",
-      "apps/oauth2-authorization-server",
-      "port_a",
-      applicationPort("oauth2-authorization-server"),
-    );
-    next = replaceWorkflowPort(next, "module_b", "apps/spring-security", "port_b", applicationPort("spring-security"));
-    next = replaceWorkflowPort(
-      next,
-      "module_a",
-      "apps/oauth2-authorization-server-opaque",
-      "port_a",
-      applicationPort("oauth2-authorization-server-opaque"),
-    );
-    next = replaceWorkflowPort(
-      next,
-      "module_b",
-      "apps/spring-security-opaque",
-      "port_b",
-      applicationPort("spring-security-opaque"),
-    );
-    next = replaceWorkflowPort(
-      next,
-      "module_a",
-      "apps/oauth2-authorization-server",
-      "port_a",
-      applicationPort("oauth2-authorization-server"),
-    );
-    next = replaceWorkflowPort(
-      next,
-      "module_b",
-      "apps/spring-security-reactive",
-      "port_b",
-      applicationPort("spring-security-reactive"),
-    );
-    next = replaceWorkflowPort(
-      next,
-      "module_a",
-      "apps/oauth2-authorization-server-opaque",
-      "port_a",
-      applicationPort("oauth2-authorization-server-opaque"),
-    );
-    next = replaceWorkflowPort(
-      next,
-      "module_b",
-      "apps/spring-security-reactive-opaque",
-      "port_b",
-      applicationPort("spring-security-reactive-opaque"),
-    );
-    next = replaceWorkflowPort(next, "module", "apps/todo-app", "port", applicationPort("todo-app"));
+    next = replaceWorkflowJobValues(next, "flowable-engine-integration-test", {
+      module: "apps/flowable-engine",
+      port: String(applicationPort("flowable-engine")),
+    });
+    next = replaceWorkflowJobValues(next, "gateway-integration-test", {
+      module_a: "apps/oauth2-authorization-server",
+      port_a: String(applicationPort("oauth2-authorization-server")),
+      module_b: "apps/gateway",
+      port_b: String(applicationPort("gateway")),
+    });
+    next = replaceWorkflowJobValues(next, "mysql-migrations-integration-test", {
+      module: "data/mysql-migrations",
+      port: String(applicationPort("mysql-migrations")),
+    });
+    next = replaceWorkflowJobValues(next, "oauth2-authorization-server-integration-test", {
+      module: "apps/oauth2-authorization-server",
+      port: String(applicationPort("oauth2-authorization-server")),
+    });
+    next = replaceWorkflowJobValues(next, "oauth2-authorization-server-opaque-integration-test", {
+      module: "apps/oauth2-authorization-server-opaque",
+      port: String(applicationPort("oauth2-authorization-server-opaque")),
+    });
+    next = replaceWorkflowJobValues(next, "spring-security-integration-test", {
+      module_a: "apps/oauth2-authorization-server",
+      port_a: String(applicationPort("oauth2-authorization-server")),
+      module_b: "apps/spring-security",
+      port_b: String(applicationPort("spring-security")),
+    });
+    next = replaceWorkflowJobValues(next, "spring-security-opaque-integration-test", {
+      module_a: "apps/oauth2-authorization-server-opaque",
+      port_a: String(applicationPort("oauth2-authorization-server-opaque")),
+      module_b: "apps/spring-security-opaque",
+      port_b: String(applicationPort("spring-security-opaque")),
+    });
+    next = replaceWorkflowJobValues(next, "spring-security-reactive-integration-test", {
+      module_a: "apps/oauth2-authorization-server",
+      port_a: String(applicationPort("oauth2-authorization-server")),
+      module_b: "apps/spring-security-reactive",
+      port_b: String(applicationPort("spring-security-reactive")),
+    });
+    next = replaceWorkflowJobValues(next, "spring-security-reactive-opaque-integration-test", {
+      module_a: "apps/oauth2-authorization-server-opaque",
+      port_a: String(applicationPort("oauth2-authorization-server-opaque")),
+      module_b: "apps/spring-security-reactive-opaque",
+      port_b: String(applicationPort("spring-security-reactive-opaque")),
+    });
+    next = replaceWorkflowJobValues(next, "todo-app-integration-test", {
+      module: "apps/todo-app",
+      port: String(applicationPort("todo-app")),
+    });
 
     return next;
   });
@@ -515,9 +490,31 @@ function handleCheckFailure(relativePath, error) {
   changedFiles.push(`${relativePath} (${formatError(error)})`);
 }
 
-function replaceWorkflowPort(content, moduleKey, moduleName, portKey, portValue) {
-  const pattern = new RegExp(`(${moduleKey}: ${escapeRegex(moduleName)}\\r?\\n\\s+${portKey}: )\\d+`);
-  return replaceOne(content, pattern, `$1${portValue}`, `${moduleKey} ${moduleName}`);
+function replaceWorkflowJobValues(content, jobName, values) {
+  const jobPattern = new RegExp(
+    `(^  ${escapeRegex(jobName)}:\\r?\\n[\\s\\S]*?)(?=^  [a-z0-9-]+:\\r?\\n|(?![\\s\\S]))`,
+    "m",
+  );
+
+  if (!jobPattern.test(content)) {
+    throw new Error(`Could not find workflow job ${jobName}`);
+  }
+
+  return content.replace(jobPattern, (jobBlock) => {
+    let nextJobBlock = jobBlock;
+
+    for (const [key, value] of Object.entries(values)) {
+      const keyPattern = new RegExp(`(^\\s+${escapeRegex(key)}: ).*$`, "m");
+
+      if (!keyPattern.test(nextJobBlock)) {
+        throw new Error(`Could not update ${jobName}.${key}`);
+      }
+
+      nextJobBlock = nextJobBlock.replace(keyPattern, `$1${value}`);
+    }
+
+    return nextJobBlock;
+  });
 }
 
 function replaceOne(content, pattern, replacement, description) {
