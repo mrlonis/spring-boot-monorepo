@@ -14,31 +14,14 @@
   <name>spring-boot-monorepo</name>
   <description>Demo project for Spring Boot</description>
   <modules>
-    <module>apps/flowable-engine</module>
-    <module>apps/gateway</module>
-    <module>apps/oauth2-authorization-server</module>
-    <module>apps/oauth2-authorization-server-opaque</module>
-    <module>apps/oauth2-gateway-mvc</module>
-    <module>apps/spring-security</module>
-    <module>apps/spring-security-opaque</module>
-    <module>apps/spring-security-reactive</module>
-    <module>apps/spring-security-reactive-opaque</module>
-    <module>apps/todo-app</module>
-    <module>data/mysql-migrations</module>
-    <module>experiments/jackson-all</module>
-    <module>experiments/jackson-jackson</module>
-    <module>experiments/jackson-jakarta</module>
-    <module>experiments/jackson-jaxb</module>
-    <module>experiments/jakarta</module>
-    <module>experiments/jaxb</module>
-    <module>experiments/pure-jakarta</module>
-    <module>experiments/pure-jaxb</module>
+    <module>apps</module>
+    <module>data</module>
+    <module>experiments</module>
     <module>jacoco-report-aggregate</module>
-    <module>libs/shared-jackson</module>
+    <module>libs</module>
     <module>pre-commit</module>
-    <module>starters/oauth2-autoconfig</module>
-    <module>starters/test-controller-autoconfig</module>
-    <module>testing/shared-jackson-test</module>
+    <module>starters</module>
+    <module>testing</module>
   </modules>
   <properties>
     <cleanthat.version>2.25</cleanthat.version>

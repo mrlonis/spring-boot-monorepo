@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.mrlonis</groupId>
+    <artifactId>spring-boot-monorepo</artifactId>
+    <version>${revision}</version>
+  </parent>
+  <groupId>com.mrlonis.experiments</groupId>
+  <artifactId>experiments</artifactId>
+  <packaging>pom</packaging>
+  <name>experiments</name>
+  <description>experiments</description>
+  <modules>
+    <module>jackson-all</module>
+    <module>jackson-jackson</module>
+    <module>jackson-jakarta</module>
+    <module>jackson-jaxb</module>
+    <module>jakarta</module>
+    <module>jaxb</module>
+    <module>pure-jakarta</module>
+    <module>pure-jaxb</module>
+  </modules>
+</project>

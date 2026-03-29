@@ -2,10 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.mrlonis</groupId>
-    <artifactId>spring-boot-monorepo</artifactId>
+    <groupId>com.mrlonis.apps</groupId>
+    <artifactId>apps</artifactId>
     <version>${revision}</version>
-    <relativePath>../../pom.xml</relativePath>
   </parent>
   <groupId>com.mrlonis.todo</groupId>
   <artifactId>todo-app</artifactId>
