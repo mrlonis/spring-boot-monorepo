@@ -28,7 +28,6 @@
     <module>jacoco-report-aggregate</module>
     <module>oauth2-authorization-server</module>
     <module>oauth2-authorization-server-opaque</module>
-    <module>oauth2-autoconfig</module>
     <module>oauth2-gateway-mvc</module>
     <module>pre-commit</module>
     <module>shared-jackson</module>
@@ -37,7 +36,8 @@
     <module>spring-security-opaque</module>
     <module>spring-security-reactive</module>
     <module>spring-security-reactive-opaque</module>
-    <module>test-controller-autoconfig</module>
+    <module>starters/oauth2-autoconfig</module>
+    <module>starters/test-controller-autoconfig</module>
     <module>todo-app</module>
   </modules>
   <properties>

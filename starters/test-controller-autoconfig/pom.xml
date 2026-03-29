@@ -5,26 +5,11 @@
     <groupId>com.mrlonis</groupId>
     <artifactId>spring-boot-monorepo</artifactId>
     <version>${revision}</version>
+    <relativePath>../../pom.xml</relativePath>
   </parent>
-  <groupId>com.mrlonis.oauth2.autoconfig</groupId>
-  <artifactId>oauth2-autoconfig</artifactId>
+  <groupId>com.mrlonis.test.controller.autoconfigure</groupId>
+  <artifactId>test-controller-autoconfig</artifactId>
   <dependencies>
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-collections4</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-security</artifactId>
-    </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
@@ -34,6 +19,11 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-webflux</artifactId>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
   <build>
