@@ -76,9 +76,9 @@ jobs:
     needs: oauth2-authorization-server-integration-test
     uses: ./.github/workflows/reusable-two-service-newman.yml
     with:
-      module_a: oauth2-authorization-server
+      module_a: apps/oauth2-authorization-server
       port_a: 9562
-      module_b: gateway
+      module_b: apps/gateway
       port_b: 9203
       collection: ./newman/gateway.postman_collection.json
       environment: ./newman/gateway-local.postman_environment.json
