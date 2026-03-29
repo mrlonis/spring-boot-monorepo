@@ -68,7 +68,7 @@ jobs:
   flowable-engine-integration-test:
     uses: ./.github/workflows/reusable-single-service-newman.yml
     with:
-      module: flowable-engine
+      module: apps/flowable-engine
       port: 5367
       collection: ./newman/flowable-engine.postman_collection.json
       environment: ./newman/flowable-engine-local.postman_environment.json
@@ -76,23 +76,23 @@ jobs:
     needs: oauth2-authorization-server-integration-test
     uses: ./.github/workflows/reusable-two-service-newman.yml
     with:
-      module_a: oauth2-authorization-server
+      module_a: apps/oauth2-authorization-server
       port_a: 9562
-      module_b: gateway
+      module_b: apps/gateway
       port_b: 9203
       collection: ./newman/gateway.postman_collection.json
       environment: ./newman/gateway-local.postman_environment.json
   mysql-migrations-integration-test:
     uses: ./.github/workflows/reusable-single-service-newman.yml
     with:
-      module: mysql-migrations
+      module: data/mysql-migrations
       port: 5368
       collection: ./newman/mysql-migrations.postman_collection.json
       environment: ./newman/mysql-migrations-local.postman_environment.json
   oauth2-authorization-server-integration-test:
     uses: ./.github/workflows/reusable-single-service-newman.yml
     with:
-      module: oauth2-authorization-server
+      module: apps/oauth2-authorization-server
       port: 9562
       collection: ./newman/oauth2-authorization-server.postman_collection.json
       environment: ./newman/oauth2-authorization-server-local.postman_environment.json
@@ -100,7 +100,7 @@ jobs:
   oauth2-authorization-server-opaque-integration-test:
     uses: ./.github/workflows/reusable-single-service-newman.yml
     with:
-      module: oauth2-authorization-server-opaque
+      module: apps/oauth2-authorization-server-opaque
       port: 9563
       collection: ./newman/oauth2-authorization-server-opaque.postman_collection.json
       environment: ./newman/oauth2-authorization-server-opaque-local.postman_environment.json
@@ -108,9 +108,9 @@ jobs:
     needs: oauth2-authorization-server-integration-test
     uses: ./.github/workflows/reusable-two-service-newman.yml
     with:
-      module_a: oauth2-authorization-server
+      module_a: apps/oauth2-authorization-server
       port_a: 9562
-      module_b: spring-security
+      module_b: apps/spring-security
       port_b: 9054
       collection: ./newman/spring-security.postman_collection.json
       environment: ./newman/spring-security-local.postman_environment.json
@@ -118,9 +118,9 @@ jobs:
     needs: oauth2-authorization-server-opaque-integration-test
     uses: ./.github/workflows/reusable-two-service-newman.yml
     with:
-      module_a: oauth2-authorization-server-opaque
+      module_a: apps/oauth2-authorization-server-opaque
       port_a: 9563
-      module_b: spring-security-opaque
+      module_b: apps/spring-security-opaque
       port_b: 9055
       collection: ./newman/spring-security-opaque.postman_collection.json
       environment: ./newman/spring-security-opaque-local.postman_environment.json
@@ -128,9 +128,9 @@ jobs:
     needs: oauth2-authorization-server-integration-test
     uses: ./.github/workflows/reusable-two-service-newman.yml
     with:
-      module_a: oauth2-authorization-server
+      module_a: apps/oauth2-authorization-server
       port_a: 9562
-      module_b: spring-security-reactive
+      module_b: apps/spring-security-reactive
       port_b: 9373
       collection: ./newman/spring-security-reactive.postman_collection.json
       environment: ./newman/spring-security-reactive-local.postman_environment.json
@@ -138,16 +138,16 @@ jobs:
     needs: oauth2-authorization-server-opaque-integration-test
     uses: ./.github/workflows/reusable-two-service-newman.yml
     with:
-      module_a: oauth2-authorization-server-opaque
+      module_a: apps/oauth2-authorization-server-opaque
       port_a: 9563
-      module_b: spring-security-reactive-opaque
+      module_b: apps/spring-security-reactive-opaque
       port_b: 9378
       collection: ./newman/spring-security-reactive-opaque.postman_collection.json
       environment: ./newman/spring-security-reactive-opaque-local.postman_environment.json
   todo-app-integration-test:
     uses: ./.github/workflows/reusable-single-service-newman.yml
     with:
-      module: todo-app
+      module: apps/todo-app
       port: 6958
       collection: ./newman/todo-app.postman_collection.json
       environment: ./newman/todo-app-local.postman_environment.json

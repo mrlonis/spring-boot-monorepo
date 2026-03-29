@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.mrlonis</groupId>
+    <artifactId>spring-boot-monorepo</artifactId>
+    <version>${revision}</version>
+  </parent>
+  <groupId>com.mrlonis.apps</groupId>
+  <artifactId>apps</artifactId>
+  <packaging>pom</packaging>
+  <name>apps</name>
+  <description>apps</description>
+  <modules>
+    <module>flowable-engine</module>
+    <module>gateway</module>
+    <module>oauth2-authorization-server</module>
+    <module>oauth2-authorization-server-opaque</module>
+    <module>oauth2-gateway-mvc</module>
+    <module>spring-security</module>
+    <module>spring-security-opaque</module>
+    <module>spring-security-reactive</module>
+    <module>spring-security-reactive-opaque</module>
+    <module>todo-app</module>
+  </modules>
+</project>

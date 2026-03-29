@@ -39,17 +39,17 @@ const ROOT_README_DEPENDENCIES = {
 };
 
 const APP_RESOURCE_FILES = {
-  "flowable-engine": "flowable-engine/src/main/resources/application.yml",
-  "mysql-migrations": "mysql-migrations/src/main/resources/application.yml",
-  "todo-app": "todo-app/src/main/resources/application.yml",
-  "spring-security": "spring-security/src/main/resources/application.yml",
-  "spring-security-opaque": "spring-security-opaque/src/main/resources/application.yml",
-  gateway: "gateway/src/main/resources/application.yml",
-  "oauth2-gateway-mvc": "oauth2-gateway-mvc/src/main/resources/application.yml",
-  "spring-security-reactive": "spring-security-reactive/src/main/resources/application.yml",
-  "spring-security-reactive-opaque": "spring-security-reactive-opaque/src/main/resources/application.yml",
-  "oauth2-authorization-server": "oauth2-authorization-server/src/main/resources/application.yml",
-  "oauth2-authorization-server-opaque": "oauth2-authorization-server-opaque/src/main/resources/application.yml",
+  "flowable-engine": "apps/flowable-engine/src/main/resources/application.yml",
+  "mysql-migrations": "data/mysql-migrations/src/main/resources/application.yml",
+  "todo-app": "apps/todo-app/src/main/resources/application.yml",
+  "spring-security": "apps/spring-security/src/main/resources/application.yml",
+  "spring-security-opaque": "apps/spring-security-opaque/src/main/resources/application.yml",
+  gateway: "apps/gateway/src/main/resources/application.yml",
+  "oauth2-gateway-mvc": "apps/oauth2-gateway-mvc/src/main/resources/application.yml",
+  "spring-security-reactive": "apps/spring-security-reactive/src/main/resources/application.yml",
+  "spring-security-reactive-opaque": "apps/spring-security-reactive-opaque/src/main/resources/application.yml",
+  "oauth2-authorization-server": "apps/oauth2-authorization-server/src/main/resources/application.yml",
+  "oauth2-authorization-server-opaque": "apps/oauth2-authorization-server-opaque/src/main/resources/application.yml",
 };
 
 const NEWMAN_ENVIRONMENTS = [
@@ -148,81 +148,56 @@ function syncValidateWorkflow() {
   updateTextFile(".github/workflows/validate.yml", (content) => {
     let next = content;
 
-    next = replaceWorkflowPort(next, "module", "flowable-engine", "port", applicationPort("flowable-engine"));
-    next = replaceWorkflowPort(
-      next,
-      "module_a",
-      "oauth2-authorization-server",
-      "port_a",
-      applicationPort("oauth2-authorization-server"),
-    );
-    next = replaceWorkflowPort(next, "module_b", "gateway", "port_b", applicationPort("gateway"));
-    next = replaceWorkflowPort(next, "module", "mysql-migrations", "port", applicationPort("mysql-migrations"));
-    next = replaceWorkflowPort(
-      next,
-      "module",
-      "oauth2-authorization-server",
-      "port",
-      applicationPort("oauth2-authorization-server"),
-    );
-    next = replaceWorkflowPort(
-      next,
-      "module",
-      "oauth2-authorization-server-opaque",
-      "port",
-      applicationPort("oauth2-authorization-server-opaque"),
-    );
-    next = replaceWorkflowPort(
-      next,
-      "module_a",
-      "oauth2-authorization-server",
-      "port_a",
-      applicationPort("oauth2-authorization-server"),
-    );
-    next = replaceWorkflowPort(next, "module_b", "spring-security", "port_b", applicationPort("spring-security"));
-    next = replaceWorkflowPort(
-      next,
-      "module_a",
-      "oauth2-authorization-server-opaque",
-      "port_a",
-      applicationPort("oauth2-authorization-server-opaque"),
-    );
-    next = replaceWorkflowPort(
-      next,
-      "module_b",
-      "spring-security-opaque",
-      "port_b",
-      applicationPort("spring-security-opaque"),
-    );
-    next = replaceWorkflowPort(
-      next,
-      "module_a",
-      "oauth2-authorization-server",
-      "port_a",
-      applicationPort("oauth2-authorization-server"),
-    );
-    next = replaceWorkflowPort(
-      next,
-      "module_b",
-      "spring-security-reactive",
-      "port_b",
-      applicationPort("spring-security-reactive"),
-    );
-    next = replaceWorkflowPort(
-      next,
-      "module_a",
-      "oauth2-authorization-server-opaque",
-      "port_a",
-      applicationPort("oauth2-authorization-server-opaque"),
-    );
-    next = replaceWorkflowPort(
-      next,
-      "module_b",
-      "spring-security-reactive-opaque",
-      "port_b",
-      applicationPort("spring-security-reactive-opaque"),
-    );
-    next = replaceWorkflowPort(next, "module", "todo-app", "port", applicationPort("todo-app"));
+    next = replaceWorkflowJobValues(next, "flowable-engine-integration-test", {
+      module: "apps/flowable-engine",
+      port: String(applicationPort("flowable-engine")),
+    });
+    next = replaceWorkflowJobValues(next, "gateway-integration-test", {
+      module_a: "apps/oauth2-authorization-server",
+      port_a: String(applicationPort("oauth2-authorization-server")),
+      module_b: "apps/gateway",
+      port_b: String(applicationPort("gateway")),
+    });
+    next = replaceWorkflowJobValues(next, "mysql-migrations-integration-test", {
+      module: "data/mysql-migrations",
+      port: String(applicationPort("mysql-migrations")),
+    });
+    next = replaceWorkflowJobValues(next, "oauth2-authorization-server-integration-test", {
+      module: "apps/oauth2-authorization-server",
+      port: String(applicationPort("oauth2-authorization-server")),
+    });
+    next = replaceWorkflowJobValues(next, "oauth2-authorization-server-opaque-integration-test", {
+      module: "apps/oauth2-authorization-server-opaque",
+      port: String(applicationPort("oauth2-authorization-server-opaque")),
+    });
+    next = replaceWorkflowJobValues(next, "spring-security-integration-test", {
+      module_a: "apps/oauth2-authorization-server",
+      port_a: String(applicationPort("oauth2-authorization-server")),
+      module_b: "apps/spring-security",
+      port_b: String(applicationPort("spring-security")),
+    });
+    next = replaceWorkflowJobValues(next, "spring-security-opaque-integration-test", {
+      module_a: "apps/oauth2-authorization-server-opaque",
+      port_a: String(applicationPort("oauth2-authorization-server-opaque")),
+      module_b: "apps/spring-security-opaque",
+      port_b: String(applicationPort("spring-security-opaque")),
+    });
+    next = replaceWorkflowJobValues(next, "spring-security-reactive-integration-test", {
+      module_a: "apps/oauth2-authorization-server",
+      port_a: String(applicationPort("oauth2-authorization-server")),
+      module_b: "apps/spring-security-reactive",
+      port_b: String(applicationPort("spring-security-reactive")),
+    });
+    next = replaceWorkflowJobValues(next, "spring-security-reactive-opaque-integration-test", {
+      module_a: "apps/oauth2-authorization-server-opaque",
+      port_a: String(applicationPort("oauth2-authorization-server-opaque")),
+      module_b: "apps/spring-security-reactive-opaque",
+      port_b: String(applicationPort("spring-security-reactive-opaque")),
+    });
+    next = replaceWorkflowJobValues(next, "todo-app-integration-test", {
+      module: "apps/todo-app",
+      port: String(applicationPort("todo-app")),
+    });
 
     return next;
   });
@@ -237,7 +212,7 @@ function syncApplicationPorts() {
 }
 
 function syncSupportingUrls() {
-  updateTextFile("flowable-engine/src/main/resources/application.yml", (content) =>
+  updateTextFile("apps/flowable-engine/src/main/resources/application.yml", (content) =>
     replaceOne(
       content,
       /jdbc:mysql:\/\/localhost:\d+\/mydatabase/,
@@ -246,7 +221,7 @@ function syncSupportingUrls() {
     ),
   );
 
-  updateTextFile("mysql-migrations/src/main/resources/application.yml", (content) =>
+  updateTextFile("data/mysql-migrations/src/main/resources/application.yml", (content) =>
     replaceOne(
       content,
       /jdbc:mysql:\/\/localhost:\d+\/mydatabase/,
@@ -255,7 +230,7 @@ function syncSupportingUrls() {
     ),
   );
 
-  updateTextFile("todo-app/src/main/resources/application.yml", (content) =>
+  updateTextFile("apps/todo-app/src/main/resources/application.yml", (content) =>
     replaceOne(
       content,
       /jdbc:postgresql:\/\/localhost:\d+\/todo_db/,
@@ -264,7 +239,7 @@ function syncSupportingUrls() {
     ),
   );
 
-  updateTextFile("gateway/src/main/resources/application.yml", (content) =>
+  updateTextFile("apps/gateway/src/main/resources/application.yml", (content) =>
     replaceOne(
       content,
       /(issuer-uri: )http:\/\/localhost:\d+/,
@@ -273,7 +248,7 @@ function syncSupportingUrls() {
     ),
   );
 
-  updateTextFile("oauth2-authorization-server-opaque/src/main/resources/application.yml", (content) =>
+  updateTextFile("apps/oauth2-authorization-server-opaque/src/main/resources/application.yml", (content) =>
     replaceOne(
       content,
       /(introspection-uri: )http:\/\/localhost:\d+\/oauth2\/introspect/,
@@ -283,7 +258,7 @@ function syncSupportingUrls() {
   );
 
   updateTextFile(
-    "oauth2-autoconfig/src/main/java/com/mrlonis/oauth2/autoconfig/autoconfig/OAuth2PropertiesEnvironmentPostProcessor.java",
+    "starters/oauth2-autoconfig/src/main/java/com/mrlonis/oauth2/autoconfig/autoconfig/OAuth2PropertiesEnvironmentPostProcessor.java",
     (content) => {
       let next = content;
 
@@ -312,7 +287,7 @@ function syncSupportingUrls() {
 }
 
 function syncComposePorts() {
-  updateTextFile("flowable-engine/compose.yaml", (content) =>
+  updateTextFile("apps/flowable-engine/compose.yaml", (content) =>
     replaceOne(
       content,
       /"\d+:3306"/,
@@ -320,7 +295,7 @@ function syncComposePorts() {
       "flowable-engine compose port",
     ),
   );
-  updateTextFile("mysql-migrations/compose.yaml", (content) =>
+  updateTextFile("data/mysql-migrations/compose.yaml", (content) =>
     replaceOne(
       content,
       /"\d+:3306"/,
@@ -328,7 +303,7 @@ function syncComposePorts() {
       "mysql-migrations compose port",
     ),
   );
-  updateTextFile("todo-app/compose.yaml", (content) =>
+  updateTextFile("apps/todo-app/compose.yaml", (content) =>
     replaceOne(content, /"\d+:5432"/, `"${supportingPort("todo-app-postgres")}:5432"`, "todo-app compose port"),
   );
 }
@@ -337,11 +312,11 @@ function syncTodoUiOrigins() {
   const localTodoUiOrigin = localhostUrl(supportingPort("todo-app-ui"));
 
   updateTextFile(
-    "todo-app/src/main/java/com/mrlonis/todo/todo_service/controllers/TodoItemsController.java",
+    "apps/todo-app/src/main/java/com/mrlonis/todo/todo_service/controllers/TodoItemsController.java",
     (content) => replaceOne(content, /http:\/\/localhost:\d+/, localTodoUiOrigin, "todo item controller CORS origin"),
   );
   updateTextFile(
-    "todo-app/src/main/java/com/mrlonis/todo/todo_service/controllers/MetadataController.java",
+    "apps/todo-app/src/main/java/com/mrlonis/todo/todo_service/controllers/MetadataController.java",
     (content) => replaceOne(content, /http:\/\/localhost:\d+/, localTodoUiOrigin, "metadata controller CORS origin"),
   );
 }
@@ -463,7 +438,15 @@ function centerPad(value, width) {
 function updateTextFile(relativePath, transform) {
   const absolutePath = resolve(repoRoot, relativePath);
   const currentContent = readFileSync(absolutePath, "utf8");
-  const nextContent = normalizeLineEndingsAndTrailingNewline(transform(currentContent), currentContent);
+  let nextContent;
+
+  try {
+    nextContent = normalizeLineEndingsAndTrailingNewline(transform(currentContent), currentContent);
+  } catch (error) {
+    handleCheckFailure(relativePath, error);
+    return;
+  }
+
   writeIfChanged(relativePath, currentContent, nextContent);
 }
 
@@ -471,7 +454,15 @@ function updateJsonFile(relativePath, transform) {
   const absolutePath = resolve(repoRoot, relativePath);
   const currentContent = readFileSync(absolutePath, "utf8");
   const currentDocument = JSON.parse(currentContent);
-  const nextDocument = transform(currentDocument);
+  let nextDocument;
+
+  try {
+    nextDocument = transform(currentDocument);
+  } catch (error) {
+    handleCheckFailure(relativePath, error);
+    return;
+  }
+
   const nextContent = normalizeLineEndings(
     `${JSON.stringify(nextDocument, null, getPreferredJsonIndent(currentContent))}\n`,
     currentContent,
@@ -491,9 +482,39 @@ function writeIfChanged(relativePath, currentContent, nextContent) {
   }
 }
 
-function replaceWorkflowPort(content, moduleKey, moduleName, portKey, portValue) {
-  const pattern = new RegExp(`(${moduleKey}: ${escapeRegex(moduleName)}\\r?\\n\\s+${portKey}: )\\d+`);
-  return replaceOne(content, pattern, `$1${portValue}`, `${moduleKey} ${moduleName}`);
+function handleCheckFailure(relativePath, error) {
+  if (!checkOnly) {
+    throw error;
+  }
+
+  changedFiles.push(`${relativePath} (${formatError(error)})`);
+}
+
+function replaceWorkflowJobValues(content, jobName, values) {
+  const jobPattern = new RegExp(
+    `(^  ${escapeRegex(jobName)}:\\r?\\n[\\s\\S]*?)(?=^  [a-z0-9-]+:\\r?\\n|(?![\\s\\S]))`,
+    "m",
+  );
+
+  if (!jobPattern.test(content)) {
+    throw new Error(`Could not find workflow job ${jobName}`);
+  }
+
+  return content.replace(jobPattern, (jobBlock) => {
+    let nextJobBlock = jobBlock;
+
+    for (const [key, value] of Object.entries(values)) {
+      const keyPattern = new RegExp(`(^\\s+${escapeRegex(key)}: ).*$`, "m");
+
+      if (!keyPattern.test(nextJobBlock)) {
+        throw new Error(`Could not update ${jobName}.${key}`);
+      }
+
+      nextJobBlock = nextJobBlock.replace(keyPattern, `$1${value}`);
+    }
+
+    return nextJobBlock;
+  });
 }
 
 function replaceOne(content, pattern, replacement, description) {
@@ -555,4 +576,12 @@ function localhostUrl(port, path = "") {
 
 function escapeRegex(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function formatError(error) {
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return String(error);
 }
