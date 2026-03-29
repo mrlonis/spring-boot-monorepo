@@ -1,15 +1,70 @@
 #!/usr/bin/env node
+// @ts-check
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import process, { argv } from "node:process";
 import { fileURLToPath } from "node:url";
 
+/**
+ * @typedef {Record<string, number>} PortMap
+ */
+
+/**
+ * @typedef {object} PortManifest
+ * @property {PortMap} applicationPorts
+ * @property {PortMap} supportingPorts
+ */
+
+/**
+ * @typedef {() => string} StringFactory
+ */
+
+/**
+ * @typedef {Record<string, StringFactory>} RootReadmeDependencies
+ */
+
+/**
+ * @typedef {Record<string, string>} AppResourceFiles
+ */
+
+/**
+ * @typedef {object} NewmanEnvironmentDocumentValue
+ * @property {string} key
+ * @property {string} value
+ */
+
+/**
+ * @typedef {object} NewmanEnvironmentDocument
+ * @property {NewmanEnvironmentDocumentValue[]} values
+ */
+
+/**
+ * @typedef {object} NewmanEnvironment
+ * @property {string} file
+ * @property {Record<string, StringFactory>} values
+ */
+
+/**
+ * @template T
+ * @param {string} filePath
+ * @returns {T}
+ */
+function readJsonFile(filePath) {
+  return JSON.parse(readFileSync(filePath, "utf8"));
+}
+
 const repoRoot = resolve(fileURLToPath(new URL("..", import.meta.url)));
-const manifest = JSON.parse(readFileSync(resolve(repoRoot, "ports/local-ports.json"), "utf8"));
+
+/** @type {PortManifest} */
+const manifest = readJsonFile(resolve(repoRoot, "ports/local-ports.json"));
+
 const checkOnly = argv.includes("--check");
+
+/** @type {string[]} */
 const changedFiles = [];
 
+/** @type {readonly string[]} */
 const APPLICATION_ORDER = [
   "flowable-engine",
   "mysql-migrations",
@@ -24,6 +79,7 @@ const APPLICATION_ORDER = [
   "oauth2-authorization-server-opaque",
 ];
 
+/** @type {RootReadmeDependencies} */
 const ROOT_README_DEPENDENCIES = {
   "flowable-engine": () => `MySQL on \`${supportingPort("flowable-engine-mysql")}\``,
   "mysql-migrations": () => `MySQL on \`${supportingPort("mysql-migrations-mysql")}\``,
@@ -38,6 +94,7 @@ const ROOT_README_DEPENDENCIES = {
   "oauth2-authorization-server-opaque": () => "Optional local backing services defined in `compose.yaml`",
 };
 
+/** @type {AppResourceFiles} */
 const APP_RESOURCE_FILES = {
   "flowable-engine": "apps/flowable-engine/src/main/resources/application.yml",
   "mysql-migrations": "data/mysql-migrations/src/main/resources/application.yml",
@@ -52,6 +109,7 @@ const APP_RESOURCE_FILES = {
   "oauth2-authorization-server-opaque": "apps/oauth2-authorization-server-opaque/src/main/resources/application.yml",
 };
 
+/** @type {NewmanEnvironment[]} */
 const NEWMAN_ENVIRONMENTS = [
   {
     file: "newman/flowable-engine-local.postman_environment.json",
@@ -348,6 +406,9 @@ function syncRootReadme() {
   );
 }
 
+/**
+ * @returns {string}
+ */
 function buildRootReadmeSection() {
   return [
     "## Local Profiles and Ports",
@@ -374,6 +435,9 @@ function buildRootReadmeSection() {
   ].join("\n");
 }
 
+/**
+ * @returns {string}
+ */
 function buildRootReadmeTable() {
   const header = ["Module", "Local port", "Local dependency"];
   const rows = APPLICATION_ORDER.map((module) => [
@@ -407,10 +471,20 @@ function buildRootReadmeTable() {
   return lines.join("\n");
 }
 
+/**
+ * @param {number[]} widths
+ * @returns {string}
+ */
 function formatMarkdownDivider(widths) {
   return `|${widths.map((width) => "-".repeat(width + 2)).join("|")}|`;
 }
 
+/**
+ * @param {string[]} values
+ * @param {number[]} widths
+ * @param {"left" | "center"} alignment
+ * @returns {string}
+ */
 function formatMarkdownRow(values, widths, alignment) {
   const padded = values.map((value, index) => {
     if (alignment === "center") {
@@ -423,6 +497,11 @@ function formatMarkdownRow(values, widths, alignment) {
   return `| ${padded.join(" | ")} |`;
 }
 
+/**
+ * @param {string} value
+ * @param {number} width
+ * @returns {string}
+ */
 function centerPad(value, width) {
   if (value.length >= width) {
     return value;
@@ -435,6 +514,11 @@ function centerPad(value, width) {
   return `${" ".repeat(leftPadding)}${value}${" ".repeat(rightPadding)}`;
 }
 
+/**
+ * @param {string} relativePath
+ * @param {(content: string) => string} transform
+ * @returns {void}
+ */
 function updateTextFile(relativePath, transform) {
   const absolutePath = resolve(repoRoot, relativePath);
   const currentContent = readFileSync(absolutePath, "utf8");
@@ -450,10 +534,18 @@ function updateTextFile(relativePath, transform) {
   writeIfChanged(relativePath, currentContent, nextContent);
 }
 
+/**
+ * @param {string} relativePath
+ * @param {(document: NewmanEnvironmentDocument) => NewmanEnvironmentDocument} transform
+ * @returns {void}
+ */
 function updateJsonFile(relativePath, transform) {
   const absolutePath = resolve(repoRoot, relativePath);
   const currentContent = readFileSync(absolutePath, "utf8");
+
+  /** @type {NewmanEnvironmentDocument} */
   const currentDocument = JSON.parse(currentContent);
+
   let nextDocument;
 
   try {
@@ -470,6 +562,12 @@ function updateJsonFile(relativePath, transform) {
   writeIfChanged(relativePath, currentContent, nextContent);
 }
 
+/**
+ * @param {string} relativePath
+ * @param {string} currentContent
+ * @param {string} nextContent
+ * @returns {void}
+ */
 function writeIfChanged(relativePath, currentContent, nextContent) {
   if (currentContent === nextContent) {
     return;
@@ -482,6 +580,11 @@ function writeIfChanged(relativePath, currentContent, nextContent) {
   }
 }
 
+/**
+ * @param {string} relativePath
+ * @param {unknown} error
+ * @returns {void}
+ */
 function handleCheckFailure(relativePath, error) {
   if (!checkOnly) {
     throw error;
@@ -490,6 +593,12 @@ function handleCheckFailure(relativePath, error) {
   changedFiles.push(`${relativePath} (${formatError(error)})`);
 }
 
+/**
+ * @param {string} content
+ * @param {string} jobName
+ * @param {Record<string, string>} values
+ * @returns {string}
+ */
 function replaceWorkflowJobValues(content, jobName, values) {
   const jobPattern = new RegExp(
     `(^  ${escapeRegex(jobName)}:\\r?\\n[\\s\\S]*?)(?=^  [a-z0-9-]+:\\r?\\n|(?![\\s\\S]))`,
@@ -517,6 +626,13 @@ function replaceWorkflowJobValues(content, jobName, values) {
   });
 }
 
+/**
+ * @param {string} content
+ * @param {RegExp} pattern
+ * @param {string} replacement
+ * @param {string} description
+ * @returns {string}
+ */
 function replaceOne(content, pattern, replacement, description) {
   if (!pattern.test(content)) {
     throw new Error(`Could not update ${description}`);
@@ -525,6 +641,11 @@ function replaceOne(content, pattern, replacement, description) {
   return content.replace(pattern, replacement);
 }
 
+/**
+ * @param {string} nextContent
+ * @param {string} currentContent
+ * @returns {string}
+ */
 function normalizeLineEndingsAndTrailingNewline(nextContent, currentContent) {
   const normalized = normalizeLineEndings(nextContent, currentContent);
   const hasTrailingNewline = /\r?\n$/.test(currentContent);
@@ -536,27 +657,54 @@ function normalizeLineEndingsAndTrailingNewline(nextContent, currentContent) {
   return normalized.replace(new RegExp(`${escapeRegex(getPreferredEol(currentContent))}$`), "");
 }
 
+/**
+ * @param {string} nextContent
+ * @param {string} currentContent
+ * @returns {string}
+ */
 function normalizeLineEndings(nextContent, currentContent) {
   return nextContent.replace(/\r?\n/g, getPreferredEol(currentContent));
 }
 
+/**
+ * @param {string} currentContent
+ * @returns {string}
+ */
 function getPreferredEol(currentContent) {
   return currentContent.includes("\r\n") ? "\r\n" : "\n";
 }
 
+/**
+ * @param {string} currentContent
+ * @returns {string | number}
+ */
 function getPreferredJsonIndent(currentContent) {
   const match = currentContent.match(/^( +|\t+)(?=")/m);
   return match?.[1] ?? "  ";
 }
 
+/**
+ * @param {string} module
+ * @returns {number}
+ */
 function applicationPort(module) {
   return getNumber(manifest.applicationPorts, module, "applicationPorts");
 }
 
+/**
+ * @param {string} name
+ * @returns {number}
+ */
 function supportingPort(name) {
   return getNumber(manifest.supportingPorts, name, "supportingPorts");
 }
 
+/**
+ * @param {Record<string, unknown>} source
+ * @param {string} key
+ * @param {string} sourceName
+ * @returns {number}
+ */
 function getNumber(source, key, sourceName) {
   if (!Object.hasOwn(source, key)) {
     throw new Error(`Missing ${sourceName}.${key} in ports/local-ports.json`);
@@ -570,14 +718,27 @@ function getNumber(source, key, sourceName) {
   return value;
 }
 
+/**
+ * @param {number} port
+ * @param {string} [path]
+ * @returns {string}
+ */
 function localhostUrl(port, path = "") {
   return `http://localhost:${port}${path}`;
 }
 
+/**
+ * @param {string} value
+ * @returns {string}
+ */
 function escapeRegex(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+/**
+ * @param {unknown} error
+ * @returns {string}
+ */
 function formatError(error) {
   if (error instanceof Error) {
     return error.message;
