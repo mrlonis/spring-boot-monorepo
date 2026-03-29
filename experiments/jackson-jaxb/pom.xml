@@ -5,16 +5,17 @@
     <groupId>com.mrlonis</groupId>
     <artifactId>spring-boot-monorepo</artifactId>
     <version>${revision}</version>
+    <relativePath>../../pom.xml</relativePath>
   </parent>
-  <groupId>com.mrlonis.xml.pure.jaxb</groupId>
-  <artifactId>pure-jaxb</artifactId>
-  <name>pure-jaxb</name>
-  <description>pure-jaxb</description>
+  <groupId>com.mrlonis.xml.jackson.jaxb</groupId>
+  <artifactId>jackson-jaxb</artifactId>
+  <name>jackson-jaxb</name>
+  <description>jackson-jaxb</description>
   <dependencies>
     <dependency>
       <groupId>com.mrlonis.xml.shared</groupId>
       <artifactId>shared-jackson</artifactId>
-      <version>${project.version}</version>
+      <version>${revision}</version>
     </dependency>
     <dependency>
       <groupId>javax.xml.bind</groupId>
@@ -37,7 +38,7 @@
     <dependency>
       <groupId>com.mrlonis.xml.shared.test</groupId>
       <artifactId>shared-jackson-test</artifactId>
-      <version>${project.version}</version>
+      <version>${revision}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

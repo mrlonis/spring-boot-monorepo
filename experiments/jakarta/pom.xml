@@ -5,20 +5,17 @@
     <groupId>com.mrlonis</groupId>
     <artifactId>spring-boot-monorepo</artifactId>
     <version>${revision}</version>
+    <relativePath>../../pom.xml</relativePath>
   </parent>
-  <groupId>com.mrlonis.xml.jackson.jakarta</groupId>
-  <artifactId>jackson-jakarta</artifactId>
-  <name>jackson-jakarta</name>
-  <description>jackson-jakarta</description>
+  <groupId>com.mrlonis.xml.jakarta</groupId>
+  <artifactId>jakarta</artifactId>
+  <name>jakarta</name>
+  <description>jakarta</description>
   <dependencies>
     <dependency>
       <groupId>com.mrlonis.xml.shared</groupId>
       <artifactId>shared-jackson</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.xml.bind</groupId>
-      <artifactId>jaxb-api</artifactId>
+      <version>${revision}</version>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -37,7 +34,7 @@
     <dependency>
       <groupId>com.mrlonis.xml.shared.test</groupId>
       <artifactId>shared-jackson-test</artifactId>
-      <version>${project.version}</version>
+      <version>${revision}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

@@ -5,16 +5,21 @@
     <groupId>com.mrlonis</groupId>
     <artifactId>spring-boot-monorepo</artifactId>
     <version>${revision}</version>
+    <relativePath>../../pom.xml</relativePath>
   </parent>
-  <groupId>com.mrlonis.xml.pure.jakarta</groupId>
-  <artifactId>pure-jakarta</artifactId>
-  <name>pure-jakarta</name>
-  <description>pure-jakarta</description>
+  <groupId>com.mrlonis.xml.jackson.all</groupId>
+  <artifactId>jackson-all</artifactId>
+  <name>jackson-all</name>
+  <description>jackson-all</description>
   <dependencies>
     <dependency>
       <groupId>com.mrlonis.xml.shared</groupId>
       <artifactId>shared-jackson</artifactId>
-      <version>${project.version}</version>
+      <version>${revision}</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -31,9 +36,13 @@
       <artifactId>jackson-module-jakarta-xmlbind-annotations</artifactId>
     </dependency>
     <dependency>
+      <groupId>tools.jackson.module</groupId>
+      <artifactId>jackson-module-jaxb-annotations</artifactId>
+    </dependency>
+    <dependency>
       <groupId>com.mrlonis.xml.shared.test</groupId>
       <artifactId>shared-jackson-test</artifactId>
-      <version>${project.version}</version>
+      <version>${revision}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
