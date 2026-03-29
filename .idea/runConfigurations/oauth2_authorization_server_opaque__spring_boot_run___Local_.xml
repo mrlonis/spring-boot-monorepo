@@ -14,7 +14,7 @@
               <option value="spring-boot:run" />
               <option value="-Dspring-boot.run.profiles=local" />
               <option value="-pl" />
-              <option value="oauth2-authorization-server-opaque" />
+              <option value="apps/oauth2-authorization-server-opaque" />
               <option value="-am" />
             </list>
           </option>

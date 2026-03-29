@@ -14,7 +14,7 @@
               <option value="spring-boot:run" />
               <option value="-Dspring-boot.run.profiles=local" />
               <option value="-pl" />
-              <option value="spring-security-reactive-opaque" />
+              <option value="apps/spring-security-reactive-opaque" />
               <option value="-am" />
             </list>
           </option>
