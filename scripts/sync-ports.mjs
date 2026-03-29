@@ -148,81 +148,81 @@ function syncValidateWorkflow() {
   updateTextFile(".github/workflows/validate.yml", (content) => {
     let next = content;
 
-    next = replaceWorkflowPort(next, "module", "flowable-engine", "port", applicationPort("flowable-engine"));
+    next = replaceWorkflowPort(next, "module", "apps/flowable-engine", "port", applicationPort("flowable-engine"));
     next = replaceWorkflowPort(
       next,
       "module_a",
-      "oauth2-authorization-server",
+      "apps/oauth2-authorization-server",
       "port_a",
       applicationPort("oauth2-authorization-server"),
     );
-    next = replaceWorkflowPort(next, "module_b", "gateway", "port_b", applicationPort("gateway"));
-    next = replaceWorkflowPort(next, "module", "mysql-migrations", "port", applicationPort("mysql-migrations"));
+    next = replaceWorkflowPort(next, "module_b", "apps/gateway", "port_b", applicationPort("gateway"));
+    next = replaceWorkflowPort(next, "module", "data/mysql-migrations", "port", applicationPort("mysql-migrations"));
     next = replaceWorkflowPort(
       next,
       "module",
-      "oauth2-authorization-server",
+      "apps/oauth2-authorization-server",
       "port",
       applicationPort("oauth2-authorization-server"),
     );
     next = replaceWorkflowPort(
       next,
       "module",
-      "oauth2-authorization-server-opaque",
+      "apps/oauth2-authorization-server-opaque",
       "port",
       applicationPort("oauth2-authorization-server-opaque"),
     );
     next = replaceWorkflowPort(
       next,
       "module_a",
-      "oauth2-authorization-server",
+      "apps/oauth2-authorization-server",
       "port_a",
       applicationPort("oauth2-authorization-server"),
     );
-    next = replaceWorkflowPort(next, "module_b", "spring-security", "port_b", applicationPort("spring-security"));
+    next = replaceWorkflowPort(next, "module_b", "apps/spring-security", "port_b", applicationPort("spring-security"));
     next = replaceWorkflowPort(
       next,
       "module_a",
-      "oauth2-authorization-server-opaque",
+      "apps/oauth2-authorization-server-opaque",
       "port_a",
       applicationPort("oauth2-authorization-server-opaque"),
     );
     next = replaceWorkflowPort(
       next,
       "module_b",
-      "spring-security-opaque",
+      "apps/spring-security-opaque",
       "port_b",
       applicationPort("spring-security-opaque"),
     );
     next = replaceWorkflowPort(
       next,
       "module_a",
-      "oauth2-authorization-server",
+      "apps/oauth2-authorization-server",
       "port_a",
       applicationPort("oauth2-authorization-server"),
     );
     next = replaceWorkflowPort(
       next,
       "module_b",
-      "spring-security-reactive",
+      "apps/spring-security-reactive",
       "port_b",
       applicationPort("spring-security-reactive"),
     );
     next = replaceWorkflowPort(
       next,
       "module_a",
-      "oauth2-authorization-server-opaque",
+      "apps/oauth2-authorization-server-opaque",
       "port_a",
       applicationPort("oauth2-authorization-server-opaque"),
     );
     next = replaceWorkflowPort(
       next,
       "module_b",
-      "spring-security-reactive-opaque",
+      "apps/spring-security-reactive-opaque",
       "port_b",
       applicationPort("spring-security-reactive-opaque"),
     );
-    next = replaceWorkflowPort(next, "module", "todo-app", "port", applicationPort("todo-app"));
+    next = replaceWorkflowPort(next, "module", "apps/todo-app", "port", applicationPort("todo-app"));
 
     return next;
   });
