@@ -16,6 +16,14 @@
   <modules>
     <module>apps/flowable-engine</module>
     <module>apps/gateway</module>
+    <module>apps/oauth2-authorization-server</module>
+    <module>apps/oauth2-authorization-server-opaque</module>
+    <module>apps/oauth2-gateway-mvc</module>
+    <module>apps/spring-security</module>
+    <module>apps/spring-security-opaque</module>
+    <module>apps/spring-security-reactive</module>
+    <module>apps/spring-security-reactive-opaque</module>
+    <module>apps/todo-app</module>
     <module>data/mysql-migrations</module>
     <module>experiments/jackson-all</module>
     <module>experiments/jackson-jackson</module>
@@ -26,19 +34,11 @@
     <module>experiments/pure-jakarta</module>
     <module>experiments/pure-jaxb</module>
     <module>jacoco-report-aggregate</module>
-    <module>oauth2-authorization-server</module>
-    <module>oauth2-authorization-server-opaque</module>
-    <module>oauth2-gateway-mvc</module>
     <module>pre-commit</module>
     <module>shared-jackson</module>
     <module>shared-jackson-test</module>
-    <module>spring-security</module>
-    <module>spring-security-opaque</module>
-    <module>spring-security-reactive</module>
-    <module>spring-security-reactive-opaque</module>
     <module>starters/oauth2-autoconfig</module>
     <module>starters/test-controller-autoconfig</module>
-    <module>todo-app</module>
   </modules>
   <properties>
     <cleanthat.version>2.25</cleanthat.version>

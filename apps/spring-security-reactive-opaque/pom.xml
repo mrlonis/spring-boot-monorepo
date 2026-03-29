@@ -5,11 +5,12 @@
     <groupId>com.mrlonis</groupId>
     <artifactId>spring-boot-monorepo</artifactId>
     <version>${revision}</version>
+    <relativePath>../../pom.xml</relativePath>
   </parent>
-  <groupId>com.mrlonis.example.security</groupId>
-  <artifactId>spring-security</artifactId>
-  <name>spring-security</name>
-  <description>Demo project for Spring Boot Security. This module is intended to use the oauth2-authorization-server
+  <groupId>com.mrlonis.example.security.reactive.opaque</groupId>
+  <artifactId>spring-security-reactive-opaque</artifactId>
+  <name>spring-security-reactive-opaque</name>
+  <description>Demo project for Spring Boot Security. This module is intended to use the oauth2-authorization-server-opaque
     module for authentication.</description>
   <dependencies>
     <dependency>
@@ -46,11 +47,7 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-webmvc-test</artifactId>
+      <artifactId>spring-boot-starter-webflux</artifactId>
     </dependency>
     <dependency>
       <groupId>com.squareup.okhttp3</groupId>
@@ -60,6 +57,11 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-webtestclient</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>

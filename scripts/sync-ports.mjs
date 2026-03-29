@@ -41,15 +41,15 @@ const ROOT_README_DEPENDENCIES = {
 const APP_RESOURCE_FILES = {
   "flowable-engine": "apps/flowable-engine/src/main/resources/application.yml",
   "mysql-migrations": "data/mysql-migrations/src/main/resources/application.yml",
-  "todo-app": "todo-app/src/main/resources/application.yml",
-  "spring-security": "spring-security/src/main/resources/application.yml",
-  "spring-security-opaque": "spring-security-opaque/src/main/resources/application.yml",
+  "todo-app": "apps/todo-app/src/main/resources/application.yml",
+  "spring-security": "apps/spring-security/src/main/resources/application.yml",
+  "spring-security-opaque": "apps/spring-security-opaque/src/main/resources/application.yml",
   gateway: "apps/gateway/src/main/resources/application.yml",
-  "oauth2-gateway-mvc": "oauth2-gateway-mvc/src/main/resources/application.yml",
-  "spring-security-reactive": "spring-security-reactive/src/main/resources/application.yml",
-  "spring-security-reactive-opaque": "spring-security-reactive-opaque/src/main/resources/application.yml",
-  "oauth2-authorization-server": "oauth2-authorization-server/src/main/resources/application.yml",
-  "oauth2-authorization-server-opaque": "oauth2-authorization-server-opaque/src/main/resources/application.yml",
+  "oauth2-gateway-mvc": "apps/oauth2-gateway-mvc/src/main/resources/application.yml",
+  "spring-security-reactive": "apps/spring-security-reactive/src/main/resources/application.yml",
+  "spring-security-reactive-opaque": "apps/spring-security-reactive-opaque/src/main/resources/application.yml",
+  "oauth2-authorization-server": "apps/oauth2-authorization-server/src/main/resources/application.yml",
+  "oauth2-authorization-server-opaque": "apps/oauth2-authorization-server-opaque/src/main/resources/application.yml",
 };
 
 const NEWMAN_ENVIRONMENTS = [
@@ -255,7 +255,7 @@ function syncSupportingUrls() {
     ),
   );
 
-  updateTextFile("todo-app/src/main/resources/application.yml", (content) =>
+  updateTextFile("apps/todo-app/src/main/resources/application.yml", (content) =>
     replaceOne(
       content,
       /jdbc:postgresql:\/\/localhost:\d+\/todo_db/,
@@ -273,7 +273,7 @@ function syncSupportingUrls() {
     ),
   );
 
-  updateTextFile("oauth2-authorization-server-opaque/src/main/resources/application.yml", (content) =>
+  updateTextFile("apps/oauth2-authorization-server-opaque/src/main/resources/application.yml", (content) =>
     replaceOne(
       content,
       /(introspection-uri: )http:\/\/localhost:\d+\/oauth2\/introspect/,
@@ -283,7 +283,7 @@ function syncSupportingUrls() {
   );
 
   updateTextFile(
-    "oauth2-autoconfig/src/main/java/com/mrlonis/oauth2/autoconfig/autoconfig/OAuth2PropertiesEnvironmentPostProcessor.java",
+    "starters/oauth2-autoconfig/src/main/java/com/mrlonis/oauth2/autoconfig/autoconfig/OAuth2PropertiesEnvironmentPostProcessor.java",
     (content) => {
       let next = content;
 
@@ -328,7 +328,7 @@ function syncComposePorts() {
       "mysql-migrations compose port",
     ),
   );
-  updateTextFile("todo-app/compose.yaml", (content) =>
+  updateTextFile("apps/todo-app/compose.yaml", (content) =>
     replaceOne(content, /"\d+:5432"/, `"${supportingPort("todo-app-postgres")}:5432"`, "todo-app compose port"),
   );
 }
@@ -337,11 +337,11 @@ function syncTodoUiOrigins() {
   const localTodoUiOrigin = localhostUrl(supportingPort("todo-app-ui"));
 
   updateTextFile(
-    "todo-app/src/main/java/com/mrlonis/todo/todo_service/controllers/TodoItemsController.java",
+    "apps/todo-app/src/main/java/com/mrlonis/todo/todo_service/controllers/TodoItemsController.java",
     (content) => replaceOne(content, /http:\/\/localhost:\d+/, localTodoUiOrigin, "todo item controller CORS origin"),
   );
   updateTextFile(
-    "todo-app/src/main/java/com/mrlonis/todo/todo_service/controllers/MetadataController.java",
+    "apps/todo-app/src/main/java/com/mrlonis/todo/todo_service/controllers/MetadataController.java",
     (content) => replaceOne(content, /http:\/\/localhost:\d+/, localTodoUiOrigin, "metadata controller CORS origin"),
   );
 }
