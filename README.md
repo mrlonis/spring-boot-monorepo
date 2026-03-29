@@ -94,7 +94,7 @@ Several runnable modules expose a `local` profile that turns on local ports and,
 | `spring-security`                    | `9054`     | JWT issuer from `oauth2-authorization-server`                     |
 | `spring-security-opaque`             | `9055`     | Opaque introspection against `oauth2-authorization-server-opaque` |
 | `gateway`                            | `9203`     | Redis plus OIDC issuer from `oauth2-authorization-server`         |
-| `oauth2-gateway-mvc`                 | `9203`     | No custom routes by default                                       |
+| `oauth2-gateway-mvc`                 | `9204`     | No custom routes by default                                       |
 | `spring-security-reactive`           | `9373`     | JWT issuer from `oauth2-authorization-server`                     |
 | `spring-security-reactive-opaque`    | `9378`     | Opaque introspection against `oauth2-authorization-server-opaque` |
 | `oauth2-authorization-server`        | `9562`     | Optional local backing services defined in `compose.yaml`         |
@@ -102,7 +102,7 @@ Several runnable modules expose a `local` profile that turns on local ports and,
 
 Notes:
 
-- `gateway` and `oauth2-gateway-mvc` both default to port `9203` when the `local` profile is active, so run one at a time or override `server.port`.
+- `gateway` and `oauth2-gateway-mvc` now use distinct default local ports (`9203` and `9204`), so you can run them side by side.
 - The XML sample apps do not define dedicated local ports; they use the default Spring Boot port unless you override it.
 
 ## Port Management
