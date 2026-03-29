@@ -44,7 +44,7 @@ const APP_RESOURCE_FILES = {
   "todo-app": "todo-app/src/main/resources/application.yml",
   "spring-security": "spring-security/src/main/resources/application.yml",
   "spring-security-opaque": "spring-security-opaque/src/main/resources/application.yml",
-  gateway: "gateway/src/main/resources/application.yml",
+  gateway: "apps/gateway/src/main/resources/application.yml",
   "oauth2-gateway-mvc": "oauth2-gateway-mvc/src/main/resources/application.yml",
   "spring-security-reactive": "spring-security-reactive/src/main/resources/application.yml",
   "spring-security-reactive-opaque": "spring-security-reactive-opaque/src/main/resources/application.yml",
@@ -264,7 +264,7 @@ function syncSupportingUrls() {
     ),
   );
 
-  updateTextFile("gateway/src/main/resources/application.yml", (content) =>
+  updateTextFile("apps/gateway/src/main/resources/application.yml", (content) =>
     replaceOne(
       content,
       /(issuer-uri: )http:\/\/localhost:\d+/,

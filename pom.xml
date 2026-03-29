@@ -15,7 +15,7 @@
   <description>Demo project for Spring Boot</description>
   <modules>
     <module>apps/flowable-engine</module>
-    <module>gateway</module>
+    <module>apps/gateway</module>
     <module>jackson-all</module>
     <module>jackson-jackson</module>
     <module>jackson-jakarta</module>
