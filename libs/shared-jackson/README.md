@@ -16,9 +16,9 @@ The key endpoints are:
 
 ## How It Is Used
 
-You do not usually run this module by itself. It is consumed by the XML sample applications such as [jaxb](../jaxb), [jakarta](../jakarta), [pure-jaxb](../pure-jaxb), and the `jackson-*` modules.
+You do not usually run this module by itself. It is consumed by the XML sample applications such as [jaxb](../../experiments/jaxb), [jakarta](../../experiments/jakarta), [pure-jaxb](../../experiments/pure-jaxb), and the `jackson-*` modules.
 
 ## Related Modules
 
-- [shared-jackson-test](../shared-jackson-test) contains the reusable integration tests for these endpoints.
-- [jackson-all](../jackson-all) and the other XML app modules provide runnable entry points around this shared code.
+- [shared-jackson-test](../../testing/shared-jackson-test) contains the reusable integration tests for these endpoints.
+- [jackson-all](../../experiments/jackson-all) and the other XML app modules provide runnable entry points around this shared code.

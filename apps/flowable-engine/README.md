@@ -15,9 +15,9 @@ This module is a Spring Boot sample that wires Flowable Engine into a typical ap
 ./mvnw -pl flowable-engine spring-boot:run -Dspring-boot.run.profiles=local
 ```
 
-The current local port defaults for this module and its supporting services are tracked in the [root port catalog](../README.md#local-profiles-and-ports).
+The current local port defaults for this module and its supporting services are tracked in the [root port catalog](../../README.md#local-profiles-and-ports).
 
 ## Related Modules
 
-- [jacoco-report-aggregate](../jacoco-report-aggregate) includes this module in the repo-wide coverage report.
-- [newman](../newman) contains a Postman collection for this app.
+- [jacoco-report-aggregate](../../jacoco-report-aggregate) includes this module in the repo-wide coverage report.
+- [newman](../../newman) contains a Postman collection for this app.

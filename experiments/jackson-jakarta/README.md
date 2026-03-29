@@ -22,5 +22,5 @@ GET /xml/JACKSON_JAKARTA?accessType=FIELD&dateLibrary=JAVA_TIME&zoned=ZONED
 
 ## Related Modules
 
-- [shared-jackson](../shared-jackson) provides the shared controller and models.
+- [shared-jackson](../../libs/shared-jackson) provides the shared controller and models.
 - [jackson-all](../jackson-all) registers both JAXB and Jakarta XML Bind modules in one app.

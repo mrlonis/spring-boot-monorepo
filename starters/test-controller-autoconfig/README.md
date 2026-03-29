@@ -12,4 +12,4 @@ The controller returns a plain `"Hello World!"`, which keeps the dependent tests
 
 ## Related Modules
 
-- [spring-security](../spring-security), [spring-security-reactive](../spring-security-reactive), [spring-security-opaque](../spring-security-opaque), and [spring-security-reactive-opaque](../spring-security-reactive-opaque) all rely on this endpoint in their integration tests.
+- [spring-security](../../apps/spring-security), [spring-security-reactive](../../apps/spring-security-reactive), [spring-security-opaque](../../apps/spring-security-opaque), and [spring-security-reactive-opaque](../../apps/spring-security-reactive-opaque) all rely on this endpoint in their integration tests.

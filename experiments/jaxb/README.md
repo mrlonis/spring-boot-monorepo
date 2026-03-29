@@ -4,7 +4,7 @@ This module is an XML sample app centered on `javax.xml.bind` annotations.
 
 ## What It Demonstrates
 
-- Shared `/xml/**` endpoints from [shared-jackson](../shared-jackson)
+- Shared `/xml/**` endpoints from [shared-jackson](../../libs/shared-jackson)
 - Jackson support for JAXB annotations through `JaxbAnnotationModule`
 - The `JAXB` model family across different accessor styles and date/time combinations
 
@@ -23,4 +23,4 @@ GET /xml/JAXB?accessType=FIELD&dateLibrary=JAVA_TIME&zoned=ZONED
 ## Related Modules
 
 - [jakarta](../jakarta) is the parallel sample using `jakarta.xml.bind`.
-- [shared-jackson-test](../shared-jackson-test) provides the reusable XML integration tests.
+- [shared-jackson-test](../../testing/shared-jackson-test) provides the reusable XML integration tests.

@@ -5,7 +5,7 @@ This module is a Jackson XML sample that registers the JAXB annotation module an
 ## What It Demonstrates
 
 - Jackson XML serialization with `javax.xml.bind` annotation support
-- The shared `/xml/**` controller from [shared-jackson](../shared-jackson)
+- The shared `/xml/**` controller from [shared-jackson](../../libs/shared-jackson)
 - A focused sample for comparing JAXB-based XML Bind integration to the Jakarta and Jackson-only variants
 
 ## Run Locally
@@ -23,4 +23,4 @@ GET /xml/JACKSON_JAXB?accessType=FIELD&dateLibrary=JAVA_TIME&zoned=ZONED
 ## Related Modules
 
 - [jaxb](../jaxb) shows the non-Jackson-prefixed JAXB sample family.
-- [shared-jackson-test](../shared-jackson-test) provides the reusable integration test base classes.
+- [shared-jackson-test](../../testing/shared-jackson-test) provides the reusable integration test base classes.

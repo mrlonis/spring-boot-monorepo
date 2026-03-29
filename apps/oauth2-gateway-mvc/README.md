@@ -16,9 +16,9 @@ Unlike the reactive [gateway](../gateway) module, this sample does not ship cust
 ./mvnw -pl oauth2-gateway-mvc spring-boot:run -Dspring-boot.run.profiles=local
 ```
 
-The current local port defaults for this module are tracked in the [root port catalog](../README.md#local-profiles-and-ports).
+The current local port defaults for this module are tracked in the [root port catalog](../../README.md#local-profiles-and-ports).
 
 ## Related Modules
 
 - [gateway](../gateway) is the fuller reactive gateway sample in this repo.
-- [jacoco-report-aggregate](../jacoco-report-aggregate) includes this module in the aggregate coverage report.
+- [jacoco-report-aggregate](../../jacoco-report-aggregate) includes this module in the aggregate coverage report.

@@ -10,4 +10,4 @@ This module contains reusable test support for the XML sample applications.
 
 ## How It Is Used
 
-Modules such as [jaxb](../jaxb), [jakarta](../jakarta), [pure-jaxb](../pure-jaxb), [pure-jakarta](../pure-jakarta), and the `jackson-*` samples depend on this module in test scope.
+Modules such as [jaxb](../../experiments/jaxb), [jakarta](../../experiments/jakarta), [pure-jaxb](../../experiments/pure-jaxb), [pure-jakarta](../../experiments/pure-jakarta), and the `jackson-*` samples depend on this module in test scope.

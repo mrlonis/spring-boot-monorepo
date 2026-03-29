@@ -17,9 +17,9 @@ The migration scripts live under `src/main/resources/db/migration`.
 ./mvnw -pl mysql-migrations spring-boot:run -Dspring-boot.run.profiles=local
 ```
 
-The current local port defaults for this module and its supporting services are tracked in the [root port catalog](../README.md#local-profiles-and-ports).
+The current local port defaults for this module and its supporting services are tracked in the [root port catalog](../../README.md#local-profiles-and-ports).
 
 ## Related Modules
 
-- [newman](../newman) contains a Postman collection for this sample.
-- [jacoco-report-aggregate](../jacoco-report-aggregate) includes this module in the aggregate coverage report.
+- [newman](../../newman) contains a Postman collection for this sample.
+- [jacoco-report-aggregate](../../jacoco-report-aggregate) includes this module in the aggregate coverage report.

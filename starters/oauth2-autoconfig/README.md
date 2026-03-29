@@ -33,5 +33,5 @@ Set `oauth2.federate.opaque=true` when the downstream resource server should use
 
 ## Related Modules
 
-- [spring-security](../spring-security), [spring-security-reactive](../spring-security-reactive), [spring-security-opaque](../spring-security-opaque), and [spring-security-reactive-opaque](../spring-security-reactive-opaque) all consume this module.
-- [gateway](../gateway) also uses it for OIDC and resource-server configuration.
+- [spring-security](../../apps/spring-security), [spring-security-reactive](../../apps/spring-security-reactive), [spring-security-opaque](../../apps/spring-security-opaque), and [spring-security-reactive-opaque](../../apps/spring-security-reactive-opaque) all consume this module.
+- [gateway](../../apps/gateway) also uses it for OIDC and resource-server configuration.

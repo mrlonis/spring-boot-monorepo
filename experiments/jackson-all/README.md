@@ -22,5 +22,5 @@ GET /xml/JAKARTA?accessType=FIELD&dateLibrary=JAVA_TIME&zoned=ZONED
 
 ## Related Modules
 
-- [shared-jackson](../shared-jackson) provides the controller, shared models, and common config.
-- [shared-jackson-test](../shared-jackson-test) provides the reusable XML integration tests.
+- [shared-jackson](../../libs/shared-jackson) provides the controller, shared models, and common config.
+- [shared-jackson-test](../../testing/shared-jackson-test) provides the reusable XML integration tests.

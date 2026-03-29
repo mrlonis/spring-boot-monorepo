@@ -17,9 +17,9 @@ The configured local clients include `spring-security-opaque-client`, `spring-se
 ./mvnw -pl oauth2-authorization-server-opaque spring-boot:run -Dspring-boot.run.profiles=local
 ```
 
-The current local port defaults for this module are tracked in the [root port catalog](../README.md#local-profiles-and-ports).
+The current local port defaults for this module are tracked in the [root port catalog](../../README.md#local-profiles-and-ports).
 
 ## Related Modules
 
 - [spring-security-opaque](../spring-security-opaque) and [spring-security-reactive-opaque](../spring-security-reactive-opaque) use this module in their local profile.
-- [newman](../newman) includes a Postman collection for this app.
+- [newman](../../newman) includes a Postman collection for this app.
