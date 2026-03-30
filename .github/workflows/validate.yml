@@ -144,6 +144,13 @@ jobs:
       port_b: 9378
       collection: ./newman/spring-security-reactive-opaque.postman_collection.json
       environment: ./newman/spring-security-reactive-opaque-local.postman_environment.json
+  template-servlet-integration-test:
+    uses: ./.github/workflows/reusable-single-service-newman.yml
+    with:
+      module: templates/template-servlet
+      port: 6058
+      collection: ./newman/template-servlet.postman_collection.json
+      environment: ./newman/template-servlet-local.postman_environment.json
   todo-app-integration-test:
     uses: ./.github/workflows/reusable-single-service-newman.yml
     with:
