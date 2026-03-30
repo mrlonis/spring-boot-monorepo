@@ -10,7 +10,8 @@
     "spring-security-reactive": 9373,
     "spring-security-reactive-opaque": 9378,
     "oauth2-authorization-server": 9562,
-    "oauth2-authorization-server-opaque": 9563
+    "oauth2-authorization-server-opaque": 9563,
+    "template-servlet": 6058
   },
   "supportingPorts": {
     "flowable-engine-mysql": 3307,

@@ -21,6 +21,7 @@
     <module>libs</module>
     <module>pre-commit</module>
     <module>starters</module>
+    <module>templates</module>
     <module>testing</module>
   </modules>
   <properties>

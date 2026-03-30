@@ -10,6 +10,11 @@
   <packaging>pom</packaging>
   <dependencies>
     <dependency>
+      <groupId>com.mrlonis.example</groupId>
+      <artifactId>template-servlet</artifactId>
+      <version>${revision}</version>
+    </dependency>
+    <dependency>
       <groupId>com.mrlonis.example.flowable</groupId>
       <artifactId>flowable-engine</artifactId>
       <version>${revision}</version>
