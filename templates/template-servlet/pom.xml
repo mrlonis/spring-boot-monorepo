@@ -6,7 +6,7 @@
     <artifactId>templates</artifactId>
     <version>${revision}</version>
   </parent>
-  <groupId>com.mrlonis.example.security</groupId>
+  <groupId>com.mrlonis.example</groupId>
   <artifactId>template-servlet</artifactId>
   <name>template-servlet</name>
   <description>Demo project for Spring Boot in a Servlet environment.</description>
