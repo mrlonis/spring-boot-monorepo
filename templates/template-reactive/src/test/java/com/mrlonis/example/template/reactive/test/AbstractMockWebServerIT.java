@@ -1,4 +1,4 @@
-package com.mrlonis.example.security.reactive.test;
+package com.mrlonis.example.template.reactive.test;
 
 import java.io.IOException;
 import okhttp3.mockwebserver.MockWebServer;

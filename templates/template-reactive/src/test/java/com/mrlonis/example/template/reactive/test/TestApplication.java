@@ -1,6 +1,6 @@
-package com.mrlonis.example.security.test;
+package com.mrlonis.example.template.reactive.test;
 
-import com.mrlonis.example.security.TemplateApplication;
+import com.mrlonis.example.template.reactive.TemplateApplication;
 import org.springframework.boot.SpringApplication;
 
 public class TestApplication {

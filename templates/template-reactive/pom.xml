@@ -6,7 +6,7 @@
     <artifactId>templates</artifactId>
     <version>${revision}</version>
   </parent>
-  <groupId>com.mrlonis.example</groupId>
+  <groupId>com.mrlonis.example.template.reactive</groupId>
   <artifactId>template-reactive</artifactId>
   <name>template-reactive</name>
   <description>Demo project for Spring Boot in a Reactive environment.</description>
