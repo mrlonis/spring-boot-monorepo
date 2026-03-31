@@ -13,7 +13,7 @@
             <list>
               <option value="verify" />
               <option value="-pl" />
-              <option value="flowable-engine" />
+              <option value="apps/flowable-engine" />
               <option value="-am" />
             </list>
           </option>

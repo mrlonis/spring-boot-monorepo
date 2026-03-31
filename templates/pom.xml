@@ -12,6 +12,7 @@
   <name>templates</name>
   <description>templates</description>
   <modules>
+    <module>template-reactive</module>
     <module>template-servlet</module>
   </modules>
 </project>

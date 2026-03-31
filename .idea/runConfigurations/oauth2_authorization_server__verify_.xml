@@ -13,7 +13,7 @@
             <list>
               <option value="verify" />
               <option value="-pl" />
-              <option value="oauth2-authorization-server" />
+              <option value="apps/oauth2-authorization-server" />
               <option value="-am" />
             </list>
           </option>
