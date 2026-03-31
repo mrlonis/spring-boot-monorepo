@@ -1,4 +1,4 @@
-package com.mrlonis.example.security;
+package com.mrlonis.example.template.servlet;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -6,7 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.mrlonis.example.security.test.AbstractMockWebServerIT;
+import com.mrlonis.example.template.servlet.test.AbstractMockWebServerIT;
 import org.junit.jupiter.api.Test;
 
 class TemplateApplicationIT extends AbstractMockWebServerIT {

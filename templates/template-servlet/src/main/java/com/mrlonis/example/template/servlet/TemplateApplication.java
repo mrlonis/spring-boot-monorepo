@@ -1,4 +1,4 @@
-package com.mrlonis.example.security;
+package com.mrlonis.example.template.servlet;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

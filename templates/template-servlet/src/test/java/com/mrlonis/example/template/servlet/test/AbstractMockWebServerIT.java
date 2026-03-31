@@ -1,4 +1,4 @@
-package com.mrlonis.example.security.test;
+package com.mrlonis.example.template.servlet.test;
 
 import java.io.IOException;
 import okhttp3.mockwebserver.MockWebServer;

@@ -1,6 +1,6 @@
-package com.mrlonis.example.security.test;
+package com.mrlonis.example.template.servlet.test;
 
-import com.mrlonis.example.security.TemplateApplication;
+import com.mrlonis.example.template.servlet.TemplateApplication;
 import org.springframework.boot.SpringApplication;
 
 public class TestApplication {
