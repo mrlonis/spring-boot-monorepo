@@ -10,11 +10,6 @@
   <packaging>pom</packaging>
   <dependencies>
     <dependency>
-      <groupId>com.mrlonis.example</groupId>
-      <artifactId>template-servlet</artifactId>
-      <version>${revision}</version>
-    </dependency>
-    <dependency>
       <groupId>com.mrlonis.example.flowable</groupId>
       <artifactId>flowable-engine</artifactId>
       <version>${revision}</version>
@@ -57,6 +52,16 @@
     <dependency>
       <groupId>com.mrlonis.example.security.reactive.opaque</groupId>
       <artifactId>spring-security-reactive-opaque</artifactId>
+      <version>${revision}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.mrlonis.example.template.reactive</groupId>
+      <artifactId>template-reactive</artifactId>
+      <version>${revision}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.mrlonis.example.template.servlet</groupId>
+      <artifactId>template-servlet</artifactId>
       <version>${revision}</version>
     </dependency>
     <dependency>
