@@ -99,6 +99,8 @@ Several runnable modules expose a `local` profile that turns on local ports and,
 | `spring-security-reactive-opaque`    | `9378`     | Opaque introspection against `oauth2-authorization-server-opaque` |
 | `oauth2-authorization-server`        | `9562`     | Optional local backing services defined in `compose.yaml`         |
 | `oauth2-authorization-server-opaque` | `9563`     | Optional local backing services defined in `compose.yaml`         |
+| `template-servlet`                   | `6058`     | No dependencies                                                   |
+| `template-reactive`                  | `6059`     | No dependencies                                                   |
 
 Notes:
 

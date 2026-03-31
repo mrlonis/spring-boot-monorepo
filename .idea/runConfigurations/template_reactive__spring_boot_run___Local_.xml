@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="oauth2-authorization-server [verify]" type="MavenRunConfiguration" factoryName="Maven">
+  <configuration default="false" name="template-reactive [spring-boot:run - Local]" type="MavenRunConfiguration" factoryName="Maven">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings" />
@@ -11,9 +11,10 @@
           </option>
           <option name="goals">
             <list>
-              <option value="verify" />
+              <option value="spring-boot:run" />
+              <option value="-Dspring-boot.run.profiles=local" />
               <option value="-pl" />
-              <option value="apps/oauth2-authorization-server" />
+              <option value="templates/template-reactive" />
               <option value="-am" />
             </list>
           </option>

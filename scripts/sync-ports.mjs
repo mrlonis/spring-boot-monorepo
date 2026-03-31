@@ -77,6 +77,8 @@ const APPLICATION_ORDER = [
   "spring-security-reactive-opaque",
   "oauth2-authorization-server",
   "oauth2-authorization-server-opaque",
+  "template-servlet",
+  "template-reactive",
 ];
 
 /** @type {RootReadmeDependencies} */
@@ -92,6 +94,8 @@ const ROOT_README_DEPENDENCIES = {
   "spring-security-reactive-opaque": () => "Opaque introspection against `oauth2-authorization-server-opaque`",
   "oauth2-authorization-server": () => "Optional local backing services defined in `compose.yaml`",
   "oauth2-authorization-server-opaque": () => "Optional local backing services defined in `compose.yaml`",
+  "template-servlet": () => "No dependencies",
+  "template-reactive": () => "No dependencies",
 };
 
 /** @type {AppResourceFiles} */
@@ -107,6 +111,8 @@ const APP_RESOURCE_FILES = {
   "spring-security-reactive-opaque": "apps/spring-security-reactive-opaque/src/main/resources/application.yml",
   "oauth2-authorization-server": "apps/oauth2-authorization-server/src/main/resources/application.yml",
   "oauth2-authorization-server-opaque": "apps/oauth2-authorization-server-opaque/src/main/resources/application.yml",
+  "template-servlet": "templates/template-servlet/src/main/resources/application.yml",
+  "template-reactive": "templates/template-reactive/src/main/resources/application.yml",
 };
 
 /** @type {NewmanEnvironment[]} */
@@ -174,6 +180,18 @@ const NEWMAN_ENVIRONMENTS = [
     values: {
       "base-uri": () => localhostUrl(applicationPort("spring-security-reactive-opaque")),
       "oauth-base-uri": () => localhostUrl(applicationPort("oauth2-authorization-server-opaque")),
+    },
+  },
+  {
+    file: "newman/template-servlet-local.postman_environment.json",
+    values: {
+      "base-uri": () => localhostUrl(applicationPort("template-servlet")),
+    },
+  },
+  {
+    file: "newman/template-reactive-local.postman_environment.json",
+    values: {
+      "base-uri": () => localhostUrl(applicationPort("template-reactive")),
     },
   },
 ];
@@ -251,6 +269,14 @@ function syncValidateWorkflow() {
       port_a: String(applicationPort("oauth2-authorization-server-opaque")),
       module_b: "apps/spring-security-reactive-opaque",
       port_b: String(applicationPort("spring-security-reactive-opaque")),
+    });
+    next = replaceWorkflowJobValues(next, "template-servlet-integration-test", {
+      module: "templates/template-servlet",
+      port: String(applicationPort("template-servlet")),
+    });
+    next = replaceWorkflowJobValues(next, "template-reactive-integration-test", {
+      module: "templates/template-reactive",
+      port: String(applicationPort("template-reactive")),
     });
     next = replaceWorkflowJobValues(next, "todo-app-integration-test", {
       module: "apps/todo-app",

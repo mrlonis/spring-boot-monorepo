@@ -13,7 +13,7 @@
             <list>
               <option value="verify" />
               <option value="-pl" />
-              <option value="spring-security-reactive" />
+              <option value="apps/spring-security-reactive" />
               <option value="-am" />
             </list>
           </option>
