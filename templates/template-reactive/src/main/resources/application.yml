@@ -19,7 +19,7 @@ spring:
     activate:
       on-profile: local
 server:
-  port: 6058
+  port: 6059
 logging:
   level:
     com.mrlonis: debug

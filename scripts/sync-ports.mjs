@@ -78,6 +78,7 @@ const APPLICATION_ORDER = [
   "oauth2-authorization-server",
   "oauth2-authorization-server-opaque",
   "template-servlet",
+  "template-reactive",
 ];
 
 /** @type {RootReadmeDependencies} */
@@ -94,6 +95,7 @@ const ROOT_README_DEPENDENCIES = {
   "oauth2-authorization-server": () => "Optional local backing services defined in `compose.yaml`",
   "oauth2-authorization-server-opaque": () => "Optional local backing services defined in `compose.yaml`",
   "template-servlet": () => "No dependencies",
+  "template-reactive": () => "No dependencies",
 };
 
 /** @type {AppResourceFiles} */
@@ -110,6 +112,7 @@ const APP_RESOURCE_FILES = {
   "oauth2-authorization-server": "apps/oauth2-authorization-server/src/main/resources/application.yml",
   "oauth2-authorization-server-opaque": "apps/oauth2-authorization-server-opaque/src/main/resources/application.yml",
   "template-servlet": "templates/template-servlet/src/main/resources/application.yml",
+  "template-reactive": "templates/template-reactive/src/main/resources/application.yml",
 };
 
 /** @type {NewmanEnvironment[]} */
@@ -183,6 +186,12 @@ const NEWMAN_ENVIRONMENTS = [
     file: "newman/template-servlet-local.postman_environment.json",
     values: {
       "base-uri": () => localhostUrl(applicationPort("template-servlet")),
+    },
+  },
+  {
+    file: "newman/template-reactive-local.postman_environment.json",
+    values: {
+      "base-uri": () => localhostUrl(applicationPort("template-reactive")),
     },
   },
 ];
@@ -264,6 +273,10 @@ function syncValidateWorkflow() {
     next = replaceWorkflowJobValues(next, "template-servlet-integration-test", {
       module: "templates/template-servlet",
       port: String(applicationPort("template-servlet")),
+    });
+    next = replaceWorkflowJobValues(next, "template-reactive-integration-test", {
+      module: "templates/template-reactive",
+      port: String(applicationPort("template-reactive")),
     });
     next = replaceWorkflowJobValues(next, "todo-app-integration-test", {
       module: "apps/todo-app",

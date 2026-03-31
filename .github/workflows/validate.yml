@@ -151,6 +151,13 @@ jobs:
       port: 6058
       collection: ./newman/template-servlet.postman_collection.json
       environment: ./newman/template-servlet-local.postman_environment.json
+  template-reactive-integration-test:
+    uses: ./.github/workflows/reusable-single-service-newman.yml
+    with:
+      module: templates/template-reactive
+      port: 6059
+      collection: ./newman/template-reactive.postman_collection.json
+      environment: ./newman/template-reactive-local.postman_environment.json
   todo-app-integration-test:
     uses: ./.github/workflows/reusable-single-service-newman.yml
     with:
