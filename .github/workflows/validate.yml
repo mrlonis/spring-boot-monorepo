@@ -65,6 +65,13 @@ jobs:
 
       - name: Update dependency graph
         uses: advanced-security/maven-dependency-submission-action@v5.0.0
+  dual-datasources-integration-test:
+    uses: ./.github/workflows/reusable-single-service-newman.yml
+    with:
+      module: apps/dual-datasources
+      port: 7915
+      collection: ./newman/dual-datasources.postman_collection.json
+      environment: ./newman/dual-datasources-local.postman_environment.json
   flowable-engine-integration-test:
     uses: ./.github/workflows/reusable-single-service-newman.yml
     with:

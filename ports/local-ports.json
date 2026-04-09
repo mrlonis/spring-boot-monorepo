@@ -12,7 +12,8 @@
     "oauth2-authorization-server": 9562,
     "oauth2-authorization-server-opaque": 9563,
     "template-servlet": 6058,
-    "template-reactive": 6059
+    "template-reactive": 6059,
+    "dual-datasources": 7915
   },
   "supportingPorts": {
     "flowable-engine-mysql": 3307,
