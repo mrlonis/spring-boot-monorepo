@@ -12,6 +12,7 @@
   <name>apps</name>
   <description>apps</description>
   <modules>
+    <module>dual-datasources</module>
     <module>flowable-engine</module>
     <module>gateway</module>
     <module>oauth2-authorization-server</module>

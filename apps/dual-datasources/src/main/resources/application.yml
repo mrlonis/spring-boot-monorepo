@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: dual-datasources
+  threads:
+    virtual:
+      enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+          - metrics
+          - mappings
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+server:
+  port: 7915
+logging:
+  level:
+    com.mrlonis: debug
