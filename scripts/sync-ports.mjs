@@ -102,7 +102,7 @@ const ROOT_README_DEPENDENCIES = {
 
 /** @type {AppResourceFiles} */
 const APP_RESOURCE_FILES = {
-  "dual-datasources": "apps/dual-datasources/src/main/resources/application.yml",
+  "dual-datasources": "data/dual-datasources/src/main/resources/application.yml",
   "flowable-engine": "apps/flowable-engine/src/main/resources/application.yml",
   "mysql-migrations": "data/mysql-migrations/src/main/resources/application.yml",
   "todo-app": "apps/todo-app/src/main/resources/application.yml",

@@ -68,7 +68,7 @@ jobs:
   dual-datasources-integration-test:
     uses: ./.github/workflows/reusable-single-service-newman.yml
     with:
-      module: apps/dual-datasources
+      module: data/dual-datasources
       port: 7915
       collection: ./newman/dual-datasources.postman_collection.json
       environment: ./newman/dual-datasources-local.postman_environment.json
