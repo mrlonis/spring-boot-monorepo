@@ -48,7 +48,7 @@
     <nimbus-jose-jwt.version>10.9</nimbus-jose-jwt.version>
     <okhttp-bom.version>5.3.2</okhttp-bom.version>
     <org.bouncycastle.version>1.83</org.bouncycastle.version>
-    <org.checkerframework.version>3.55.1</org.checkerframework.version>
+    <org.checkerframework.version>4.0.0</org.checkerframework.version>
     <org.jetbrains.annotations.version>26.1.0</org.jetbrains.annotations.version>
     <palantir-java-format.version>2.90.0</palantir-java-format.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
