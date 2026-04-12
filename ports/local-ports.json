@@ -17,6 +17,8 @@
   },
   "supportingPorts": {
     "flowable-engine-mysql": 3307,
+    "dual-datasources-mysql": 3309,
+    "dual-datasources-postgres": 5434,
     "mysql-migrations-mysql": 3308,
     "todo-app-postgres": 5433,
     "todo-app-ui": 4200

@@ -9,7 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.mrlonis.example.dual.datasources.test.AbstractMockWebServerIT;
 import org.junit.jupiter.api.Test;
 
-public class DualDatasourcesApplicationIT extends AbstractMockWebServerIT {
+class DualDatasourcesApplicationIT extends AbstractMockWebServerIT {
     @Test
     void contextLoads() {
         assertTrue(true);

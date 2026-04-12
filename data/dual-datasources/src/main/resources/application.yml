@@ -1,6 +1,9 @@
 spring:
   application:
     name: dual-datasources
+  docker:
+    compose:
+      enabled: false
   threads:
     virtual:
       enabled: true
@@ -18,6 +21,23 @@ spring:
   config:
     activate:
       on-profile: local
+  datasource:
+    primary:
+      url: jdbc:postgresql://localhost:5434/mydatabase
+      username: myuser
+      password: secret
+      driver-class-name: org.postgresql.Driver
+      configuration:
+        maximum-pool-size: 10
+    secondary:
+      url: jdbc:mysql://localhost:3309/mydatabase
+      username: myuser
+      password: secret
+      configuration:
+        maximum-pool-size: 10
+  docker:
+    compose:
+      enabled: true
 server:
   port: 7915
 logging:
