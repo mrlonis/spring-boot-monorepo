@@ -18,7 +18,7 @@ public class DatasourceConfiguration {
 
     @Bean
     @Primary
-    @ConfigurationProperties("spring.datasource.primary.configuration")
+    @ConfigurationProperties("spring.datasource.primary.hikari")
     public HikariDataSource primaryDataSource(DataSourceProperties primaryDataSourceProperties) {
         return primaryDataSourceProperties
                 .initializeDataSourceBuilder()
@@ -33,7 +33,7 @@ public class DatasourceConfiguration {
     }
 
     @Bean(defaultCandidate = false)
-    @ConfigurationProperties("spring.datasource.secondary.configuration")
+    @ConfigurationProperties("spring.datasource.secondary.hikari")
     public HikariDataSource secondaryDataSource(DataSourceProperties secondaryDataSourceProperties) {
         return secondaryDataSourceProperties
                 .initializeDataSourceBuilder()

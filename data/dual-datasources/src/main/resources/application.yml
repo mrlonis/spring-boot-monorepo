@@ -27,13 +27,13 @@ spring:
       username: myuser
       password: secret
       driver-class-name: org.postgresql.Driver
-      configuration:
+      hikari:
         maximum-pool-size: 10
     secondary:
       url: jdbc:mysql://localhost:3309/mydatabase
       username: myuser
       password: secret
-      configuration:
+      hikari:
         maximum-pool-size: 10
   docker:
     compose:
