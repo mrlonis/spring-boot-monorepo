@@ -2,14 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.mrlonis.templates</groupId>
-    <artifactId>templates</artifactId>
+    <groupId>com.mrlonis.data</groupId>
+    <artifactId>data</artifactId>
     <version>${revision}</version>
   </parent>
-  <groupId>com.mrlonis.example.template.servlet</groupId>
-  <artifactId>template-servlet</artifactId>
-  <name>template-servlet</name>
-  <description>Demo project for Spring Boot in a Servlet environment.</description>
+  <groupId>com.mrlonis.example.dual.datasources</groupId>
+  <artifactId>dual-datasources</artifactId>
+  <name>dual-datasources</name>
+  <description>Demo project for Spring Boot featuring multiple datasources.</description>
   <dependencies>
     <dependency>
       <groupId>org.projectlombok</groupId>

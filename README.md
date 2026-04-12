@@ -88,6 +88,7 @@ Several runnable modules expose a `local` profile that turns on local ports and,
 
 |                Module                | Local port |                         Local dependency                          |
 |--------------------------------------|------------|-------------------------------------------------------------------|
+| `dual-datasources`                   | `7915`     | No dependencies                                                   |
 | `flowable-engine`                    | `5367`     | MySQL on `3307`                                                   |
 | `mysql-migrations`                   | `5368`     | MySQL on `3308`                                                   |
 | `todo-app`                           | `6958`     | PostgreSQL on `5433`                                              |

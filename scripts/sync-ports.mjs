@@ -66,6 +66,7 @@ const changedFiles = [];
 
 /** @type {readonly string[]} */
 const APPLICATION_ORDER = [
+  "dual-datasources",
   "flowable-engine",
   "mysql-migrations",
   "todo-app",
@@ -83,6 +84,7 @@ const APPLICATION_ORDER = [
 
 /** @type {RootReadmeDependencies} */
 const ROOT_README_DEPENDENCIES = {
+  "dual-datasources": () => "No dependencies",
   "flowable-engine": () => `MySQL on \`${supportingPort("flowable-engine-mysql")}\``,
   "mysql-migrations": () => `MySQL on \`${supportingPort("mysql-migrations-mysql")}\``,
   "todo-app": () => `PostgreSQL on \`${supportingPort("todo-app-postgres")}\``,
@@ -100,6 +102,7 @@ const ROOT_README_DEPENDENCIES = {
 
 /** @type {AppResourceFiles} */
 const APP_RESOURCE_FILES = {
+  "dual-datasources": "data/dual-datasources/src/main/resources/application.yml",
   "flowable-engine": "apps/flowable-engine/src/main/resources/application.yml",
   "mysql-migrations": "data/mysql-migrations/src/main/resources/application.yml",
   "todo-app": "apps/todo-app/src/main/resources/application.yml",
@@ -117,6 +120,12 @@ const APP_RESOURCE_FILES = {
 
 /** @type {NewmanEnvironment[]} */
 const NEWMAN_ENVIRONMENTS = [
+  {
+    file: "newman/dual-datasources-local.postman_environment.json",
+    values: {
+      "base-uri": () => localhostUrl(applicationPort("dual-datasources")),
+    },
+  },
   {
     file: "newman/flowable-engine-local.postman_environment.json",
     values: {

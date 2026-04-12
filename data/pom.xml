@@ -12,6 +12,7 @@
   <name>data</name>
   <description>data</description>
   <modules>
+    <module>dual-datasources</module>
     <module>mysql-migrations</module>
   </modules>
 </project>
