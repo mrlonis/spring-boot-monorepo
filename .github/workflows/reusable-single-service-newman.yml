@@ -27,7 +27,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Setup node, java, and newman
         uses: ./.github/actions/setup-node-java-newman
