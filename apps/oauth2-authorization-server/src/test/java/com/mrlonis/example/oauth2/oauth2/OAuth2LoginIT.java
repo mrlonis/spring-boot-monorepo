@@ -5,7 +5,7 @@ import static com.mrlonis.example.oauth2.test.TestUtils.generateCodeVerifier;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -19,7 +19,7 @@ import com.mrlonis.example.oauth2.test.AbstractMockWebServerIT;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -47,7 +47,6 @@ class OAuth2LoginIT extends AbstractMockWebServerIT {
     }
 
     @Test
-    @WithMockUser
     void testOAuth2_authorize_alreadyLoggedIn() throws Exception {
         String clientId = "postman-public-client";
         String redirectUri = "/login/oauth2/code/postman-public-client";
@@ -55,9 +54,10 @@ class OAuth2LoginIT extends AbstractMockWebServerIT {
         String state = "test-state";
         String codeVerifier = generateCodeVerifier();
         String codeChallenge = generateCodeChallenge(codeVerifier);
+        MockHttpSession session = login();
 
         assertDoesNotThrow(() -> mockMvc.perform(get("/oauth2/authorize")
-                        .with(jwt())
+                        .session(session)
                         .queryParam("response_type", "code")
                         .queryParam("client_id", clientId)
                         .queryParam("redirect_uri", redirectUri)
@@ -71,7 +71,6 @@ class OAuth2LoginIT extends AbstractMockWebServerIT {
     }
 
     @Test
-    @WithMockUser
     void testOAuth2_authorize_alreadyLoggedIn_fullPkceFlow() throws Exception {
         String clientId = "test-public-client";
         String redirectUri = "/login/oauth2/code/test-public-client";
@@ -79,9 +78,10 @@ class OAuth2LoginIT extends AbstractMockWebServerIT {
         String state = "test-state";
         String codeVerifier = generateCodeVerifier();
         String codeChallenge = generateCodeChallenge(codeVerifier);
+        MockHttpSession session = login();
 
         MvcResult result = assertDoesNotThrow(() -> mockMvc.perform(get("/oauth2/authorize")
-                                .with(jwt())
+                                .session(session)
                                 .queryParam("response_type", "code")
                                 .queryParam("client_id", clientId)
                                 .queryParam("redirect_uri", redirectUri)
@@ -115,16 +115,15 @@ class OAuth2LoginIT extends AbstractMockWebServerIT {
     }
 
     @Test
-    @WithMockUser
     void testOAuth2_token_invalidCodeVerifier() throws Exception {
-        // reuse test-public-client code issuance
         String clientId = "test-public-client";
         String redirectUri = "/login/oauth2/code/test-public-client";
         String codeVerifier = generateCodeVerifier();
         String codeChallenge = generateCodeChallenge(codeVerifier);
+        MockHttpSession session = login();
 
         MvcResult result = mockMvc.perform(get("/oauth2/authorize")
-                        .with(jwt())
+                        .session(session)
                         .queryParam("response_type", "code")
                         .queryParam("client_id", clientId)
                         .queryParam("redirect_uri", redirectUri)
@@ -152,5 +151,14 @@ class OAuth2LoginIT extends AbstractMockWebServerIT {
                         .param("code_verifier", "invalid"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.error").value("invalid_grant"));
+    }
+
+    private MockHttpSession login() throws Exception {
+        MvcResult loginResult = mockMvc.perform(
+                        post("/login").with(csrf()).param("username", "user").param("password", "password"))
+                .andExpect(status().is3xxRedirection())
+                .andReturn();
+
+        return (MockHttpSession) loginResult.getRequest().getSession(false);
     }
 }
