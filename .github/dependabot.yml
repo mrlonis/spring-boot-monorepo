@@ -8,15 +8,15 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
   - package-ecosystem: "maven" # See documentation for possible values
     directories:
       - "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     allow:
       - dependency-type: "all"
-    open-pull-requests-limit: 99
+    open-pull-requests-limit: 5
     groups:
       production-version-updates:
         applies-to: version-updates
