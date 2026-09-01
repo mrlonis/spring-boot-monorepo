@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>4.0.7</version>
+    <version>4.0.8</version>
     <relativePath/>
   </parent>
   <groupId>com.mrlonis</groupId>
@@ -26,7 +26,7 @@
   </modules>
   <properties>
     <cleanthat.version>2.26</cleanthat.version>
-    <commons-collections4.version>4.5.0</commons-collections4.version>
+    <commons-collections4.version>4.6.0</commons-collections4.version>
     <commons-compress.version>1.28.0</commons-compress.version>
     <commons-io.version>2.22.0</commons-io.version>
     <commons-lang3.version>3.20.0</commons-lang3.version>
@@ -46,16 +46,16 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <nimbus-jose-jwt.version>10.9.1</nimbus-jose-jwt.version>
-    <okhttp-bom.version>5.4.0</okhttp-bom.version>
-    <org.bouncycastle.version>1.85</org.bouncycastle.version>
-    <org.checkerframework.version>4.2.1</org.checkerframework.version>
+    <okhttp-bom.version>5.5.0</okhttp-bom.version>
+    <org.bouncycastle.version>1.85.2</org.bouncycastle.version>
+    <org.checkerframework.version>4.2.2</org.checkerframework.version>
     <org.jetbrains.annotations.version>26.1.0</org.jetbrains.annotations.version>
-    <palantir-java-format.version>2.96.0</palantir-java-format.version>
+    <palantir-java-format.version>2.97.0</palantir-java-format.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <revision>0.0.1-SNAPSHOT</revision>
-    <spotless.version>3.9.0</spotless.version>
-    <spring-cloud.version>2025.1.2</spring-cloud.version>
+    <spotless.version>3.10.1</spotless.version>
+    <spring-cloud.version>2025.1.3</spring-cloud.version>
     <versions-maven-plugin.version>2.21.0</versions-maven-plugin.version>
   </properties>
   <dependencyManagement>
