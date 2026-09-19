@@ -5,11 +5,15 @@
 
 version: 2
 updates:
+  - package-ecosystem: "gitsubmodule"
+    directory: "/"
+    schedule:
+      interval: "monthly"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "monthly"
-  - package-ecosystem: "maven" # See documentation for possible values
+  - package-ecosystem: "maven"
     directories:
       - "/"
     schedule:
@@ -18,42 +22,20 @@ updates:
       - dependency-type: "all"
     open-pull-requests-limit: 5
     groups:
-      production-version-updates:
+      safe-version-updates:
         applies-to: version-updates
-        dependency-type: production
         update-types:
           - "patch"
           - "minor"
-      production-security-updates:
+      safe-security-updates:
         applies-to: security-updates
-        dependency-type: production
-        update-types:
-          - "patch"
-          - "minor"
-      development-version-updates:
-        applies-to: version-updates
-        dependency-type: development
-        update-types:
-          - "patch"
-          - "minor"
-      development-security-updates:
-        applies-to: security-updates
-        dependency-type: development
         update-types:
           - "patch"
           - "minor"
     ignore:
-      - dependency-name: "org.springframework.cloud:spring-cloud-dependencies"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
       - dependency-name: "org.springframework.boot:spring-boot-starter-parent"
         update-types: ["version-update:semver-major", "version-update:semver-minor"]
-      - dependency-name: "com.nimbusds:nimbus-jose-jwt"
-        update-types: ["version-update:semver-major"]
-      - dependency-name: "org.flowable:flowable-spring-boot-starter"
-        update-types: ["version-update:semver-major"]
-      - dependency-name: "org.testcontainers:testcontainers-bom"
-        update-types: ["version-update:semver-major"]
-  - package-ecosystem: "gitsubmodule"
-    directory: "/"
-    schedule:
-      interval: "weekly"
+      - dependency-name: "org.springframework.cloud:spring-cloud-dependencies"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
