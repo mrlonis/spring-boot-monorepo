@@ -64,7 +64,7 @@ jobs:
         uses: ./.github/actions/setup-java
 
       - name: Update dependency graph
-        uses: advanced-security/maven-dependency-submission-action@v5.0.0
+        uses: advanced-security/maven-dependency-submission-action@v6.0.1
   dual-datasources-integration-test:
     uses: ./.github/workflows/reusable-single-service-newman.yml
     with:
